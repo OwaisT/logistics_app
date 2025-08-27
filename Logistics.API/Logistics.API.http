@@ -1,6 +1,0 @@
-@Logistics.API_HostAddress = http://localhost:5202
-
-GET {{Logistics.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
