@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Domain", "LogisticsApp.Domain\LogisticsApp.Domain.csproj", "{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Tests", "LogisticsApp.Tests\LogisticsApp.Tests.csproj", "{742B39F6-A8BD-42D6-8EC7-675727AF56B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742B39F6-A8BD-42D6-8EC7-675727AF56B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742B39F6-A8BD-42D6-8EC7-675727AF56B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742B39F6-A8BD-42D6-8EC7-675727AF56B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742B39F6-A8BD-42D6-8EC7-675727AF56B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
