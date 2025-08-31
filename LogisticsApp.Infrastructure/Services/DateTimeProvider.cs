@@ -1,0 +1,8 @@
+using LogisticsApp.Application.Common.Interfaces.Services;
+
+namespace LogisticsApp.Infrastructure.Services;
+
+public class DateTimeProvider : IDateTimeProvider
+{
+    public DateTime UtcNow => DateTime.UtcNow;
+}

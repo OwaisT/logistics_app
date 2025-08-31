@@ -1,9 +1,12 @@
+using LogisticsApp.Application;
 using LogisticsApp.Application.Services.Authentication;
+using LogisticsApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
-    builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure(builder.Configuration);
 
 }
 // Add services to the container.
