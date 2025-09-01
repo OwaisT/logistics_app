@@ -1,5 +1,4 @@
 using LogisticsApp.Application;
-using LogisticsApp.Application.Services.Authentication;
 using LogisticsApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

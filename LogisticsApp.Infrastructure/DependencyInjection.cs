@@ -1,6 +1,8 @@
 using LogisticsApp.Application.Common.Interfaces.Authentication;
+using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Infrastructure.Authentication;
+using LogisticsApp.Infrastructure.Persistence;
 using LogisticsApp.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +18,12 @@ public static class DependencyInjection
     {
         // Register infrastructure services here
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+
         services.AddSingleton<IJwtTokenGenerator, JWTTokenGenerator>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
+
         return services;
     }
 }

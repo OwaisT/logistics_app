@@ -1,4 +1,4 @@
-namespace LogisticsApp.Application.Services.Authentication;
+namespace LogisticsApp.Application.Authentication;
 public interface IAuthenticationService
 {
     AuthenticationResult Login(string email, string password);
