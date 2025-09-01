@@ -17,8 +17,6 @@ public class ProductController : ControllerBase
         _mediator = mediator;
     }
 
-    // private readonly IProductService _productService;
-
     [HttpPost("create")]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
