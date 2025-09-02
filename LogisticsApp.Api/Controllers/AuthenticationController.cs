@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using LogisticsApp.Contracts.Authentication;
 using LogisticsApp.Application.Authentication;
+using ErrorOr;
 
 namespace LogisticsApp.Api.Controllers;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
     private readonly IAuthenticationService _authenticationService;
 
@@ -15,36 +15,35 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
-    {
-        var authResult = _authenticationService.Login(request.Email, request.Password);
-        var response = new AuthenticationResponse(
-            authResult.User.Id,
-            authResult.User.FirstName,
-            authResult.User.LastName,
-            authResult.User.Email,
-            authResult.Token);
-
-        return Ok(response);
-    }
-
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterRequest request)
     {
-        var authResult = _authenticationService.Register(
+        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password);
+        return authResult.Match(
+            authResult => Ok(MapAuthResultToResponse(authResult)),
+            errors => Problem(errors));
+    }
 
-        var response = new AuthenticationResponse(
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequest request)
+    {
+        var authResult = _authenticationService.Login(request.Email, request.Password);
+        return authResult.Match(
+            authResult => Ok(MapAuthResultToResponse(authResult)),
+            errors => Problem(errors));
+    }
+
+    private static AuthenticationResponse MapAuthResultToResponse(AuthenticationResult authResult)
+    {
+        return new AuthenticationResponse(
             authResult.User.Id,
             authResult.User.FirstName,
             authResult.User.LastName,
             authResult.User.Email,
             authResult.Token);
-            
-        return Ok(response);
     }
 }
