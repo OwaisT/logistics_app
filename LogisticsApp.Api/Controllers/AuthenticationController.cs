@@ -1,37 +1,43 @@
 using Microsoft.AspNetCore.Mvc;
 using LogisticsApp.Contracts.Authentication;
-using LogisticsApp.Application.Authentication;
 using ErrorOr;
+using MediatR;
+using LogisticsApp.Application.Authentication.Commands.Register;
+using LogisticsApp.Application.Authentication.Common;
+using LogisticsApp.Application.Authentication.Queries.Login;
 
 namespace LogisticsApp.Api.Controllers;
 
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
-
-    public AuthenticationController(IAuthenticationService authenticationService)
+    private readonly IMediator _mediator;
+    public AuthenticationController( IMediator mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
+        var Command = new RegisterCommand(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password);
+        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(Command);
         return authResult.Match(
             authResult => Ok(MapAuthResultToResponse(authResult)),
             errors => Problem(errors));
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var authResult = _authenticationService.Login(request.Email, request.Password);
+        var query = new LoginQuery(
+            request.Email,
+            request.Password);
+        var authResult = await _mediator.Send(query);
         return authResult.Match(
             authResult => Ok(MapAuthResultToResponse(authResult)),
             errors => Problem(errors));

@@ -1,6 +1,6 @@
 using LogisticsApp.Domain.Entities;
 
-namespace LogisticsApp.Application.Authentication;
+namespace LogisticsApp.Application.Authentication.Common;
 
 public record AuthenticationResult(
     User User,
