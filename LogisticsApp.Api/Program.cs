@@ -1,15 +1,13 @@
-using LogisticsApp.Api.Common.Errors;
+using LogisticsApp.Api;
 using LogisticsApp.Application;
 using LogisticsApp.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
-    builder.Services.AddControllers();
-    builder.Services.AddSingleton<ProblemDetailsFactory, LogisticsAppProblemDetailsFactory>();
 }
 
 // Add services to the container.

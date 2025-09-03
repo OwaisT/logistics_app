@@ -5,6 +5,7 @@ using MediatR;
 using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Authentication.Queries.Login;
+using MapsterMapper;
 
 namespace LogisticsApp.Api.Controllers;
 
@@ -12,35 +13,31 @@ namespace LogisticsApp.Api.Controllers;
 public class AuthenticationController : ApiController
 {
     private readonly IMediator _mediator;
-    public AuthenticationController( IMediator mediator)
+    private readonly IMapper _mapper;
+    public AuthenticationController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var Command = new RegisterCommand(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password);
+        var Command = _mapper.Map<RegisterCommand>(request);
         ErrorOr<AuthenticationResult> authResult = await _mediator.Send(Command);
         return authResult.Match(
-            authResult => Ok(MapAuthResultToResponse(authResult)),
-            errors => Problem(errors));
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            Problem);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var query = new LoginQuery(
-            request.Email,
-            request.Password);
+        var query = _mapper.Map<LoginQuery>(request);
         var authResult = await _mediator.Send(query);
         return authResult.Match(
-            authResult => Ok(MapAuthResultToResponse(authResult)),
-            errors => Problem(errors));
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            Problem);
     }
 
     private static AuthenticationResponse MapAuthResultToResponse(AuthenticationResult authResult)
