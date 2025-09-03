@@ -1,4 +1,9 @@
-using LogisticsApp.Application.Authentication;
+using System.Reflection;
+using ErrorOr;
+using FluentValidation;
+using LogisticsApp.Application.Authentication.Commands.Register;
+using LogisticsApp.Application.Authentication.Common;
+using LogisticsApp.Application.Common.Behaviors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +15,10 @@ public static class DependencyInjection
     {
         // Register infrastructure services here
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+        services.AddScoped(
+            typeof(IPipelineBehavior<,>),
+            typeof(ValidateBehavior<,>));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         return services;
     }
 }
