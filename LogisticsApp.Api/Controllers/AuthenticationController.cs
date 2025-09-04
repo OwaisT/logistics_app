@@ -6,15 +6,17 @@ using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Authentication.Queries.Login;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LogisticsApp.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController : ApiController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _mediator;
     private readonly IMapper _mapper;
-    public AuthenticationController(IMediator mediator, IMapper mapper)
+    public AuthenticationController(ISender mediator, IMapper mapper)
     {
         _mediator = mediator;
         _mapper = mapper;

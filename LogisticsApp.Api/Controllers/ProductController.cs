@@ -2,13 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using LogisticsApp.Contracts.Product;
 using LogisticsApp.Application.Product.Commands.CreateProduct;
 using MediatR;
-using System.Threading.Tasks;
 
 namespace LogisticsApp.Api.Controllers;
 
-[ApiController]
-[Route("products")]
-public class ProductController : ControllerBase
+[Route("[controller]")]
+public class ProductController : ApiController
 {
     private readonly ISender _mediator;
 
@@ -16,6 +14,7 @@ public class ProductController : ControllerBase
     {
         _mediator = mediator;
     }
+
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
