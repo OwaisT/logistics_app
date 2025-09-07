@@ -40,6 +40,7 @@ class Warehouse
     countryCode: "FR",
     cityCode: "PAR",
     areaCode: "HAU",
+    uniqueNumber: "001",
     name: "Paris Haussmann Warehouse",
     city: "Paris",
     postcode: "75009",

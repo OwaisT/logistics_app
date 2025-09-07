@@ -6,8 +6,17 @@
 
 class User
 {
+    Guid Id { get; }
+    string FirstName { get; }
+    string LastName { get; }
+    string Email { get; }
+    string Password { get; }
+    DateTime CreatedAt { get; }
+    DateTime UpdatedAt { get; }
+    List<string> Roles { get; }
+    bool IsActive { get; }
+
     User Create(
-        string id, 
         string firstName, 
         string lastName, 
         string email, 
@@ -24,9 +33,10 @@ class User
 
     void RemoveRole(Guid roleId);
 
-    void Deactivate();
-    
     void Activate();
+    
+    void Deactivate();
+
 }
 ```
 

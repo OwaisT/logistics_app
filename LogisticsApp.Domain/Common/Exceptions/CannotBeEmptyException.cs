@@ -1,4 +1,4 @@
-namespace LogisticsApp.Domain.Exceptions;
+namespace LogisticsApp.Domain.Common.Exceptions;
 
 public class CannotBeEmptyException : DomainException
 {
