@@ -25,6 +25,8 @@ public sealed class Product : AggregateRoot<ProductId>
 
     private Product(
         ProductId id,
+        string refCode,
+        string season,
         string name,
         string description,
         DateTime createdAt,
@@ -35,8 +37,8 @@ public sealed class Product : AggregateRoot<ProductId>
         List<string> sizes)
         : base(id)
     {
-        Ref = id.Ref;
-        Season = id.Season;
+        Ref = refCode;
+        Season = season;
         Name = name;
         Description = description;
         CreatedAt = createdAt;
@@ -61,6 +63,8 @@ public sealed class Product : AggregateRoot<ProductId>
         var productId = ProductId.Create(refCode, season);
         return new(
             productId,
+            refCode,
+            season,
             name,
             description,
             DateTime.UtcNow,

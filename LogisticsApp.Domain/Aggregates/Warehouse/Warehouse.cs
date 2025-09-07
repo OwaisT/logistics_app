@@ -33,7 +33,8 @@ public sealed class Warehouse : AggregateRoot<WarehouseId>
         string postcode,
         string country,
         string area,
-        string location) : base(id)
+        string location) 
+        : base(id)
     {
         CountryCode = countryCode;
         CityCode = cityCode;

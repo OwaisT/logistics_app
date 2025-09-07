@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Exceptions;
+using LogisticsApp.Domain.Common.Exceptions;
 
 namespace LogisticsApp.Domain.Aggregates.User.Exceptions;
 

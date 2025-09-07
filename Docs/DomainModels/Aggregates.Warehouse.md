@@ -92,7 +92,7 @@ class Room
     totalCartons: 300,
     cartons : [
         {
-            id: "00000000001",
+            id: AD3E1234-5678-90AB-CDEF-1234567890AB,
             location : { onLeft: 0, below: 0, behind: 0 },
             totalItems: 18
         }
@@ -106,7 +106,7 @@ class Room
 class Carton
 {
     Carton Create(
-        string id,
+        Guid id,
         Location location);
     
     void UpdateLocation(Location location);
@@ -119,7 +119,7 @@ class Carton
 
 ```json
 {
-    id: "00000000001",
+    id: AD3E1234-5678-90AB-CDEF-1234567890AB,
     location : {
         onLeft : 0,
         below : 0,
@@ -128,30 +128,35 @@ class Carton
     totalItems: 18,
     cartonItems: [
         {
+            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
             VariationId: "PROD-001-SS2025-RED-S",
             quantity: 3,
             addedAt: "2023-01-01T00:00:00Z",
             updatedAt: "2023-01-01T00:00:00Z"
         },
         {
+            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
             VariationId: "PROD-001-SS2025-RED-M",
             quantity: 4,
             addedAt: "2023-01-01T00:00:00Z",
             updatedAt: "2023-01-01T00:00:00Z"
         },
         {
+            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
             VariationId: "PROD-001-SS2025-RED-L",
             quantity: 4,
             addedAt: "2023-01-01T00:00:00Z",
             updatedAt: "2023-01-01T00:00:00Z"
         },
         {
+            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
             VariationId: "PROD-001-SS2025-RED-XL",
             quantity: 4,
             addedAt: "2023-01-01T00:00:00Z",
             updatedAt: "2023-01-01T00:00:00Z"
         },
         {
+            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
             VariationId: "PROD-001-SS2025-RED-XXL",
             quantity: 3,
             addedAt: "2023-01-01T00:00:00Z",

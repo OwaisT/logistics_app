@@ -21,7 +21,8 @@ public sealed class User : AggregateRoot<UserId>
         string firstName,
         string lastName,
         string email,
-        string passwordHash) : base(id)
+        string passwordHash)
+        : base(id)
     {
         FirstName = firstName;
         LastName = lastName;

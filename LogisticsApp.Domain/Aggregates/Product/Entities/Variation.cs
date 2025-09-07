@@ -21,6 +21,8 @@ public sealed class Variation : Entity<VariationId>
         string name,
         string description,
         decimal price,
+        string color,
+        string size,
         DateTime createdAt,
         DateTime updatedAt)
         : base(id)
@@ -28,8 +30,8 @@ public sealed class Variation : Entity<VariationId>
         Name = name;
         Description = description;
         Price = price;
-        Color = id.Color;
-        Size = id.Size;
+        Color = color;
+        Size = size;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
@@ -48,6 +50,8 @@ public sealed class Variation : Entity<VariationId>
             name,
             description,
             price,
+            color,
+            size,
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
