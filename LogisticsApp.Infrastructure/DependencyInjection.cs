@@ -20,11 +20,20 @@ public static class DependencyInjection
         ConfigurationManager configuration
     )
     {
-        services.AddAuth(configuration);
+        services
+            .AddAuth(configuration)
+            .AddPersistance();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        
+        return services;
+    }
 
+    public static IServiceCollection AddPersistance(
+        this IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         return services;
     }
 

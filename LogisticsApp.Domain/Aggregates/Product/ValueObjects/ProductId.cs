@@ -7,7 +7,7 @@ public sealed class ProductId : ValueObject
 {
     private string Ref { get; }
     private string Season { get; }
-    public string ProductCode => $"{Ref}-{Season}";
+    public string Value => $"{Ref}-{Season}";
 
     private ProductId(string refCode, string season)
     {
@@ -24,8 +24,8 @@ public sealed class ProductId : ValueObject
 
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return ProductCode;
+        yield return Value;
     }
 
-    public override string ToString() => ProductCode;
+    public override string ToString() => Value;
 }

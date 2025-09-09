@@ -1,17 +1,17 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MDFhZDFhMi0zNDJkLTRkZWItYmMyNC0xMDA3MjlmNzQwMWQiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiYzM5OThhMGMtMzJiNS00N2RjLWJhZDAtMTk2ZTc5YmQ0OTRmIiwiZXhwIjoxNzU3NDQ2OTI3LCJpc3MiOiJMb2dpc3RpY3NBcHAiLCJhdWQiOiJMb2dpc3RpY3NBcHBVc2VycyJ9.3oZpv1WzKnearVvbbuf1dL5qhtg-EhJMf8kLRh-zCZg
-@hostId=601ad1a2-342d-4deb-bc24-100729f7401d
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6IjI4MWI1OTAyLTJlM2MtNGNmNi1iZTExLTRlZTNjMmE3ZjEyYSIsImV4cCI6MTc1NzQ4Mzg5MCwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.XarBiwQAsmnYMP7r_S6k0oYEWStn4Z9n_91heeDUyug
+@hostId=abcd
 POST {{Api_HostAddress}}/hosts/{{hostId}}/products
-Content-Type: application/json
 Authorization: Bearer {{token}}
+Content-Type: application/json
 
 {
-    "RefCode": "PRD-001",
-    "Season": "Summer 2024",
+    "RefCode": "PROD-001",
+    "Season": "SS2024",
     "Name": "Summer T-Shirt",
     "Description": "A light and comfortable t-shirt perfect for summer.",
     "IsActive": true,
-    "Categories": ["Apparel", "T-Shirts"],
+    "Categories": ["Men"],
     "Colors": ["Red", "Blue", "Green"],
     "Sizes": ["S", "M", "L", "XL", "XXL"]
 }

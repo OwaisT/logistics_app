@@ -6,12 +6,12 @@ namespace LogisticsApp.Domain.Aggregates.Product;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
-
     private readonly List<Variation> variations = new();
     private readonly List<string> categories = new();
     private readonly List<string> colors = new();
     private readonly List<string> sizes = new();
-    public string Ref { get; private set; }
+    public ProductId ProductId => Id;
+    public string RefCode { get; private set; }
     public string Season { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
@@ -37,7 +37,7 @@ public sealed class Product : AggregateRoot<ProductId>
         List<string> sizes)
         : base(id)
     {
-        Ref = refCode;
+        RefCode = refCode;
         Season = season;
         Name = name;
         Description = description;
@@ -84,7 +84,4 @@ public sealed class Product : AggregateRoot<ProductId>
     {
         variations.Remove(variation);
     }
-
-    
-
 }
