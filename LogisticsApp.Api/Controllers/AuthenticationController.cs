@@ -28,7 +28,7 @@ public class AuthenticationController : ApiController
         var Command = _mapper.Map<RegisterCommand>(request);
         ErrorOr<AuthenticationResult> authResult = await _mediator.Send(Command);
         return authResult.Match(
-            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            authResult => Ok(MapAuthResultToResponse(authResult)),
             Problem);
     }
 
@@ -38,14 +38,14 @@ public class AuthenticationController : ApiController
         var query = _mapper.Map<LoginQuery>(request);
         var authResult = await _mediator.Send(query);
         return authResult.Match(
-            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            authResult => Ok(MapAuthResultToResponse(authResult)),
             Problem);
     }
 
     private static AuthenticationResponse MapAuthResultToResponse(AuthenticationResult authResult)
     {
         return new AuthenticationResponse(
-            authResult.User.Id,
+            authResult.User.UserId.Value,
             authResult.User.FirstName,
             authResult.User.LastName,
             authResult.User.Email,

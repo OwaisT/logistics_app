@@ -1,5 +1,5 @@
 namespace LogisticsApp.Domain.ValueObjects;
-using LogisticsApp.Domain.Exceptions;
+using LogisticsApp.Domain.Common.Exceptions;
 
 public record Money(decimal Amount, string Currency)
 {

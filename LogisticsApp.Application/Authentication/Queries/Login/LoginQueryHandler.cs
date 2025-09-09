@@ -3,7 +3,7 @@ using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Common.Errors;
-using LogisticsApp.Domain.Entities;
+using LogisticsApp.Domain.Aggregates.User;
 using MediatR;
 
 namespace LogisticsApp.Application.Authentication.Queries.Login;
@@ -27,7 +27,7 @@ public class LoginQueryHandler :
         {
             return Errors.Authentication.InvalidCredentials;
         }
-        if (user.Password != query.Password)
+        if (user.PasswordHash != query.Password)
         {
             return Errors.Authentication.InvalidCredentials;
         }

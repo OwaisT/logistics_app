@@ -3,7 +3,7 @@ using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Common.Errors;
-using LogisticsApp.Domain.Entities;
+using LogisticsApp.Domain.Aggregates.User;
 using MediatR;
 
 namespace LogisticsApp.Application.Authentication.Commands.Register;
@@ -30,13 +30,7 @@ public class RegisterCommandHandler :
         }
 
         // Create user
-        var user = new User
-        {
-            FirstName = command.FirstName,
-            LastName = command.LastName,
-            Email = command.Email,
-            Password = command.Password
-        };
+        var user = User.Create(command.FirstName, command.LastName, command.Email, command.Password);
         _userRepository.Add(user);
 
         // Create JWT token

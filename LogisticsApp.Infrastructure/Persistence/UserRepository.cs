@@ -1,5 +1,5 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Entities;
+using LogisticsApp.Domain.Aggregates.User;
 
 namespace LogisticsApp.Infrastructure.Persistence;
 

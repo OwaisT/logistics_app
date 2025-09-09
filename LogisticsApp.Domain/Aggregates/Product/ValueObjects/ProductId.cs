@@ -1,5 +1,5 @@
 using LogisticsApp.Domain.Common.Models;
-using LogisticsApp.Domain.Exceptions;
+using LogisticsApp.Domain.Common.Exceptions;
 
 namespace LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 

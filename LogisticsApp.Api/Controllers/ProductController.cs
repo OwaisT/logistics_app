@@ -5,7 +5,7 @@ using MediatR;
 
 namespace LogisticsApp.Api.Controllers;
 
-[Route("[controller]")]
+[Route("hosts/{hostId}/products")]
 public class ProductController : ApiController
 {
     private readonly ISender _mediator;
@@ -15,18 +15,9 @@ public class ProductController : ApiController
         _mediator = mediator;
     }
 
-
-    [HttpPost("create")]
-    public async Task<IActionResult> CreateProduct(CreateProductRequest request)
+    [HttpPost]
+    public IActionResult CreateProduct(CreateProductRequest request, string hostId)
     {
-        // var product = _productService.CreateProduct(request.ProductRef, request.Season);
-        var command = new CreateProductCommand(request.ProductRef, request.Season);
-        var product = await _mediator.Send(command);
-        var response = new ProductResponse(
-            product.ProductId,
-            product.ProductRef,
-            product.Season
-        );
-        return Ok(response);
+        return Ok(request);
     }
 }

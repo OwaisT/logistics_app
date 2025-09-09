@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Services;
-using LogisticsApp.Domain.Entities;
+using LogisticsApp.Domain.Aggregates.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -30,7 +30,7 @@ public class JWTTokenGenerator : IJwtTokenGenerator
         // Implementation for generating JWT token
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserId?.ToString() ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

@@ -6,6 +6,7 @@ namespace LogisticsApp.Domain.Aggregates.User;
 public sealed class User : AggregateRoot<UserId>
 {
     private readonly List<string> _roles = [];
+    public UserId UserId { get; private set; }
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
@@ -24,6 +25,7 @@ public sealed class User : AggregateRoot<UserId>
         string passwordHash)
         : base(id)
     {
+        UserId = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
