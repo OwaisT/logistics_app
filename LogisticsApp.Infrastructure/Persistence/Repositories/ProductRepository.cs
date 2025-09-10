@@ -6,6 +6,7 @@ namespace LogisticsApp.Infrastructure.Persistence.Repositories;
 public class ProductRepository : IProductRepository
 {
     private readonly LogisticsAppDbContext _dbContext;
+    private static readonly List<Product> _products = [];
 
     public ProductRepository(LogisticsAppDbContext dbContext)
     {
@@ -14,7 +15,8 @@ public class ProductRepository : IProductRepository
 
     public void Add(Product product)
     {
-        _dbContext.Add(product);
-        _dbContext.SaveChanges();
+        _products.Add(product);
+        // _dbContext.Add(product);
+        // _dbContext.SaveChanges();
     }
 }

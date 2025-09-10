@@ -12,8 +12,15 @@ public record ProductResponse(
     List<string> Categories,
     List<string> Colors,
     List<string> Sizes,
-    List<AssortmentResponse> Assortments);
+    List<AssortmentResponse> Assortments,
+    List<VariationResponse> Variations);
 
 public record AssortmentResponse(
     string Color,
     Dictionary<string, int> Sizes);
+
+public record VariationResponse(
+    string Id,
+    string Name,
+    decimal Price,
+    int Stock);

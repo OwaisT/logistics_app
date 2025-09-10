@@ -22,6 +22,13 @@ public sealed class ProductId : ValueObject
         return new ProductId(refCode, season);
     }
 
+    public static ProductId CreateConversion(string value)
+    {
+        var parts = value.Split('-');
+        if (parts.Length != 2) throw new InvalidFormatException(nameof(value), "Value must be in the format 'Ref-Season'");
+        return Create(parts[0], parts[1]);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
