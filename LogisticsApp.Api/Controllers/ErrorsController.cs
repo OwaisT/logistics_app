@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LogisticsApp.Api.Co.Controllers;
+namespace LogisticsApp.Api.Controllers;
 
 public class ErrorsController : ControllerBase
 {

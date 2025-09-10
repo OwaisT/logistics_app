@@ -4,8 +4,10 @@ using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
+using LogisticsApp.Infrastructure.Persistence.Repositories;
 using LogisticsApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -32,6 +34,8 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistance(
         this IServiceCollection services)
     {
+        services.AddDbContext<LogisticsAppDbContext>(options => 
+            options.UseSqlServer());
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         return services;

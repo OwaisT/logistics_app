@@ -8,5 +8,9 @@ public record CreateProductRequest(
     bool IsActive,
     List<string> Categories,
     List<string> Colors,
-    List<string> Sizes);
+    List<string> Sizes,
+    List<Assortment> Assortments);
 
+public record Assortment(
+    string Color,
+    Dictionary<string, int> Sizes);

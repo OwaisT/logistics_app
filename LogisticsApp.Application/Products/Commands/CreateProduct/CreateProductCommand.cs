@@ -1,5 +1,4 @@
 using ErrorOr;
-using LogisticsApp.Application.Products.Common;
 using LogisticsApp.Domain.Aggregates.Product;
 using MediatR;
 
@@ -13,5 +12,10 @@ public record CreateProductCommand(
     bool IsActive,
     List<string> Categories,
     List<string> Colors,
-    List<string> Sizes) 
+    List<string> Sizes,
+    List<AssortmentCommand> Assortments) 
     : IRequest<ErrorOr<Product>>;
+
+public record AssortmentCommand(
+    string Color,
+    Dictionary<string, int> Sizes); 

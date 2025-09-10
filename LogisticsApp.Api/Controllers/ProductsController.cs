@@ -3,7 +3,6 @@ using LogisticsApp.Contracts.Product;
 using LogisticsApp.Application.Products.Commands.CreateProduct;
 using MediatR;
 using MapsterMapper;
-using System.Threading.Tasks;
 
 namespace LogisticsApp.Api.Controllers;
 

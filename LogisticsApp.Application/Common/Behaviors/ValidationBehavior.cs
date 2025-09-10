@@ -1,7 +1,5 @@
 using ErrorOr;
 using FluentValidation;
-using LogisticsApp.Application.Authentication.Commands.Register;
-using LogisticsApp.Application.Authentication.Common;
 using MediatR;
 
 namespace LogisticsApp.Application.Common.Behaviors;

@@ -8,7 +8,7 @@ public sealed class VariationId : ValueObject
     private ProductId ProductId { get; }
     private string Color { get; }
     private string Size { get; }
-    public string VariationCode => $"{ProductId}-{Color}-{Size}";
+    public string Value => $"{ProductId}-{Color}-{Size}";
 
     private VariationId(ProductId productId, string color, string size)
     {
@@ -27,8 +27,8 @@ public sealed class VariationId : ValueObject
 
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return VariationCode;
+        yield return Value;
     }
 
-    public override string ToString() => VariationCode;
+    public override string ToString() => Value;
 }

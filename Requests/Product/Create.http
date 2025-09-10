@@ -1,5 +1,5 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6IjI4MWI1OTAyLTJlM2MtNGNmNi1iZTExLTRlZTNjMmE3ZjEyYSIsImV4cCI6MTc1NzQ4Mzg5MCwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.XarBiwQAsmnYMP7r_S6k0oYEWStn4Z9n_91heeDUyug
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6IjRmYWVmYmYxLWQwOTQtNDhlYS05NWI4LWQ2MDZlYTY0NjQ2YSIsImV4cCI6MTc1NzU2MjE0NiwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.0Qu9bhhEQBzkoXBEA-DJ8wd1_f0dkTF0_ZT6V-M0gho
 @hostId=abcd
 POST {{Api_HostAddress}}/hosts/{{hostId}}/products
 Authorization: Bearer {{token}}
@@ -13,5 +13,37 @@ Content-Type: application/json
     "IsActive": true,
     "Categories": ["Men"],
     "Colors": ["Red", "Blue", "Green"],
-    "Sizes": ["S", "M", "L", "XL", "XXL"]
+    "Sizes": ["S", "M", "L", "XL", "XXL"],
+    "Assortments": [
+        {
+            "Color": "Red",
+            "Sizes": {
+                "s": 1,
+                "m": 2,
+                "l": 2,
+                "xl": 2,
+                "xxl": 1
+            }
+        },
+        {
+            "Color": "Blue",
+            "Sizes": {
+                "s": 1,
+                "m": 2,
+                "l": 2,
+                "xl": 2,
+                "xxl": 1
+            }
+        },
+        {
+            "Color": "Green",
+            "Sizes": {
+                "s": 1,
+                "m": 2,
+                "l": 2,
+                "xl": 2,
+                "xxl": 1
+            }
+        }
+    ]
 }

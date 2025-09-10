@@ -1,7 +1,7 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Aggregates.User;
 
-namespace LogisticsApp.Infrastructure.Persistence;
+namespace LogisticsApp.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

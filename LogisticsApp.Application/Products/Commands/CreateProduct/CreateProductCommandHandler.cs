@@ -1,11 +1,10 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Application.Products.Common;
 using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Domain.Products.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Products.Commands.CreateProduct;
-
 
 public class CreateProductCommandHandler :
     IRequestHandler<CreateProductCommand, ErrorOr<Product>>
@@ -29,7 +28,8 @@ public class CreateProductCommandHandler :
             command.IsActive,
             command.Categories,
             command.Colors,
-            command.Sizes);
+            command.Sizes,
+            command.Assortments.Select(a => Assortment.Create(a.Color, a.Sizes)).ToList());
 
         _productRepository.Add(product);
 

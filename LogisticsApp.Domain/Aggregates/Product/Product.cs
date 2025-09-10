@@ -1,15 +1,17 @@
 using LogisticsApp.Domain.Aggregates.Product.Entities;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
+using LogisticsApp.Domain.Products.ValueObjects;
 
 namespace LogisticsApp.Domain.Aggregates.Product;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
-    private readonly List<Variation> variations = new();
-    private readonly List<string> categories = new();
-    private readonly List<string> colors = new();
-    private readonly List<string> sizes = new();
+    private readonly List<Variation> variations = [];
+    private readonly List<string> categories = [];
+    private readonly List<string> colors = [];
+    private readonly List<string> sizes = [];
+    private readonly List<Assortment> assortments = [];
     public ProductId ProductId => Id;
     public string RefCode { get; private set; }
     public string Season { get; private set; }
@@ -21,6 +23,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public IReadOnlyList<string> Categories => categories.AsReadOnly();
     public IReadOnlyList<string> Colors => colors.AsReadOnly();
     public IReadOnlyList<string> Sizes => sizes.AsReadOnly();
+    public IReadOnlyList<Assortment> Assortments => assortments.AsReadOnly();
     public IReadOnlyList<Variation> Variations => variations.AsReadOnly();
 
     private Product(
@@ -34,7 +37,8 @@ public sealed class Product : AggregateRoot<ProductId>
         bool isActive,
         List<string> categories,
         List<string> colors,
-        List<string> sizes)
+        List<string> sizes,
+        List<Assortment> assortments)
         : base(id)
     {
         RefCode = refCode;
@@ -47,6 +51,7 @@ public sealed class Product : AggregateRoot<ProductId>
         this.categories = categories;
         this.colors = colors;
         this.sizes = sizes;
+        this.assortments = assortments;
         variations = [];
     }
 
@@ -58,7 +63,8 @@ public sealed class Product : AggregateRoot<ProductId>
         bool isActive,
         List<string> categories,
         List<string> colors,
-        List<string> sizes)
+        List<string> sizes,
+        List<Assortment> assortments)
     {
         var productId = ProductId.Create(refCode, season);
         return new(
@@ -72,7 +78,8 @@ public sealed class Product : AggregateRoot<ProductId>
             isActive,
             categories,
             colors,
-            sizes);
+            sizes,
+            assortments);
     }
 
     public void AddVariation(Variation variation)

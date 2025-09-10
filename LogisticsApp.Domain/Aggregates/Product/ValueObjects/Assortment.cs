@@ -1,0 +1,42 @@
+using LogisticsApp.Domain.Common.Exceptions;
+using LogisticsApp.Domain.Common.Models;
+
+namespace LogisticsApp.Domain.Products.ValueObjects;
+
+public sealed class Assortment : ValueObject
+{
+    public string Color { get; }
+    public IReadOnlyDictionary<string, int> Sizes { get; }
+
+    private Assortment(string color, IDictionary<string, int> sizes)
+    {
+        Color = color;
+        Sizes = new Dictionary<string, int>(sizes);
+    }
+
+    public static Assortment Create(string color, IDictionary<string, int> sizes)
+    {
+        if (string.IsNullOrWhiteSpace(color))
+            throw new CannotBeEmptyException(nameof(color));
+
+        if (sizes == null || sizes.Count == 0)
+            throw new CannotBeEmptyException(nameof(sizes));
+
+        return new Assortment(color, sizes);
+    }
+
+    public int GetQuantity(string size) =>
+        Sizes.TryGetValue(size.ToUpper(), out var qty) ? qty : 0;
+
+    public int Total() => Sizes.Values.Sum();
+
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Color.ToLower();
+        foreach (var kv in Sizes.OrderBy(kv => kv.Key))
+        {
+            yield return kv.Key.ToLower();
+            yield return kv.Value;
+        }
+    }
+}

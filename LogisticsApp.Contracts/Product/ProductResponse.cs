@@ -11,4 +11,9 @@ public record ProductResponse(
     bool IsActive,
     List<string> Categories,
     List<string> Colors,
-    List<string> Sizes);
+    List<string> Sizes,
+    List<AssortmentResponse> Assortments);
+
+public record AssortmentResponse(
+    string Color,
+    Dictionary<string, int> Sizes);
