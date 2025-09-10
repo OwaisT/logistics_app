@@ -32,6 +32,22 @@ class Warehouse
     
     void Deactivate();
 }
+
+class Room
+{
+    Room Create(
+        string id,
+        string name,
+        int totalCartons);
+    
+    void UpdateDetails(
+        string name,
+        int totalCartons);
+    
+    void AddCarton(string cartonId);
+    
+    void RemoveCarton(string cartonId);
+}
 ```
 
 ```json
@@ -55,112 +71,21 @@ class Warehouse
             id: "FR-PAR-HAU-001-RM-001",
             name: "Room 1",
             totalCartons: 300
+            cartons : [
+                "AD3E1234-5678-90AB-CDEF-1234567890AB",
+                "BD3E1234-5678-90AB-CDEF-1234567890AB",
+                "CD3E1234-5678-90AB-CDEF-1234567890AB" 
+            ]
         },
         {
             id: "FR-PAR-HAU-001-RM-002",
             name: "Room 2",
-            totalCartons: 200
-        }
-    ]
-}
-```
-
-## Rooms
-
-```csharp
-class Room
-{
-    Room Create(
-        string id,
-        string name,
-        int totalCartons);
-    
-    void UpdateDetails(
-        string name,
-        int totalCartons);
-    
-    void AddCarton(Carton carton);
-    
-    void RemoveCarton(string cartonId);
-}
-```
-
-```json
-{
-    id: "FR-PAR-HAU-001-RM-001",
-    name: "Room 1",
-    totalCartons: 300,
-    cartons : [
-        {
-            id: AD3E1234-5678-90AB-CDEF-1234567890AB,
-            location : { onLeft: 0, below: 0, behind: 0 },
-            totalItems: 18
-        }
-    ]
-}
-```
-
-## Cartons
-
-```csharp
-class Carton
-{
-    Carton Create(
-        Guid id,
-        Location location);
-    
-    void UpdateLocation(Location location);
-    
-    void AddItem(CartonItem item);
-    
-    void RemoveItem(string itemId);
-}
-```
-
-```json
-{
-    id: AD3E1234-5678-90AB-CDEF-1234567890AB,
-    location : {
-        onLeft : 0,
-        below : 0,
-        behind : 0
-    },
-    totalItems: 18,
-    cartonItems: [
-        {
-            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
-            VariationId: "PROD-001-SS2025-RED-S",
-            quantity: 3,
-            addedAt: "2023-01-01T00:00:00Z",
-            updatedAt: "2023-01-01T00:00:00Z"
-        },
-        {
-            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
-            VariationId: "PROD-001-SS2025-RED-M",
-            quantity: 4,
-            addedAt: "2023-01-01T00:00:00Z",
-            updatedAt: "2023-01-01T00:00:00Z"
-        },
-        {
-            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
-            VariationId: "PROD-001-SS2025-RED-L",
-            quantity: 4,
-            addedAt: "2023-01-01T00:00:00Z",
-            updatedAt: "2023-01-01T00:00:00Z"
-        },
-        {
-            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
-            VariationId: "PROD-001-SS2025-RED-XL",
-            quantity: 4,
-            addedAt: "2023-01-01T00:00:00Z",
-            updatedAt: "2023-01-01T00:00:00Z"
-        },
-        {
-            Id: "AD3E1234-5678-90AB-CDEF-1234567890AB",
-            VariationId: "PROD-001-SS2025-RED-XXL",
-            quantity: 3,
-            addedAt: "2023-01-01T00:00:00Z",
-            updatedAt: "2023-01-01T00:00:00Z"
+            totalCartons: 200,
+            cartons : [
+                "AD3E1234-5678-90AB-CDEF-1234567890AB",
+                "BD3E1234-5678-90AB-CDEF-1234567890AB",
+                "CD3E1234-5678-90AB-CDEF-1234567890AB" 
+            ]
         }
     ]
 }
