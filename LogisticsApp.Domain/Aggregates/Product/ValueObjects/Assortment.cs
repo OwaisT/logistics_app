@@ -5,8 +5,8 @@ namespace LogisticsApp.Domain.Products.ValueObjects;
 
 public sealed class Assortment : ValueObject
 {
-    public string Color { get; }
-    public IReadOnlyDictionary<string, int> Sizes { get; }
+    public string Color { get; private set; }
+    public IReadOnlyDictionary<string, int> Sizes { get; private set; }
 
     private Assortment(string color, IDictionary<string, int> sizes)
     {
@@ -39,4 +39,6 @@ public sealed class Assortment : ValueObject
             yield return kv.Value;
         }
     }
+
+    private Assortment() { } // For EF Core
 }

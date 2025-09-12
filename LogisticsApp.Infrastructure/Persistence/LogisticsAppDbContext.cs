@@ -1,4 +1,5 @@
 using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LogisticsApp.Infrastructure.Persistence;
@@ -10,6 +11,14 @@ public class LogisticsAppDbContext : DbContext
     {
     }
 
-    public DbSet<Product> Products { get; set;} = null!;
+    public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<AssortmentEntry> ProductAssortments { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .ApplyConfigurationsFromAssembly(typeof(LogisticsAppDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
+    }
 
 }

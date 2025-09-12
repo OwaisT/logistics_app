@@ -5,30 +5,30 @@ namespace LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 
 public sealed class VariationId : ValueObject
 {
-    private ProductId ProductId { get; }
-    private string Color { get; }
-    private string Size { get; }
-    public string Value => $"{ProductId}-{Color}-{Size}";
+    public Guid Value { get; }
 
-    private VariationId(ProductId productId, string color, string size)
+    private VariationId(Guid value)
     {
-        ProductId = productId;
-        Color = color;
-        Size = size;
+        Value = value;
     }
 
-    public static VariationId Create(ProductId productId, string color, string size)
+    public static VariationId CreateUnique()
     {
-        if (productId == null) throw new CannotBeEmptyException(nameof(productId));
-        if (string.IsNullOrWhiteSpace(color)) throw new CannotBeEmptyException(nameof(color));
-        if (string.IsNullOrWhiteSpace(size)) throw new CannotBeEmptyException(nameof(size));
-        return new VariationId(productId, color, size);
+        return new VariationId(Guid.NewGuid());
+    }
+
+    public static VariationId Create(Guid value)
+    {
+        if (value == Guid.Empty)
+        {
+            throw new CannotBeEmptyException(nameof(VariationId));
+        }
+
+        return new VariationId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
-
-    public override string ToString() => Value;
 }

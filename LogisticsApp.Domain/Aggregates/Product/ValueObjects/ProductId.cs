@@ -5,28 +5,26 @@ namespace LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 
 public sealed class ProductId : ValueObject
 {
-    private string Ref { get; }
-    private string Season { get; }
-    public string Value => $"{Ref}-{Season}";
+    public Guid Value { get; }
 
-    private ProductId(string refCode, string season)
+    private ProductId(Guid value)
     {
-        Ref = refCode;
-        Season = season;
+        Value = value;
     }
 
-    public static ProductId Create(string refCode, string season)
+    public static ProductId CreateUnique()
     {
-        if (string.IsNullOrWhiteSpace(refCode)) throw new CannotBeEmptyException(nameof(refCode));
-        if (string.IsNullOrWhiteSpace(season)) throw new CannotBeEmptyException(nameof(season));
-        return new ProductId(refCode, season);
+        return new(Guid.NewGuid());
     }
 
-    public static ProductId CreateConversion(string value)
+    public static ProductId Create(Guid value)
     {
-        var parts = value.Split('-');
-        if (parts.Length != 2) throw new InvalidFormatException(nameof(value), "Value must be in the format 'Ref-Season'");
-        return Create(parts[0], parts[1]);
+        if (value == Guid.Empty)
+        {
+            throw new CannotBeEmptyException(nameof(ProductId));
+        }
+
+        return new(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
@@ -34,5 +32,4 @@ public sealed class ProductId : ValueObject
         yield return Value;
     }
 
-    public override string ToString() => Value;
 }

@@ -11,8 +11,7 @@ public sealed class Product : AggregateRoot<ProductId>
     private readonly List<string> categories = [];
     private readonly List<string> colors = [];
     private readonly List<string> sizes = [];
-    private readonly List<Assortment> assortments = [];
-    public ProductId ProductId => Id;
+    private readonly List<Assortment> _assortments = [];
     public string RefCode { get; private set; }
     public string Season { get; private set; }
     public string Name { get; private set; }
@@ -23,7 +22,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public IReadOnlyList<string> Categories => categories.AsReadOnly();
     public IReadOnlyList<string> Colors => colors.AsReadOnly();
     public IReadOnlyList<string> Sizes => sizes.AsReadOnly();
-    public IReadOnlyList<Assortment> Assortments => assortments.AsReadOnly();
+    public IReadOnlyList<Assortment> Assortments => _assortments.AsReadOnly();
     public IReadOnlyList<Variation> Variations => variations.AsReadOnly();
 
     private Product(
@@ -51,7 +50,7 @@ public sealed class Product : AggregateRoot<ProductId>
         this.categories = categories;
         this.colors = colors;
         this.sizes = sizes;
-        this.assortments = assortments;
+        this._assortments = assortments;
         variations = [];
     }
 
@@ -66,7 +65,7 @@ public sealed class Product : AggregateRoot<ProductId>
         List<string> sizes,
         List<Assortment> assortments)
     {
-        var productId = ProductId.Create(refCode, season);
+        var productId = ProductId.CreateUnique();
         return new(
             productId,
             refCode,
@@ -91,4 +90,6 @@ public sealed class Product : AggregateRoot<ProductId>
     {
         variations.Remove(variation);
     }
+
+    private Product() : base(default!) { }
 }

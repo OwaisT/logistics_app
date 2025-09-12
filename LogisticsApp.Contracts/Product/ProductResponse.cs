@@ -1,7 +1,7 @@
 namespace LogisticsApp.Contracts.Product;
 
 public record ProductResponse(
-    string ProductId,
+    Guid ProductId,
     string RefCode,
     string Season,
     string Name,

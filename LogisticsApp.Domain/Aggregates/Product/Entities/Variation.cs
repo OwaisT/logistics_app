@@ -5,6 +5,7 @@ namespace LogisticsApp.Domain.Aggregates.Product.Entities;
 
 public sealed class Variation : Entity<VariationId>
 {
+    public string ProductRefCode { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
     public decimal Price { get; private set; }
@@ -12,12 +13,15 @@ public sealed class Variation : Entity<VariationId>
     public string Size { get; private set; }
     public int Received { get; private set; }
     public int Sold { get; private set; }
-    public int Available => Received - Sold;
+    public int Available => Received - Sold + Returned - Defective;
+    public int Returned { get; private set; }
+    public int Defective { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
     private Variation(
         VariationId id,
+        string productRefCode,
         string name,
         string description,
         decimal price,
@@ -27,6 +31,7 @@ public sealed class Variation : Entity<VariationId>
         DateTime updatedAt)
         : base(id)
     {
+        ProductRefCode = productRefCode;
         Name = name;
         Description = description;
         Price = price;
@@ -37,16 +42,17 @@ public sealed class Variation : Entity<VariationId>
     }
 
     public static Variation Create(
-        ProductId productId,
+        string productRefCode,
         string name,
         string description,
         decimal price,
         string color,
         string size)
     {
-        var variationId = VariationId.Create(productId, color, size);
+        var variationId = VariationId.CreateUnique();
         return new(
             variationId,
+            productRefCode,
             name,
             description,
             price,
@@ -73,6 +79,8 @@ public sealed class Variation : Entity<VariationId>
         Sold += quantity;
         UpdatedAt = DateTime.UtcNow;
     }
+
+    private Variation() : base(default!) { }
 
 
 }
