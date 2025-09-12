@@ -1,8 +1,8 @@
-using LogisticsApp.Infrastructure.Persistence.Models;
+using LogisticsApp.Infrastructure.Persistence.Products.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LogisticsApp.Infrastructure.Persistence.Configurations.Products;
+namespace LogisticsApp.Infrastructure.Persistence.Products.Configurations;
 
 public class SizeConfiguration : IEntityTypeConfiguration<Size>
 {

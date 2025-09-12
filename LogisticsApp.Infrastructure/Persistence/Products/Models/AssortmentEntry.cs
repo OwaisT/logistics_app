@@ -1,6 +1,6 @@
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 
-namespace LogisticsApp.Infrastructure.Persistence.Models;
+namespace LogisticsApp.Infrastructure.Persistence.Products.Models;
 public class AssortmentEntry
 {
     public ProductId ProductId { get; set; } = default!;

@@ -1,5 +1,5 @@
 using LogisticsApp.Domain.Aggregates.Product;
-using LogisticsApp.Infrastructure.Persistence.Models;
+using LogisticsApp.Infrastructure.Persistence.Products.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LogisticsApp.Infrastructure.Persistence;

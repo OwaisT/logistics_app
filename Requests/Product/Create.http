@@ -6,7 +6,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "RefCode": "PROD-001",
+    "RefCode": "PROD-002",
     "Season": "SS2024",
     "Name": "Summer T-Shirt",
     "Description": "A light and comfortable t-shirt perfect for summer.",

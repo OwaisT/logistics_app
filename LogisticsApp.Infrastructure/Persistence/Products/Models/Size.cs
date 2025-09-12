@@ -1,4 +1,4 @@
-namespace LogisticsApp.Infrastructure.Persistence.Models;
+namespace LogisticsApp.Infrastructure.Persistence.Products.Models;
 public class Size
 {
     public Guid Id { get; set; }
