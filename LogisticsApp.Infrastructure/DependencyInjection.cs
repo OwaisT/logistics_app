@@ -35,7 +35,7 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddDbContext<LogisticsAppDbContext>(options => 
-            options.UseSqlServer());
+            options.UseSqlServer("Server=localhost;Database=LogisticsApp;User Id=sa;Password=Orb_One123;TrustServerCertificate=True"));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         return services;
