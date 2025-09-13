@@ -1,4 +1,5 @@
 using LogisticsApp.Domain.Aggregates.Product.Entities;
+using LogisticsApp.Domain.Aggregates.Product.Events;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Domain.Products.ValueObjects;
@@ -66,7 +67,7 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         List<Assortment> assortments)
     {
         var productId = ProductId.CreateUnique();
-        return new(
+        var product = new Product(
             productId,
             refCode,
             season,
@@ -79,6 +80,10 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
             colors,
             sizes,
             assortments);
+
+        product.AddDomainEvent(new ProductCreated(product));
+
+        return product;
     }
 
     public void AddVariation(Variation variation)
@@ -91,12 +96,7 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         variations.Remove(variation);
     }
 
-    private Product() : base(default!)
-    {
-        RefCode = string.Empty;
-        Season = string.Empty;
-        Name = string.Empty;
-        Description = string.Empty;
-        // Initialize other non-nullable properties as needed
-    }
+#pragma warning disable CS8618
+    private Product() : base(default!) { }
+#pragma warning restore CS8618
 }

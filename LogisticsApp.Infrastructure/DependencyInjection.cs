@@ -4,6 +4,7 @@ using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
+using LogisticsApp.Infrastructure.Persistence.Interceptors;
 using LogisticsApp.Infrastructure.Persistence.Products.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Users.Repositories;
 using LogisticsApp.Infrastructure.Services;
@@ -37,6 +38,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<LogisticsAppDbContext>(options => 
             options.UseSqlServer("Server=localhost;Database=LogisticsApp;User Id=sa;Password=Orb_One123;TrustServerCertificate=True"));
+        services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         return services;

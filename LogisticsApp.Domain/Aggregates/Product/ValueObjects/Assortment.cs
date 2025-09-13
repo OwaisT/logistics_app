@@ -40,5 +40,7 @@ public sealed class Assortment : ValueObject
         }
     }
 
+#pragma warning disable CS8618
     private Assortment() { } // For EF Core
+#pragma warning restore CS8618
 }
