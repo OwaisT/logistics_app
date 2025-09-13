@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogisticsApp.Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticsAppDbContext))]
-    [Migration("20250911224834_InitialCreate")]
+    [Migration("20250913150704_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Models.AssortmentEntry", b =>
+            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Products.Models.AssortmentEntry", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -85,7 +85,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("ProductAssortments", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Models.Category", b =>
+            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Products.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,7 +104,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Models.Color", b =>
+            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Products.Models.Color", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("Colors", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Models.Size", b =>
+            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Products.Models.Size", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -265,7 +265,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.Navigation("Variations");
                 });
 
-            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Models.AssortmentEntry", b =>
+            modelBuilder.Entity("LogisticsApp.Infrastructure.Persistence.Products.Models.AssortmentEntry", b =>
                 {
                     b.HasOne("LogisticsApp.Domain.Aggregates.Product.Product", null)
                         .WithMany()
@@ -276,7 +276,7 @@ namespace LogisticsApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ProductCategories", b =>
                 {
-                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Models.Category", null)
+                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Products.Models.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,7 +291,7 @@ namespace LogisticsApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ProductColors", b =>
                 {
-                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Models.Color", null)
+                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Products.Models.Color", null)
                         .WithMany()
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -312,7 +312,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Models.Size", null)
+                    b.HasOne("LogisticsApp.Infrastructure.Persistence.Products.Models.Size", null)
                         .WithMany()
                         .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)

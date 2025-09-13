@@ -4,7 +4,7 @@ using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Warehouse;
 
-public sealed class Warehouse : AggregateRoot<WarehouseId>
+public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
 {
     private readonly List<Room> _rooms = new();
     public string CountryCode { get; private set; }

@@ -45,7 +45,7 @@ public class AuthenticationController : ApiController
     private static AuthenticationResponse MapAuthResultToResponse(AuthenticationResult authResult)
     {
         return new AuthenticationResponse(
-            authResult.User.UserId.Value,
+            authResult.User.Id.Value,
             authResult.User.FirstName,
             authResult.User.LastName,
             authResult.User.Email,

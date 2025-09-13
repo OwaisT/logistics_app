@@ -5,12 +5,12 @@ using LogisticsApp.Domain.Products.ValueObjects;
 
 namespace LogisticsApp.Domain.Aggregates.Product;
 
-public sealed class Product : AggregateRoot<ProductId>
+public sealed class Product : AggregateRoot<ProductId, Guid>
 {
     private readonly List<Variation> variations = [];
-    private readonly List<string> categories = [];
-    private readonly List<string> colors = [];
-    private readonly List<string> sizes = [];
+    private readonly List<string> _categories = [];
+    private readonly List<string> _colors = [];
+    private readonly List<string> _sizes = [];
     private readonly List<Assortment> _assortments = [];
     public string RefCode { get; private set; }
     public string Season { get; private set; }
@@ -19,9 +19,9 @@ public sealed class Product : AggregateRoot<ProductId>
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }
-    public IReadOnlyList<string> Categories => categories.AsReadOnly();
-    public IReadOnlyList<string> Colors => colors.AsReadOnly();
-    public IReadOnlyList<string> Sizes => sizes.AsReadOnly();
+    public IReadOnlyList<string> Categories => _categories.AsReadOnly();
+    public IReadOnlyList<string> Colors => _colors.AsReadOnly();
+    public IReadOnlyList<string> Sizes => _sizes.AsReadOnly();
     public IReadOnlyList<Assortment> Assortments => _assortments.AsReadOnly();
     public IReadOnlyList<Variation> Variations => variations.AsReadOnly();
 
@@ -47,10 +47,10 @@ public sealed class Product : AggregateRoot<ProductId>
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         IsActive = isActive;
-        this.categories = categories;
-        this.colors = colors;
-        this.sizes = sizes;
-        this._assortments = assortments;
+        _categories = categories;
+        _colors = colors;
+        _sizes = sizes;
+        _assortments = assortments;
         variations = [];
     }
 
@@ -91,5 +91,12 @@ public sealed class Product : AggregateRoot<ProductId>
         variations.Remove(variation);
     }
 
-    private Product() : base(default!) { }
+    private Product() : base(default!)
+    {
+        RefCode = string.Empty;
+        Season = string.Empty;
+        Name = string.Empty;
+        Description = string.Empty;
+        // Initialize other non-nullable properties as needed
+    }
 }

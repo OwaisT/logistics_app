@@ -30,7 +30,7 @@ public class JWTTokenGenerator : IJwtTokenGenerator
         // Implementation for generating JWT token
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserId?.ToString() ?? string.Empty),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id?.ToString() ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

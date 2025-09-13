@@ -3,9 +3,9 @@ using LogisticsApp.Domain.Common.Exceptions;
 
 namespace LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 
-public sealed class ProductId : ValueObject
+public sealed class ProductId : AggregateRootId<Guid>
 {
-    public Guid Value { get; }
+    public override Guid Value { get; protected set; }
 
     private ProductId(Guid value)
     {
