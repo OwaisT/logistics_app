@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Api", "LogisticsApp.Api\LogisticsApp.Api.csproj", "{C3921A42-51DE-442C-B835-43F95116B241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Api", "src\LogisticsApp.Api\LogisticsApp.Api.csproj", "{C3921A42-51DE-442C-B835-43F95116B241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Contracts", "LogisticsApp.Contracts\LogisticsApp.Contracts.csproj", "{26BF21C3-24BF-41E4-A132-838CB568A609}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Contracts", "src\LogisticsApp.Contracts\LogisticsApp.Contracts.csproj", "{26BF21C3-24BF-41E4-A132-838CB568A609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Infrastructure", "LogisticsApp.Infrastructure\LogisticsApp.Infrastructure.csproj", "{1865A88F-F977-4421-BCB9-73039440E3BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Infrastructure", "src\LogisticsApp.Infrastructure\LogisticsApp.Infrastructure.csproj", "{1865A88F-F977-4421-BCB9-73039440E3BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Application", "LogisticsApp.Application\LogisticsApp.Application.csproj", "{48125776-B683-40E8-A9B8-810810D82B0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Application", "src\LogisticsApp.Application\LogisticsApp.Application.csproj", "{48125776-B683-40E8-A9B8-810810D82B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Domain", "LogisticsApp.Domain\LogisticsApp.Domain.csproj", "{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Domain", "src\LogisticsApp.Domain\LogisticsApp.Domain.csproj", "{9BD1657D-2AFD-4FA0-83E8-9B12C7B83184}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticsApp.Tests", "LogisticsApp.Tests\LogisticsApp.Tests.csproj", "{742B39F6-A8BD-42D6-8EC7-675727AF56B2}"
 EndProject
