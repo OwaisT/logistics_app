@@ -13,9 +13,9 @@ public record CreateProductCommand(
     List<string> Categories,
     List<string> Colors,
     List<string> Sizes,
-    List<AssortmentCommand> Assortments) 
+    List<CreateProductAssortmentCommand> Assortments) 
     : IRequest<ErrorOr<Product>>;
 
-public record AssortmentCommand(
+public record CreateProductAssortmentCommand(
     string Color,
     Dictionary<string, int> Sizes); 
