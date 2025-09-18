@@ -6,28 +6,30 @@
 class Warehouse
 {
     Warehouse Create(
-        string countryCode,
-        string cityCode,
+        Guid id,
+        string name,
+        string street,
+        string area,
+        string city,
+        string postcode,
+        string country);
+    
+    void UpdateName(string name);
+
+    void UpdateAddress(
+        string street,
+        string area,
         string areaCode,
-        string name,
         string city,
+        string cityCode,
         string postcode,
         string country,
-        string area,
-        string location);
+        string countryCode);
     
-    void UpdateDetails(
-        string name,
-        string city,
-        string postcode,
-        string country,
-        string area,
-        string location);
-    
-    void AddRoom(Room room);
-    
-    void RemoveRoom(string roomId);
-    
+    void CreateUniqueRoom(string name);
+
+    void RemoveRoom(Guid roomId);
+
     void Activate();
     
     void Deactivate();
@@ -35,57 +37,40 @@ class Warehouse
 
 class Room
 {
-    Room Create(
-        string id,
-        string name,
-        int totalCartons);
+    Guid id;
+    string name;
+
+    Room Create(Guid id, string name);
     
-    void UpdateDetails(
-        string name,
-        int totalCartons);
-    
-    void AddCarton(string cartonId);
-    
-    void RemoveCarton(string cartonId);
+    void UpdateName(string name);
+
 }
 ```
 
 ```json
 {
-    id: "FR-PAR-HAU-001",
-    countryCode: "FR",
-    cityCode: "PAR",
-    areaCode: "HAU",
-    uniqueNumber: "001",
-    name: "Paris Haussmann Warehouse",
-    city: "Paris",
-    postcode: "75009",
-    country: "France",
-    area: "Haussmann"
-    location: "64 Boulevard Haussmann",
-    createdAt: "2023-01-01T00:00:00Z",
-    updatedAt: "2023-01-01T00:00:00Z",
-    isActive: true,
-    rooms: [
+    "id": "e7a1c2b3-4f56-4d8a-9c2e-123456789abc",
+    "name": "Paris Haussmann Warehouse",
+    "street": "64 Boulevard Haussmann",
+    "area": "Haussmann",
+    "city": "Paris",
+    "postcode": "75009",
+    "country": "France",
+    "createdAt": "2023-01-01T00:00:00Z",
+    "updatedAt": "2023-01-01T00:00:00Z",
+    "isActive": true,
+    "rooms": [
         {
-            id: "FR-PAR-HAU-001-RM-001",
-            name: "Room 1",
-            totalCartons: 300
-            cartons : [
-                "AD3E1234-5678-90AB-CDEF-1234567890AB",
-                "BD3E1234-5678-90AB-CDEF-1234567890AB",
-                "CD3E1234-5678-90AB-CDEF-1234567890AB" 
-            ]
+            "id": "AD3E1234-5678-90AB-CDEF-1234567890AB",
+            "name": "Room 1"
         },
         {
-            id: "FR-PAR-HAU-001-RM-002",
-            name: "Room 2",
-            totalCartons: 200,
-            cartons : [
-                "AD3E1234-5678-90AB-CDEF-1234567890AB",
-                "BD3E1234-5678-90AB-CDEF-1234567890AB",
-                "CD3E1234-5678-90AB-CDEF-1234567890AB" 
-            ]
+            "id": "BD3E1234-5678-90AB-CDEF-1234567890AB",
+            "name": "Room 2"
+        },
+        {
+            "id": "CD3E1234-5678-90AB-CDEF-1234567890AB",
+            "name": "Room 3"
         }
     ]
 }

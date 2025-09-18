@@ -45,6 +45,7 @@ class Variation
 {
     string Name { get; }
     string Description { get; }
+    string Ref { get; }
     decimal Price { get; }
     string Color { get; }
     string Size { get; }
@@ -70,7 +71,7 @@ class Variation
 
 ```json
 {
-    id: "PROD-001-SS2025",
+    id: "e7a1c2b3-4f56-4d8a-9c2e-123456789aba",
     ref: "PROD-001",
     season: "SS2025",
     name: "Sample Product",
@@ -116,9 +117,10 @@ class Variation
     ],
     variations: [
         {
-            id: "PROD-001-SS2025-RED-M",
+            id: "e7a1c2b3-4f56-4d8a-9c2e-123456789add",
             name: "Sample Product Red - M",
             description: "This is a sample product variation description.",
+            ref: "PROD-001-SS2025-RED-M",
             price: 29.99,
             color: "red",
             size: "M",
@@ -131,9 +133,10 @@ class Variation
             updatedAt: "2023-01-01T00:00:00Z"
         },
         {
-            id: "PROD-001-SS2025-BLUE-L",
+            id: "e7a1c2b3-4f56-4d8a-9c2e-123456789ade",
             name: "Sample Product Blue - L",
             description: "This is a sample product variation description.",
+            ref: "PROD-001-SS2025-BLUE-L",
             price: 31.99,
             color: "blue",
             size: "L",
