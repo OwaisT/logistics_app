@@ -11,6 +11,7 @@ public static partial class Constants
         public const string Season = "Product Season";
         public const string Name = "Product Name";
         public const string Description = "Product Description";
+        public const decimal GeneralPrice = 99.99m;
         public const bool IsActive = true;
         public static string Category = "Category";
         public static List<string> CategoriesFromCount(int count) =>

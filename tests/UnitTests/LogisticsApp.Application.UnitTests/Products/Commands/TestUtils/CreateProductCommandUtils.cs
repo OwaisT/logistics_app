@@ -13,6 +13,7 @@ public static class CreateProductCommandUtils
             Constants.Product.Season,
             Constants.Product.Name,
             Constants.Product.Description,
+            Constants.Product.GeneralPrice,
             Constants.Product.IsActive,
             Constants.Product.CategoriesFromCount(2),
             Constants.Product.ColorsFromCount(2),
