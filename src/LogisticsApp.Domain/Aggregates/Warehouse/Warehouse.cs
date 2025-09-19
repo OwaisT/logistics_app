@@ -28,16 +28,12 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         string country)
         : base(id)
     {
+        Name = name;
         Street = street;
         Area = area;
         City = city;
         Postcode = postcode;
         Country = country;
-        Name = name;
-        City = city;
-        Postcode = postcode;
-        Country = country;
-        Area = area;
         CreatedAt = DateTime.UtcNow;
         IsActive = true;
     }
