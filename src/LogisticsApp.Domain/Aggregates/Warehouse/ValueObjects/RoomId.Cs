@@ -1,26 +1,34 @@
+using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
 
 public sealed class RoomId : ValueObject
 {
-    private WarehouseId WarehouseId { get; }
-    private string UniqueNumber { get; }
-    public string WarehouseCode => $"{WarehouseId}-RM-{UniqueNumber}";
+    public Guid Value { get; }
 
-    private RoomId(WarehouseId warehouseId, string uniqueNumber)
+    private RoomId(Guid value)
     {
-        WarehouseId = warehouseId;
-        UniqueNumber = uniqueNumber;
+        Value = value;
     }
 
-    public static RoomId Create(WarehouseId warehouseId, string uniqueNumber)
+    public static RoomId CreateUnique()
     {
-        return new RoomId(warehouseId, uniqueNumber);
+        return new RoomId(Guid.NewGuid());
     }
+
+    public static RoomId Create(Guid value)
+    {
+        if (value == Guid.Empty)
+        {
+            throw new CannotBeEmptyException(nameof(RoomId));
+        }
+
+        return new RoomId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return WarehouseId;
-        yield return UniqueNumber;
+        yield return Value;
     }
 }

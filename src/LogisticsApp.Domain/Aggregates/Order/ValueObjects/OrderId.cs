@@ -1,27 +1,27 @@
 using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
-namespace LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
+namespace LogisticsApp.Domain.Aggregates.Order.ValueObjects;
 
-public sealed class WarehouseId : AggregateRootId<Guid>
+public sealed class OrderId : AggregateRootId<Guid>
 {
     public override Guid Value { get; protected set; }
 
-    private WarehouseId(Guid value)
+    private OrderId(Guid value)
     {
         Value = value;
     }
 
-    public static WarehouseId CreateUnique()
+    public static OrderId CreateUnique()
     {
         return new(Guid.NewGuid());
     }
 
-    public static WarehouseId Create(Guid value)
+    public static OrderId Create(Guid value)
     {
         if (value == Guid.Empty)
         {
-            throw new CannotBeEmptyException(nameof(WarehouseId));
+            throw new CannotBeEmptyException(nameof(OrderId));
         }
 
         return new(value);

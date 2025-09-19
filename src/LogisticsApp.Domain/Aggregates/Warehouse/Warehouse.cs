@@ -6,17 +6,13 @@ namespace LogisticsApp.Domain.Aggregates.Warehouse;
 
 public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
 {
-    private readonly List<Room> _rooms = new();
-    public string CountryCode { get; private set; }
-    public string CityCode { get; private set; }
-    public string AreaCode { get; private set; }
-    public string UniqueNumber { get; private set; }
+    private readonly List<Room> _rooms = [];
     public string Name { get; private set; }
+    public string Street { get; private set; }
+    public string Area { get; private set; }
     public string City { get; private set; }
     public string Postcode { get; private set; }
     public string Country { get; private set; }
-    public string Area { get; private set; }
-    public string Location { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }
@@ -24,45 +20,61 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
 
     private Warehouse(
         WarehouseId id,
-        string countryCode,
-        string cityCode,
-        string areaCode,
-        string uniqueNumber,
         string name,
+        string street,
+        string area,
         string city,
         string postcode,
-        string country,
-        string area,
-        string location) 
+        string country)
         : base(id)
     {
-        CountryCode = countryCode;
-        CityCode = cityCode;
-        AreaCode = areaCode;
-        UniqueNumber = uniqueNumber;
+        Street = street;
+        Area = area;
+        City = city;
+        Postcode = postcode;
+        Country = country;
         Name = name;
         City = city;
         Postcode = postcode;
         Country = country;
         Area = area;
-        Location = location;
         CreatedAt = DateTime.UtcNow;
         IsActive = true;
     }
 
     public static Warehouse Create(
-        string countryCode,
-        string cityCode,
-        string areaCode,
-        string uniqueNumber,
         string name,
+        string street,
+        string area,
         string city,
         string postcode,
-        string country,
-        string area,
-        string location)
+        string country)
     {
-        var warehouseId = WarehouseId.Create(countryCode, cityCode, areaCode, uniqueNumber);
-        return new Warehouse(warehouseId, countryCode, cityCode, areaCode, uniqueNumber, name, city, postcode, country, area, location);
+        var warehouseId = WarehouseId.CreateUnique();
+        return new Warehouse(warehouseId, name, street, area, city, postcode, country);
     }
+
+    public void CreateUniqueRoom(string roomName)
+    {
+        var room = Room.Create(roomName);
+        _rooms.Add(room);
+    }
+
+    public void RemoveRoom(RoomId roomId)
+    {
+        if (roomId == null)
+        {
+            throw new ArgumentNullException(nameof(roomId));
+        }
+
+        var room = _rooms.SingleOrDefault(r => r.Id == roomId);
+        if (room == null)
+        {
+            // TODO: Create a custom exception for not found
+            throw new ArgumentException("Room not found.", nameof(roomId));
+        }
+
+        _rooms.Remove(room);
+    }
+
 }

@@ -6,35 +6,30 @@ namespace LogisticsApp.Domain.Aggregates.Warehouse.Entities;
 
 public sealed class Room : Entity<RoomId>
 {
-    public WarehouseId WarehouseId { get; private set; }
-    public string UniqueNumber { get; private set; }
-    public int TotalCartons { get; private set; }
+    public string Name { get; private set; }
 
     private Room(
         RoomId id,
-        WarehouseId warehouseId,
-        string uniqueNumber)
+        string name)
         : base(id)
     {
-        WarehouseId = warehouseId;
-        UniqueNumber = uniqueNumber;
+        Name = name;
     }
 
-    public static Room Create( WarehouseId warehouseId, string uniqueNumber)
+    public static Room Create(string name)
     {
-        var id = RoomId.Create(warehouseId, uniqueNumber);
-        if (warehouseId == null) throw new CannotBeEmptyException(nameof(warehouseId));
-        if (string.IsNullOrWhiteSpace(uniqueNumber)) throw new CannotBeEmptyException(nameof(uniqueNumber));
-        return new Room(id, warehouseId, uniqueNumber);
+        var id = RoomId.CreateUnique();
+        return new Room(id, name);
     }
 
-    public void AddCarton()
+    public void UpdateName(string name)
     {
-        TotalCartons++;
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new CannotBeEmptyException(nameof(name));
+        }
+
+        Name = name;
     }
-    public void RemoveCarton()
-    {
-        if (TotalCartons <= 0) throw new InvalidOperationException("No cartons to remove.");
-        TotalCartons--;
-    }
+
 }
