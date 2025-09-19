@@ -1,5 +1,5 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6ImI4OGQwNzcyLTkzZTgtNDAxOS1iMTZlLTkzNmFhOTk3YzczZCIsImV4cCI6MTc1NzgwODQ2MSwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.05xqrCLW0q5CYiw6slMF76Qx_EHVwO_sYYA_V6v2gBk
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6ImQ3YzE4NTllLTg2M2EtNDdhNS05MmMzLWRhZDJkNTQ0ODViMSIsImV4cCI6MTc1ODMxMDE1MiwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.fuXhXHdLnSy_92NYtJj-KybX6ueWvAj4e_zWF9jz7r4
 @hostId=abcd
 POST {{Api_HostAddress}}/hosts/{{hostId}}/products
 Authorization: Bearer {{token}}
@@ -10,6 +10,7 @@ Content-Type: application/json
     "Season": "SS2024",
     "Name": "Summer T-Shirt",
     "Description": "A light and comfortable t-shirt perfect for summer.",
+    "GeneralPrice": 19.99,
     "IsActive": true,
     "Categories": ["Men"],
     "Colors": ["Red", "Blue", "Green"],

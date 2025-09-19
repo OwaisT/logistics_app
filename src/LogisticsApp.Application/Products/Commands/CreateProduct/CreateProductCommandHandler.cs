@@ -10,21 +10,24 @@ public class CreateProductCommandHandler :
     IRequestHandler<CreateProductCommand, ErrorOr<Product>>
 {
     private readonly IProductRepository _productRepository;
+    private readonly ProductFactory _productFactory;
 
-    public CreateProductCommandHandler(IProductRepository productRepository)
+    public CreateProductCommandHandler(IProductRepository productRepository, ProductFactory productFactory)
     {
         _productRepository = productRepository;
+        _productFactory = productFactory;
     }
 
     public async Task<ErrorOr<Product>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         // Logic to create a product would go here.
-        var product = Product.Create(
+        var product = _productFactory.Create(
             command.RefCode,
             command.Season,
             command.Name,
             command.Description,
+            command.GeneralPrice,
             command.IsActive,
             command.Categories,
             command.Colors,

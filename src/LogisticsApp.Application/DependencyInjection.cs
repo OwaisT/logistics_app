@@ -4,6 +4,7 @@ using FluentValidation;
 using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Common.Behaviors;
+using LogisticsApp.Domain.Aggregates.Product;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,7 @@ public static class DependencyInjection
     {
         // Register infrastructure services here
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+        services.AddScoped<ProductFactory>();
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidateBehavior<,>));

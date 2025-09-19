@@ -5,6 +5,7 @@ public record CreateProductRequest(
     string Season,
     string Name, 
     string Description,
+    decimal GeneralPrice,
     bool IsActive,
     List<string> Categories,
     List<string> Colors,

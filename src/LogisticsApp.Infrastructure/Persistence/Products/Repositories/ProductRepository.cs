@@ -23,20 +23,21 @@ public class ProductRepository : IProductRepository
     public void Add(Product product)
     {
         // Map domain collections to persistence entities
-        var sizes = _mappingInHelper.MapSizesToEntities(product.Sizes.ToList());
-        _dbInsertionHelper.CreateAndInsertProductSizes(product, sizes);
+        // var sizes = _mappingInHelper.MapSizesToEntities(product.Sizes.ToList());
+        // _dbInsertionHelper.CreateAndInsertProductSizes(product, sizes);
 
-        var colors = _mappingInHelper.MapColorsToEntities(product.Colors.ToList());
-        _dbInsertionHelper.CreateAndInsertProductColors(product, colors);
+        // var colors = _mappingInHelper.MapColorsToEntities(product.Colors.ToList());
+        // _dbInsertionHelper.CreateAndInsertProductColors(product, colors);
 
-        var categories = _mappingInHelper.MapCategoriesToEntities(product.Categories.ToList());
-        _dbInsertionHelper.CreateAndInsertProductCategories(product, categories);
+        // var categories = _mappingInHelper.MapCategoriesToEntities(product.Categories.ToList());
+        // _dbInsertionHelper.CreateAndInsertProductCategories(product, categories);
 
-        var assortmentEntries = _mappingInHelper.MapAssortmentsToEntities(product);
-        _dbContext.ProductAssortments.AddRange(assortmentEntries);
-        // Add the product aggregate itself
-        _dbContext.Products.Add(product);
-        _dbContext.SaveChanges();
+        // var assortmentEntries = _mappingInHelper.MapAssortmentsToEntities(product);
+        // _dbContext.ProductAssortments.AddRange(assortmentEntries);
+        // // Add the product aggregate itself
+        // _dbContext.Products.Add(product);
+        // _dbContext.SaveChanges();
+        _products.Add(product);
     }
 
     // Helper: Map persistence Size entities to domain List<string>

@@ -6,6 +6,7 @@ public record ProductResult(
     string Season,
     string Name,
     string Description,
+    decimal GeneralPrice,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     bool IsActive,

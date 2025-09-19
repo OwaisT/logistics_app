@@ -2,6 +2,7 @@ using System.Text;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
+using LogisticsApp.Domain.Aggregates.Product;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
@@ -41,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductAggregateRepository, ProductAggregateRepository>();
         return services;
     }
 

@@ -6,6 +6,7 @@ public record ProductResponse(
     string Season,
     string Name,
     string Description,
+    decimal GeneralPrice,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     bool IsActive,
@@ -20,7 +21,13 @@ public record AssortmentResponse(
     Dictionary<string, int> Sizes);
 
 public record VariationResponse(
-    string Id,
+    Guid VariationId,
+    string ProductRefCode,
+    string ProductSeason,
     string Name,
+    string Description,
     decimal Price,
-    int Stock);
+    string Color,
+    string Size,
+    DateTime CreatedAt,
+    DateTime UpdatedAt);

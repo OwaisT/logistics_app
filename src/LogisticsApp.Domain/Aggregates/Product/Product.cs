@@ -8,7 +8,7 @@ namespace LogisticsApp.Domain.Aggregates.Product;
 
 public sealed class Product : AggregateRoot<ProductId, Guid>
 {
-    private readonly List<Variation> variations = [];
+    private readonly List<Variation> _variations = [];
     private readonly List<string> _categories = [];
     private readonly List<string> _colors = [];
     private readonly List<string> _sizes = [];
@@ -17,6 +17,7 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     public string Season { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
+    public decimal GeneralPrice { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }
@@ -24,27 +25,30 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     public IReadOnlyList<string> Colors => _colors.AsReadOnly();
     public IReadOnlyList<string> Sizes => _sizes.AsReadOnly();
     public IReadOnlyList<Assortment> Assortments => _assortments.AsReadOnly();
-    public IReadOnlyList<Variation> Variations => variations.AsReadOnly();
+    public IReadOnlyList<Variation> Variations => _variations.AsReadOnly();
 
-    private Product(
+    internal Product(
         ProductId id,
         string refCode,
         string season,
         string name,
         string description,
+        decimal generalPrice,
         DateTime createdAt,
         DateTime updatedAt,
         bool isActive,
         List<string> categories,
         List<string> colors,
         List<string> sizes,
-        List<Assortment> assortments)
+        List<Assortment> assortments,
+        List<Variation> variations)
         : base(id)
     {
         RefCode = refCode;
         Season = season;
         Name = name;
         Description = description;
+        GeneralPrice = generalPrice;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         IsActive = isActive;
@@ -52,48 +56,17 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _colors = colors;
         _sizes = sizes;
         _assortments = assortments;
-        variations = [];
-    }
-
-    public static Product Create(
-        string refCode,
-        string season,
-        string name,
-        string description,
-        bool isActive,
-        List<string> categories,
-        List<string> colors,
-        List<string> sizes,
-        List<Assortment> assortments)
-    {
-        var productId = ProductId.CreateUnique();
-        var product = new Product(
-            productId,
-            refCode,
-            season,
-            name,
-            description,
-            DateTime.UtcNow,
-            DateTime.UtcNow,
-            isActive,
-            categories,
-            colors,
-            sizes,
-            assortments);
-
-        product.AddDomainEvent(new ProductCreated(product));
-
-        return product;
+        _variations = variations;
     }
 
     public void AddVariation(Variation variation)
     {
-        variations.Add(variation);
+        _variations.Add(variation);
     }
 
     public void RemoveVariation(Variation variation)
     {
-        variations.Remove(variation);
+        _variations.Remove(variation);
     }
 
 #pragma warning disable CS8618
