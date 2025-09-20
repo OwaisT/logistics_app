@@ -7,6 +7,7 @@ using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
 using LogisticsApp.Infrastructure.Persistence.Products.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Repositories.Warehouses;
 using LogisticsApp.Infrastructure.Persistence.Users.Repositories;
 using LogisticsApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +44,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductAggregateRepository, ProductAggregateRepository>();
+        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+
         return services;
     }
 

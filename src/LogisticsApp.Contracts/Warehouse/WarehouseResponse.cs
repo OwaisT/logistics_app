@@ -1,7 +1,7 @@
 namespace LogisticsApp.Contracts.Warehouse;
 
 public record WarehouseResponse(
-    Guid Id,
+    Guid WarehouseId,
     string Name,
     string Street,
     string Area,
@@ -9,7 +9,7 @@ public record WarehouseResponse(
     string Postcode,
     string Country,
     DateTime CreatedAt,
-    DateTime? UpdatedAt,
+    DateTime UpdatedAt,
     bool IsActive,
     List<RoomResponse> Rooms);
 

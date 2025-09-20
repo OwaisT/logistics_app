@@ -1,7 +1,10 @@
 using LogisticsApp.Application.Products.Commands.CreateProduct;
+using LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
 using LogisticsApp.Contracts.Product;
+using LogisticsApp.Contracts.Warehouse;
 using LogisticsApp.Domain.Aggregates.Product;
 using LogisticsApp.Domain.Aggregates.Product.Entities;
+using LogisticsApp.Domain.Aggregates.Warehouse;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;
@@ -26,5 +29,6 @@ public class ProductMappingConfig : IRegister
         config.NewConfig<Variation, VariationResponse>()
             .Map(dest => dest.VariationId, src => src.Id.Value)
             .Map(dest => dest, src => src);
+
     }
 }

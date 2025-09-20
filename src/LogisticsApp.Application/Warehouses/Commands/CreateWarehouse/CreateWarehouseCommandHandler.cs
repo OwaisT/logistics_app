@@ -1,0 +1,32 @@
+using ErrorOr;
+using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Domain.Aggregates.Warehouse;
+using MediatR;
+
+namespace LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
+
+public class CreateWarehouseCommandHandler :
+    IRequestHandler<CreateWarehouseCommand, ErrorOr<Warehouse>>
+{
+    private readonly IWarehouseRepository _warehouseRepository;
+
+    public CreateWarehouseCommandHandler(IWarehouseRepository warehouseRepository)
+    {
+        _warehouseRepository = warehouseRepository;
+    }
+    public async Task<ErrorOr<Warehouse>> Handle(CreateWarehouseCommand command, CancellationToken cancellationToken)
+    {
+        await Task.CompletedTask;
+        var warehouse = Warehouse.Create(
+            command.Name,
+            command.Street,
+            command.Area,
+            command.City,
+            command.Postcode,
+            command.Country);
+
+        _warehouseRepository.Add(warehouse);
+        
+        return await Task.FromResult<ErrorOr<Warehouse>>(warehouse);
+    }
+}

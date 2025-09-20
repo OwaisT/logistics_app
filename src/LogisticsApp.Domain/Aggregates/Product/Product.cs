@@ -1,5 +1,4 @@
 using LogisticsApp.Domain.Aggregates.Product.Entities;
-using LogisticsApp.Domain.Aggregates.Product.Events;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Domain.Products.ValueObjects;

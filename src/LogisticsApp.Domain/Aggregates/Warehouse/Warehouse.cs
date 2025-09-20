@@ -14,7 +14,7 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
     public string Postcode { get; private set; }
     public string Country { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public DateTime? UpdatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }
     public IReadOnlyList<Room> Rooms => _rooms.AsReadOnly();
 
@@ -35,7 +35,9 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         Postcode = postcode;
         Country = country;
         CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
         IsActive = true;
+        _rooms = [];
     }
 
     public static Warehouse Create(
@@ -50,7 +52,7 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         return new Warehouse(warehouseId, name, street, area, city, postcode, country);
     }
 
-    public void CreateUniqueRoom(string roomName)
+    public void AddWarehouseRoom(string roomName)
     {
         var room = Room.Create(roomName);
         _rooms.Add(room);
