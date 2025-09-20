@@ -5,6 +5,7 @@ using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Domain.Aggregates.Product;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
+using LogisticsApp.Infrastructure.Persistence.Cartons;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
 using LogisticsApp.Infrastructure.Persistence.Products.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Repositories.Warehouses;
@@ -45,6 +46,7 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductAggregateRepository, ProductAggregateRepository>();
         services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+        services.AddScoped<ICartonRepository, CartonRepository>();
 
         return services;
     }

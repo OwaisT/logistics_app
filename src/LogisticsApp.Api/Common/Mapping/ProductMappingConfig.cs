@@ -1,10 +1,8 @@
 using LogisticsApp.Application.Products.Commands.CreateProduct;
-using LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
 using LogisticsApp.Contracts.Product;
-using LogisticsApp.Contracts.Warehouse;
 using LogisticsApp.Domain.Aggregates.Product;
 using LogisticsApp.Domain.Aggregates.Product.Entities;
-using LogisticsApp.Domain.Aggregates.Warehouse;
+using LogisticsApp.Domain.Products.ValueObjects;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;

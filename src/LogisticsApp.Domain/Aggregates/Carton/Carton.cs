@@ -5,16 +5,26 @@ using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Carton;
 
-public sealed class Carton(CartonId id) : AggregateRoot<CartonId, Guid>(id)
+public sealed class Carton : AggregateRoot<CartonId, Guid>
 {
 
     private List<CartonItem> _items = [];
     public CartonLocation? Location { get; private set; }
     public IReadOnlyList<CartonItem> Items => _items.AsReadOnly();
 
-    public void SetLocation(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind)
+    private Carton(CartonId id) : base(id)
     {
-        Location = CartonLocation.Create(warehouseId, roomId, onLeft, below, behind);
+    }
+
+    public static Carton Create()
+    {
+        var cartonId = CartonId.CreateUnique();
+        return new Carton(cartonId);
+    }
+
+    public void SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
+    {
+        Location = CartonLocation.Create(warehouseId, warehouseName, roomId, roomName, onLeft, below, behind);
     }
 
     public void AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)

@@ -5,10 +5,10 @@ namespace LogisticsApp.Domain.Aggregates.Carton.ValueObjects;
 
 public class CartonItem : ValueObject
 {
-    public ProductId ProductId { get; }
-    public VariationId VariationId { get; }
-    public string RefCode { get; }
-    public int Quantity { get; }
+    public ProductId ProductId { get; private set; }
+    public VariationId VariationId { get; private set; }
+    public string RefCode { get; private set; }
+    public int Quantity { get; private set; }
 
     public CartonItem(ProductId productId, VariationId variationId, string refCode, int quantity)
     {

@@ -10,8 +10,8 @@ public record CreateProductRequest(
     List<string> Categories,
     List<string> Colors,
     List<string> Sizes,
-    List<Assortment> Assortments);
+    List<AssortmentRequest> Assortments);
 
-public record Assortment(
+public record AssortmentRequest(
     string Color,
     Dictionary<string, int> Sizes);
