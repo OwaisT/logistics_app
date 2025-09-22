@@ -1,5 +1,4 @@
 using LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
-using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Warehouse.Entities;
@@ -24,11 +23,6 @@ public sealed class Room : Entity<RoomId>
 
     public void UpdateName(string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new CannotBeEmptyException(nameof(name));
-        }
-
         Name = name;
     }
 

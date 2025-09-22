@@ -16,7 +16,7 @@ public class CreateProductCommandHandler(IProductRepository productRepository, P
     {
         await Task.CompletedTask;
         // Logic to create a product would go here.
-        var product = _productFactory.Create(
+        var productResult = _productFactory.Create(
             command.RefCode,
             command.Season,
             command.Name,
@@ -27,10 +27,15 @@ public class CreateProductCommandHandler(IProductRepository productRepository, P
             command.Colors,
             command.Sizes,
             command.Assortments.Select(a => Assortment.Create(a.Color, a.Sizes)).ToList());
+        
+        if (productResult.IsError)
+        {
+            return productResult.Errors;
+        }
 
-        _productRepository.Add(product);
+        _productRepository.Add(productResult.Value);
 
-        return await Task.FromResult<ErrorOr<Product>>(product);
+        return await Task.FromResult<ErrorOr<Product>>(productResult.Value);
     }
 
 }

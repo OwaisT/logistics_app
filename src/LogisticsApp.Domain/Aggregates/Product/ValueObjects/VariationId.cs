@@ -1,5 +1,4 @@
 using LogisticsApp.Domain.Common.Models;
-using LogisticsApp.Domain.Common.Exceptions;
 
 namespace LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 
@@ -19,11 +18,6 @@ public sealed class VariationId : ValueObject
 
     public static VariationId Create(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new CannotBeEmptyException(nameof(VariationId));
-        }
-
         return new VariationId(value);
     }
 

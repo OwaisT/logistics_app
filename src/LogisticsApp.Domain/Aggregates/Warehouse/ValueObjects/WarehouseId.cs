@@ -1,4 +1,3 @@
-using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
@@ -19,11 +18,6 @@ public sealed class WarehouseId : AggregateRootId<Guid>
 
     public static WarehouseId Create(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new CannotBeEmptyException(nameof(WarehouseId));
-        }
-
         return new(value);
     }
 

@@ -1,4 +1,3 @@
-using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.OrderReturn.ValueObjects;
@@ -19,11 +18,6 @@ public sealed class OrderReturnId : AggregateRootId<Guid>
 
     public static OrderReturnId Create(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new CannotBeEmptyException(nameof(OrderReturnId));
-        }
-
         return new(value);
     }
 

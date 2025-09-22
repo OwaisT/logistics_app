@@ -1,9 +1,9 @@
+using ErrorOr;
 using LogisticsApp.Domain.Aggregates.Product.Entities;
 using LogisticsApp.Domain.Aggregates.Product.Events;
-using LogisticsApp.Domain.Aggregates.Product.Exceptions;
 using LogisticsApp.Domain.Aggregates.Product.Services;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
-using LogisticsApp.Domain.Common.Exceptions;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Products.ValueObjects;
 
 namespace LogisticsApp.Domain.Aggregates.Product;
@@ -11,7 +11,7 @@ namespace LogisticsApp.Domain.Aggregates.Product;
 public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
 {
 
-    public Product Create(
+    public ErrorOr<Product> Create(
         string refCode,
         string season,
         string name,
@@ -23,8 +23,11 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
         List<string> sizes,
         List<Assortment> assortments)
     {
-        validateProductSpecifications(refCode, season, generalPrice);
-
+        var validateProductSpecificationsResult = validateProductSpecifications(refCode, season);
+        if (validateProductSpecificationsResult.IsError)
+        {
+            return validateProductSpecificationsResult.Errors;
+        }
         var variations = generateVariations(
             refCode,
             season,
@@ -58,30 +61,21 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
 
     }
 
-    private void validateProductSpecifications(
+    private ErrorOr<bool> validateProductSpecifications(
         string refCode,
-        string season,
-        decimal generalPrice)
+        string season)
     {
         if (!uniqueProductPerSeasonSpecification(refCode, season))
         {
-            throw new InvalidProductException($"A product with RefCode '{refCode}' already exists for the season '{season}'.");
+            return Errors.Product.InvalidProduct($"A product with RefCode '{refCode}' already exists for the season '{season}'.");
         }
 
-        if (!priceNotNegativeSpecification(generalPrice))
-        {
-            throw new CannotBeNegativeException(nameof(generalPrice));
-        }
+        return true;
     }
 
     private bool uniqueProductPerSeasonSpecification(string refCode, string season)
     {
         return productUniquenessChecker.IsUnique(refCode, season);
-    }
-
-    private bool priceNotNegativeSpecification(decimal price)
-    {
-        return price >= 0;
     }
 
     private List<Variation> generateVariations(

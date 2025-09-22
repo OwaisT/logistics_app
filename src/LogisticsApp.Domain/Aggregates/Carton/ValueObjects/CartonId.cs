@@ -1,4 +1,3 @@
-using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.Aggregates.Carton.ValueObjects;
@@ -19,11 +18,6 @@ public sealed class CartonId : AggregateRootId<Guid>
 
     public static CartonId Create(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new CannotBeEmptyException(nameof(CartonId));
-        }
-
         return new(value);
     }
 
