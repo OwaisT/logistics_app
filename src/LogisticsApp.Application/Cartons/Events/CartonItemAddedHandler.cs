@@ -1,5 +1,6 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Aggregates.Carton.Events;
+using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Events;
@@ -17,7 +18,8 @@ public class CartonItemAddedHandler : INotificationHandler<CartonItemAdded>
     {
         // Handle the event (e.g., update read models, send notifications, etc.)
         var product = _productRepository.GetById(notification.ProductId);
-        product!.IncreaseReceivedForVariation(notification.VariationId, notification.Quantity);
+        var variationId = VariationId.Create(notification.VariationId);
+        product!.IncreaseReceivedForVariation(variationId, notification.Quantity);
         return Task.CompletedTask;
     }
 }

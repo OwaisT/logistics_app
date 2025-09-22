@@ -68,9 +68,9 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations.Remove(variation);
     }
 
-    public void IncreaseReceivedForVariation(Guid variationId, int quantity)
+    public void IncreaseReceivedForVariation(VariationId variationId, int quantity)
     {
-        var variation = _variations.FirstOrDefault(v => v.Id.Value == variationId);
+        var variation = _variations.FirstOrDefault(v => v.Id == variationId);
         // TODO: handle errors appropriately
         if (variation == null)
         {
