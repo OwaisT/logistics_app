@@ -1,5 +1,6 @@
 using LogisticsApp.Application.Cartons.Commands.AddCartonItem;
 using LogisticsApp.Application.Cartons.Commands.CreateCarton;
+using LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
 using LogisticsApp.Contracts.Carton;
 using MapsterMapper;
 using MediatR;
@@ -30,7 +31,7 @@ public class CartonsController : ApiController
             Problem);
     }
 
-    [HttpPost("{cartonId}/AddItem")]
+    [HttpPost("{cartonId}/CartonItem")]
     public async Task<IActionResult> AddCartonItem(AddCartonItemRequest request, string cartonId)
     {
         var command = _mapper.Map<AddCartonItemCommand>((request, cartonId));
@@ -39,5 +40,16 @@ public class CartonsController : ApiController
             carton => Ok(_mapper.Map<CartonResponse>(carton)),
             Problem);
     }
+
+    [HttpDelete("{cartonId}/CartonItem")]
+    public async Task<IActionResult> RemoveCartonItem(RemoveCartonItemRequest request, string cartonId)
+    {
+        var command = _mapper.Map<RemoveCartonItemCommand>((request, cartonId));
+        var removeCartonItemResult = await _mediator.Send(command);
+        return removeCartonItemResult.Match(
+            carton => Ok(_mapper.Map<CartonResponse>(carton)),
+            Problem);
+    }
+
 
 }

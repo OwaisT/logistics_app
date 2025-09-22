@@ -1,6 +1,7 @@
 
 using LogisticsApp.Application.Cartons.Commands.AddCartonItem;
 using LogisticsApp.Application.Cartons.Commands.CreateCarton;
+using LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
 using LogisticsApp.Contracts.Carton;
 using LogisticsApp.Domain.Aggregates.Carton;
 using LogisticsApp.Domain.Aggregates.Carton.ValueObjects;
@@ -30,6 +31,10 @@ public class CartonMappingConfig : IRegister
             .Map(dest => dest, src => src);
 
         config.NewConfig<(AddCartonItemRequest request, string cartonId), AddCartonItemCommand>()
+            .Map(dest => dest.CartonId, src => src.cartonId)
+            .Map(dest => dest, src => src.request);
+
+        config.NewConfig<(RemoveCartonItemRequest request, string cartonId), RemoveCartonItemCommand>()
             .Map(dest => dest.CartonId, src => src.cartonId)
             .Map(dest => dest, src => src.request);
 

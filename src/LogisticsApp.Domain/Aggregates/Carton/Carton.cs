@@ -52,6 +52,26 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
     public void RemoveItem(ProductId productId, VariationId variationId, int quantityToRemove)
     {
         // TODO: implement specifications to check if item exists and has enough quantity
+        if (quantityToRemove <= 0)
+        {
+            throw new ArgumentException("Quantity to remove must be greater than zero.", nameof(quantityToRemove));
+        }
+        if (!_items.Any(i => i.ProductId == productId && i.VariationId == variationId))
+        {
+            throw new InvalidOperationException("Item does not exist in the carton.");
+        }
+        var existingItem = _items.First(i => i.ProductId == productId && i.VariationId == variationId);
+        if (existingItem.Quantity < quantityToRemove)
+        {
+            throw new InvalidOperationException("Not enough quantity to remove.");
+        }
+        _items.Remove(existingItem);
+        var remainingQuantity = existingItem.Quantity - quantityToRemove;
+        if (remainingQuantity > 0)
+        {
+            var updatedItem = new CartonItem(productId, variationId, existingItem.RefCode, remainingQuantity);
+            _items.Add(updatedItem);
+        }
         // TODO: decrease variation quantity in inventory
     }
 
