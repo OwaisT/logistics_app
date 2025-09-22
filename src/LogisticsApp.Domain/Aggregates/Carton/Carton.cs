@@ -15,6 +15,7 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
 
     private Carton(CartonId id) : base(id)
     {
+        Location = null;
     }
 
     public static Carton Create()
