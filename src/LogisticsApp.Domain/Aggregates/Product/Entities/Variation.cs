@@ -41,6 +41,10 @@ public sealed class Variation : Entity<VariationId>
         Price = price;
         Color = color;
         Size = size;
+        Received = 0;
+        Sold = 0;
+        Returned = 0;
+        Defective = 0;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }

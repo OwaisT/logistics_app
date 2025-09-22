@@ -1,3 +1,4 @@
+using LogisticsApp.Domain.Aggregates.Carton.Events;
 using LogisticsApp.Domain.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
@@ -29,8 +30,22 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
 
     public void AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)
     {
+        if (quantity <= 0)
+        {
+            throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+        }
+        if (_items.Any(i => i.ProductId == productId && i.VariationId == variationId))
+        {
+            var existingItem = _items.First(i => i.ProductId == productId && i.VariationId == variationId);
+            _items.Remove(existingItem);
+            var updatedItem = new CartonItem(productId, variationId, refCode, existingItem.Quantity + quantity);
+            _items.Add(updatedItem);
+            return;
+        }
         var item = new CartonItem(productId, variationId, refCode, quantity);
         _items.Add(item);
+
+        AddDomainEvent(new CartonItemAdded(this.Id.Value, productId.Value, variationId.Value, quantity));
         // TODO: increase variation quantity in inventory
     }
 

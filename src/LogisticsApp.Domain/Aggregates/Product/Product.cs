@@ -68,6 +68,18 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations.Remove(variation);
     }
 
+    public void IncreaseReceivedForVariation(Guid variationId, int quantity)
+    {
+        var variation = _variations.FirstOrDefault(v => v.Id.Value == variationId);
+        // TODO: handle errors appropriately
+        if (variation == null)
+        {
+            throw new ArgumentException("Variation not found.", nameof(variationId));
+        }
+        variation.IncreaseReceived(quantity);
+        UpdatedAt = DateTime.UtcNow;
+    }
+
 #pragma warning disable CS8618
     private Product() : base(default!) { }
 #pragma warning restore CS8618

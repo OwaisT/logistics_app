@@ -5,7 +5,7 @@ namespace LogisticsApp.Infrastructure.Persistence.Cartons;
 
 public class CartonRepository : ICartonRepository
 {
-    private readonly List<Carton> _cartons = [];
+    private static readonly List<Carton> _cartons = [];
 
     public void Add(Carton carton)
     {

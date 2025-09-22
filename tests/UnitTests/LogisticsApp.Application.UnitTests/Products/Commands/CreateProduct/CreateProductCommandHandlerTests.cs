@@ -4,6 +4,7 @@ using LogisticsApp.Application.Products.Commands.CreateProduct;
 using LogisticsApp.Application.UnitTests.Products.Commands.TestUtils;
 using LogisticsApp.Application.UnitTests.TestUtils.Products.Extensions;
 using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Domain.Aggregates.Product.Services;
 using Moq;
 
 namespace LogisticsApp.Application.UnitTests.Products.Commands.CreateProduct;
@@ -13,13 +14,13 @@ public class CreateProductCommandHandlerTests
     private readonly CreateProductCommandHandler _handler;
 
     private readonly Mock<IProductRepository> _mockProductRepository = new();
-    private readonly Mock<IProductAggregateRepository> _mockProductAggregateRepository = new();
+    private readonly Mock<IProductUniquenessChecker> _mockProductUniquenessChecker = new();
     private readonly ProductFactory _productFactory;
 
     public CreateProductCommandHandlerTests()
     {
         _mockProductRepository = new Mock<IProductRepository>();
-        _productFactory = new ProductFactory(_mockProductAggregateRepository.Object);
+        _productFactory = new ProductFactory(_mockProductUniquenessChecker.Object);
         _handler = new CreateProductCommandHandler(_mockProductRepository.Object, _productFactory);
     }
 

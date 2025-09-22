@@ -4,7 +4,9 @@ using FluentValidation;
 using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Common.Behaviors;
+using LogisticsApp.Application.Products.Services;
 using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Domain.Aggregates.Product.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidateBehavior<,>));
+        services.AddScoped<IProductUniquenessChecker, ProductUniquenessChecker>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         return services;
     }

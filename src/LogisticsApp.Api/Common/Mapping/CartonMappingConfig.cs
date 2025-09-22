@@ -1,4 +1,5 @@
 
+using LogisticsApp.Application.Cartons.Commands.AddCartonItem;
 using LogisticsApp.Application.Cartons.Commands.CreateCarton;
 using LogisticsApp.Contracts.Carton;
 using LogisticsApp.Domain.Aggregates.Carton;
@@ -27,6 +28,10 @@ public class CartonMappingConfig : IRegister
             .Map(dest => dest.ProductId, src => src.ProductId.Value)
             .Map(dest => dest.VariationId, src => src.VariationId.Value)
             .Map(dest => dest, src => src);
+
+        config.NewConfig<(AddCartonItemRequest request, string cartonId), AddCartonItemCommand>()
+            .Map(dest => dest.CartonId, src => src.cartonId)
+            .Map(dest => dest, src => src.request);
 
     }
 }

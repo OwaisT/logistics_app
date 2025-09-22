@@ -29,5 +29,10 @@ public record VariationResponse(
     decimal Price,
     string Color,
     string Size,
+    int Received,
+    int Sold,
+    int Available,
+    int Returned,
+    int Defective,
     DateTime CreatedAt,
     DateTime UpdatedAt);

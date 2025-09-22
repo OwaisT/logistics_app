@@ -1,9 +1,13 @@
 @Api_HostAddress = http://localhost:5123
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6ImM1YTZkMTcwLTU4MzktNGNkZC05MTFhLTQ3Yzk4YWY1YWIwOCIsImV4cCI6MTc1ODUwMTY1NSwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.ys85HMqcC_JZMKtxASXpCAM7n1uADdz_rAlANx_OW9c
-POST {{Api_HostAddress}}/Cartons
+@cartonId=e37e5eed-439f-422f-9277-2a7143d7499d
+POST {{Api_HostAddress}}/cartons/{{cartonId}}/addItem
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-
+    "productId" : "b87cf52d-22c7-4021-ad79-2456affb2f24",
+    "variationId" : "5798c450-566f-4c6d-aa7c-98cf8020b5ad",
+    "refCode" : "PROD-002-Red-S",
+    "quantity" : 10
 }

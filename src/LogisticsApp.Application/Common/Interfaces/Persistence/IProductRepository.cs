@@ -8,4 +8,9 @@ public interface IProductRepository
     // Task<Product> GetByIdAsync(string id);
     // Task SaveAsync(Product product);
     void Add(Product product);
+
+    List<Product> GetAll();
+    Task<List<Product>> GetAllAsync();
+
+    Product? GetById(Guid id);
 }

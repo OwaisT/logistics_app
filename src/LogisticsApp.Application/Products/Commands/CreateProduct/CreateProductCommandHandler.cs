@@ -6,17 +6,11 @@ using MediatR;
 
 namespace LogisticsApp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommandHandler :
+public class CreateProductCommandHandler(IProductRepository productRepository, ProductFactory productFactory) :
     IRequestHandler<CreateProductCommand, ErrorOr<Product>>
 {
-    private readonly IProductRepository _productRepository;
-    private readonly ProductFactory _productFactory;
-
-    public CreateProductCommandHandler(IProductRepository productRepository, ProductFactory productFactory)
-    {
-        _productRepository = productRepository;
-        _productFactory = productFactory;
-    }
+    private readonly IProductRepository _productRepository = productRepository;
+    private readonly ProductFactory _productFactory = productFactory;
 
     public async Task<ErrorOr<Product>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {

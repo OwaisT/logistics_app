@@ -1,15 +1,15 @@
 using LogisticsApp.Domain.Aggregates.Product.Entities;
 using LogisticsApp.Domain.Aggregates.Product.Events;
 using LogisticsApp.Domain.Aggregates.Product.Exceptions;
+using LogisticsApp.Domain.Aggregates.Product.Services;
 using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Common.Exceptions;
 using LogisticsApp.Domain.Products.ValueObjects;
 
 namespace LogisticsApp.Domain.Aggregates.Product;
 
-public class ProductFactory(IProductAggregateRepository productAggregateRepository)
+public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
 {
-    private readonly IProductAggregateRepository _productAggregateRepository = productAggregateRepository;
 
     public Product Create(
         string refCode,
@@ -76,9 +76,7 @@ public class ProductFactory(IProductAggregateRepository productAggregateReposito
 
     private bool uniqueProductPerSeasonSpecification(string refCode, string season)
     {
-        var products = _productAggregateRepository.GetAll();
-        var productExists = products.Any(p => p.RefCode == refCode && p.Season == season);
-        return !productExists;
+        return productUniquenessChecker.IsUnique(refCode, season);
     }
 
     private bool priceNotNegativeSpecification(decimal price)

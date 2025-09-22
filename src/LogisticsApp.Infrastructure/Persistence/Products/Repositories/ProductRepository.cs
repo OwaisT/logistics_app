@@ -40,6 +40,22 @@ public class ProductRepository : IProductRepository
         _products.Add(product);
     }
 
+    public List<Product> GetAll()
+    {
+        return _products;
+    }
+
+    public async Task<List<Product>> GetAllAsync()
+    {
+        // Fetch products with related entities from the database
+        return await Task.FromResult(_products);
+    }
+
+    public Product? GetById(Guid id)
+    {
+        return _products.FirstOrDefault(p => p.Id.Value == id);
+    }
+
     // Helper: Map persistence Size entities to domain List<string>
     private List<string> MapSizesToDomain(List<Size> sizes)
     {

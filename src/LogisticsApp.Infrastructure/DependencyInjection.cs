@@ -44,7 +44,6 @@ public static class DependencyInjection
         services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<IProductAggregateRepository, ProductAggregateRepository>();
         services.AddScoped<IWarehouseRepository, WarehouseRepository>();
         services.AddScoped<ICartonRepository, CartonRepository>();
 
