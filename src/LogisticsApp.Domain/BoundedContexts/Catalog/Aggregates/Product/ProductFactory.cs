@@ -22,12 +22,12 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
         List<string> sizes,
         List<Assortment> assortments)
     {
-        var validateProductSpecificationsResult = validateProductSpecifications(refCode, season);
+        var validateProductSpecificationsResult = ValidateProductSpecifications(refCode, season);
         if (validateProductSpecificationsResult.IsError)
         {
             return validateProductSpecificationsResult.Errors;
         }
-        var variations = generateVariations(
+        var variations = GenerateVariations(
             refCode,
             season,
             name,
@@ -60,11 +60,11 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
 
     }
 
-    private ErrorOr<bool> validateProductSpecifications(
+    private ErrorOr<bool> ValidateProductSpecifications(
         string refCode,
         string season)
     {
-        if (!uniqueProductPerSeasonSpecification(refCode, season))
+        if (!UniqueProductPerSeasonSpecification(refCode, season))
         {
             return Errors.Product.InvalidProduct($"A product with RefCode '{refCode}' already exists for the season '{season}'.");
         }
@@ -72,12 +72,12 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
         return true;
     }
 
-    private bool uniqueProductPerSeasonSpecification(string refCode, string season)
+    private bool UniqueProductPerSeasonSpecification(string refCode, string season)
     {
         return productUniquenessChecker.IsUnique(refCode, season);
     }
 
-    private List<Variation> generateVariations(
+    private List<Variation> GenerateVariations(
         string refCode,
         string season,
         string name,

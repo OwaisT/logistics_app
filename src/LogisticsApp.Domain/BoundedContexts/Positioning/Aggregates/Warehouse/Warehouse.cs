@@ -1,5 +1,7 @@
+using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Entities;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
@@ -52,27 +54,27 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         return new Warehouse(warehouseId, name, street, area, city, postcode, country);
     }
 
-    public void AddWarehouseRoom(string roomName)
+    public ErrorOr<Warehouse> AddWarehouseRoom(string roomName)
     {
-        var room = Room.Create(roomName);
-        _rooms.Add(room);
-    }
-
-    public void RemoveRoom(RoomId roomId)
-    {
-        if (roomId == null)
+        if (_rooms.Any(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase)))
         {
-            throw new ArgumentNullException(nameof(roomId));
+            return Errors.Common.DuplicateEntity("Room", new List<string> { $"Name: {roomName}" });
         }
 
+        var room = Room.Create(roomName);
+        _rooms.Add(room);
+        return this;
+    }
+
+    public ErrorOr<Warehouse> RemoveRoom(RoomId roomId)
+    {
         var room = _rooms.SingleOrDefault(r => r.Id == roomId);
         if (room == null)
         {
-            // TODO: Create a custom exception for not found
-            throw new ArgumentException("Room not found.", nameof(roomId));
+            return Errors.Common.EntityNotFound("Room", roomId.Value.ToString());
         }
-
         _rooms.Remove(room);
+        return this;
     }
 
 }

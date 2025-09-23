@@ -1,13 +1,17 @@
+using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Events;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 
 public sealed class Carton : AggregateRoot<CartonId, Guid>
 {
+    private readonly ICartonLocationUniquenessChecker _locationUniquenessChecker;
 
     private List<CartonItem> _items = [];
     public CartonLocation? Location { get; private set; }
@@ -24,47 +28,56 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
         return new Carton(cartonId);
     }
 
-    public void SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
+    public ErrorOr<Carton> SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
     {
+        if (_locationUniquenessChecker.IsLocationUnique(warehouseId, roomId, onLeft, below, behind) == false)
+        {
+            return Errors.Carton.LocationNotUnique;
+        }
         Location = CartonLocation.Create(warehouseId, warehouseName, roomId, roomName, onLeft, below, behind);
+        return this;
     }
 
-    public void AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)
+    public ErrorOr<Carton> AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)
     {
         if (quantity <= 0)
         {
-            throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+            return Errors.Common.CannotBeNegativeOrZero(nameof(quantity));
         }
+        // If item already exists, update quantity
         if (_items.Any(i => i.ProductId == productId && i.VariationId == variationId))
         {
             var existingItem = _items.First(i => i.ProductId == productId && i.VariationId == variationId);
             _items.Remove(existingItem);
             var updatedItem = new CartonItem(productId, variationId, refCode, existingItem.Quantity + quantity);
             _items.Add(updatedItem);
-            return;
         }
-        var item = new CartonItem(productId, variationId, refCode, quantity);
-        _items.Add(item);
+        else
+        {
+            var item = new CartonItem(productId, variationId, refCode, quantity);
+            _items.Add(item);
+        }
+        AddDomainEvent(new CartonItemAdded(Id.Value, productId.Value, variationId.Value, quantity));
 
-        AddDomainEvent(new CartonItemAdded(this.Id.Value, productId.Value, variationId.Value, quantity));
-        // TODO: increase variation quantity in inventory
+        return this;
+        // TODO: Check if need to raise domain event for adding item to carton
     }
 
-    public void RemoveItem(ProductId productId, VariationId variationId, int quantityToRemove)
+    public ErrorOr<Carton> RemoveItem(ProductId productId, VariationId variationId, int quantityToRemove)
     {
-        // TODO: implement specifications to check if item exists and has enough quantity
         if (quantityToRemove <= 0)
         {
-            throw new ArgumentException("Quantity to remove must be greater than zero.", nameof(quantityToRemove));
+            return Errors.Common.CannotBeNegativeOrZero(nameof(quantityToRemove));
         }
+        // Check if item exists
         if (!_items.Any(i => i.ProductId == productId && i.VariationId == variationId))
         {
-            throw new InvalidOperationException("Item does not exist in the carton.");
+            return Errors.Common.EntityNotFound("CartonItem", $"{productId}-{variationId}");
         }
         var existingItem = _items.First(i => i.ProductId == productId && i.VariationId == variationId);
         if (existingItem.Quantity < quantityToRemove)
         {
-            throw new InvalidOperationException("Not enough quantity to remove.");
+            return Errors.Common.CannotBeNegativeOrZero(nameof(quantityToRemove));
         }
         _items.Remove(existingItem);
         var remainingQuantity = existingItem.Quantity - quantityToRemove;
@@ -73,7 +86,8 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
             var updatedItem = new CartonItem(productId, variationId, existingItem.RefCode, remainingQuantity);
             _items.Add(updatedItem);
         }
-        // TODO: decrease variation quantity in inventory
+        return this;
+        // TODO: Check if need to raise domain event for removing item from carton
     }
 
 }

@@ -24,6 +24,7 @@ public record VariationResponse(
     Guid VariationId,
     string ProductRefCode,
     string ProductSeason,
+    string VariationRefCode,
     string Name,
     string Description,
     decimal Price,

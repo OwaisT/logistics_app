@@ -7,7 +7,7 @@ public sealed class Variation : Entity<VariationId>
 {
     public string ProductRefCode { get; private set; }
     public string ProductSeason { get; private set; }
-    public string variationRefCode => $"{ProductRefCode}-{Color}-{Size}";
+    public string VariationRefCode => $"{ProductRefCode}-{Color}-{Size}";
     public string Name { get; private set; }
     public string Description { get; private set; }
     public decimal Price { get; private set; }
@@ -78,9 +78,9 @@ public sealed class Variation : Entity<VariationId>
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void IncreaseReceived(int quantity)
+    public void ModifyReceived(int quantity)
     {
-        Received += quantity;
+        Received = quantity;
         UpdatedAt = DateTime.UtcNow;
     }
 

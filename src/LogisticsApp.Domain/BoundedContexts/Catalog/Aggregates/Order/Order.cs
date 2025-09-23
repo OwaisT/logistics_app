@@ -5,7 +5,7 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
 
 public sealed class Order : AggregateRoot<OrderId, Guid>
 {
-    private List<OrderItem> _items = [];
+    private List<OrderItem> _items = null!;
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
     public int TotalItems => _items.Sum(i => i.Quantity);
     public decimal TotalPrice { get; private set; }

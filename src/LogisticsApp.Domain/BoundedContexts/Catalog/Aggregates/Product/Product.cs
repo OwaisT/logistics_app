@@ -1,5 +1,7 @@
+using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
@@ -57,26 +59,48 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations = variations;
     }
 
-    public void AddVariation(Variation variation)
+    public ErrorOr<Product> AddVariation(string color, string size)
     {
-        _variations.Add(variation);
+        if (_variations.Any(v => v.Color == color && v.Size == size))
+        {
+            // Variation with the same color and size already exists
+            return Errors.Common.DuplicateEntity("Variation", new List<string> { $"Color: {color}", $"Size: {size}" });
+        }
+        _variations.Add(Variation.Create(
+            RefCode,
+            Season,
+            Name,
+            Description,
+            GeneralPrice,
+            color,
+            size));
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
-    public void RemoveVariation(Variation variation)
+    public ErrorOr<Product> RemoveVariation(VariationId variationId, string color, string size)
     {
-        _variations.Remove(variation);
-    }
-
-    public void IncreaseReceivedForVariation(VariationId variationId, int quantity)
-    {
-        var variation = _variations.FirstOrDefault(v => v.Id == variationId);
-        // TODO: handle errors appropriately
+        var variation = _variations.FirstOrDefault(v => v.Id == variationId && v.Color == color && v.Size == size);
         if (variation == null)
         {
-            throw new ArgumentException("Variation not found.", nameof(variationId));
+            // Variation not found
+            return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
         }
-        variation.IncreaseReceived(quantity);
+        _variations.Remove(variation);
         UpdatedAt = DateTime.UtcNow;
+        return this;
+    }
+
+    public ErrorOr<Product> ModifyReceivedForVariation(VariationId variationId, int quantity)
+    {
+        var variation = _variations.FirstOrDefault(v => v.Id == variationId);
+        if (variation == null)
+        {
+            return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
+        }
+        variation.ModifyReceived(quantity);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
 #pragma warning disable CS8618
