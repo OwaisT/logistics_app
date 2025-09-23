@@ -2,7 +2,6 @@ using System.Text;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
-using LogisticsApp.Domain.Aggregates.Product;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
 using LogisticsApp.Infrastructure.Persistence.Cartons;

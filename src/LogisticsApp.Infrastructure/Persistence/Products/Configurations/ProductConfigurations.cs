@@ -1,5 +1,5 @@
-using LogisticsApp.Domain.Aggregates.Product;
-using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Infrastructure.Persistence.Products.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

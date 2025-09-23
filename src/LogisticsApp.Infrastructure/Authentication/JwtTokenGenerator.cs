@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Services;
-using LogisticsApp.Domain.Aggregates.User;
+using LogisticsApp.Domain.Shared.Aggregates.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

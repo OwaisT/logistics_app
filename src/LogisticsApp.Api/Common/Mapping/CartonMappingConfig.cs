@@ -4,8 +4,8 @@ using LogisticsApp.Application.Cartons.Commands.AssignCartonLocation;
 using LogisticsApp.Application.Cartons.Commands.CreateCarton;
 using LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
 using LogisticsApp.Contracts.Carton;
-using LogisticsApp.Domain.Aggregates.Carton;
-using LogisticsApp.Domain.Aggregates.Carton.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;

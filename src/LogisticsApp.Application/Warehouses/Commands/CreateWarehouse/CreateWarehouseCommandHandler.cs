@@ -1,6 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using MediatR;
 
 namespace LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;

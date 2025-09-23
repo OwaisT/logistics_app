@@ -1,5 +1,4 @@
 using LogisticsApp.Application.Products.Commands.CreateProduct;
-using LogisticsApp.Domain.Products.ValueObjects;
 
 namespace LogisticsApp.Application.UnitTests.TestUtils.Constants;
 

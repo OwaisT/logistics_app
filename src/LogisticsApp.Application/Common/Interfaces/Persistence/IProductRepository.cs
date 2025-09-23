@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 

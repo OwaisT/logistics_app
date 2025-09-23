@@ -1,7 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Carton;
-using LogisticsApp.Domain.Aggregates.Warehouse.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.AssignCartonLocation;

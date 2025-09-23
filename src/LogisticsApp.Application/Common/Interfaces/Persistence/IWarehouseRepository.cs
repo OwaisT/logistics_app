@@ -1,5 +1,4 @@
-
-using LogisticsApp.Domain.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 

@@ -1,7 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Carton;
-using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;

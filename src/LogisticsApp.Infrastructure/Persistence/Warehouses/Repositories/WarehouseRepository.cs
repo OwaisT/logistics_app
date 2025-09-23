@@ -1,5 +1,5 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 
 namespace LogisticsApp.Infrastructure.Persistence.Repositories.Warehouses;
 

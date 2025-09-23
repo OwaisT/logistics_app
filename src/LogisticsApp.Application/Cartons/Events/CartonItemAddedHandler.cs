@@ -1,6 +1,6 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Carton.Events;
-using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Events;
 using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Events;

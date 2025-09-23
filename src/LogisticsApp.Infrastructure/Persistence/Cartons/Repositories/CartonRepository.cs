@@ -1,5 +1,5 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 
 namespace LogisticsApp.Infrastructure.Persistence.Cartons;
 

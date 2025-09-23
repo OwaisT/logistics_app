@@ -1,7 +1,7 @@
 using FluentAssertions;
 using LogisticsApp.Application.Products.Commands.CreateProduct;
-using LogisticsApp.Domain.Aggregates.Product;
-using LogisticsApp.Domain.Products.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 
 namespace LogisticsApp.Application.UnitTests.TestUtils.Products.Extensions;
 public static partial class ProductExtensions

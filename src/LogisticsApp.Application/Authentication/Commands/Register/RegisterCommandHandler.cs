@@ -3,8 +3,8 @@ using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Common.Interfaces.Authentication;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Common.Errors;
-using LogisticsApp.Domain.Aggregates.User;
 using MediatR;
+using LogisticsApp.Domain.Shared.Aggregates.User;
 
 namespace LogisticsApp.Application.Authentication.Commands.Register;
 

@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
 using LogisticsApp.Infrastructure.Persistence.Products.Models;

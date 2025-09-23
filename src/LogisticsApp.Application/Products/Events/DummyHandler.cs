@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Aggregates.Product.Events;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Events;
 using MediatR;
 
 namespace LogisticsApp.Application.Products.Events;

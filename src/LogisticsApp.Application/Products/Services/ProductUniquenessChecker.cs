@@ -1,5 +1,5 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.Aggregates.Product.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Services;
 
 namespace LogisticsApp.Application.Products.Services;
 

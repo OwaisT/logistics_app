@@ -1,8 +1,8 @@
 using LogisticsApp.Application.Products.Commands.CreateProduct;
 using LogisticsApp.Contracts.Product;
-using LogisticsApp.Domain.Aggregates.Product;
-using LogisticsApp.Domain.Aggregates.Product.Entities;
-using LogisticsApp.Domain.Products.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;

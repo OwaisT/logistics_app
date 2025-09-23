@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 
 namespace LogisticsApp.Infrastructure.Persistence.Products.Models;
 public class AssortmentEntry

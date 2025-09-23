@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.Aggregates.User;
+using LogisticsApp.Domain.Shared.Aggregates.User;
 
 namespace LogisticsApp.Application.Common.Interfaces.Authentication;
 
