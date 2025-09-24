@@ -28,7 +28,7 @@ public static class DependencyInjection
     {
         services
             .AddAuth(configuration)
-            .AddPersistance();
+            .AddPersistance(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         
@@ -36,10 +36,13 @@ public static class DependencyInjection
     }
 
     public static IServiceCollection AddPersistance(
-        this IServiceCollection services)
+        this IServiceCollection services, ConfigurationManager configuration)
     {
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<LogisticsAppDbContext>(options => 
-            options.UseSqlServer("Server=localhost;Database=LogisticsApp;User Id=sa;Password=Orb_One123;TrustServerCertificate=True"));
+            options.UseNpgsql(connectionString));
+        // services.AddDbContext<LogisticsAppDbContext>(options => 
+        //     options.UseSqlServer("Server=localhost;Database=LogisticsApp;User Id=sa;Password=Orb_One123;TrustServerCertificate=True"));
         services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();

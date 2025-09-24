@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    container_name: logisticsapp_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: Orb_One123
+      POSTGRES_DB: logisticsappdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
