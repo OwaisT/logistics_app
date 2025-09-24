@@ -8,6 +8,5 @@ Content-Type: application/json
 {
     "productId" : "b87cf52d-22c7-4021-ad79-2456affb2f24",
     "variationId" : "5798c450-566f-4c6d-aa7c-98cf8020b5ad",
-    "refCode" : "PROD-002-Red-S",
     "quantity" : 10
 }

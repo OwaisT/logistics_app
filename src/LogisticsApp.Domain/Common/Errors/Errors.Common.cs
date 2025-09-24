@@ -14,6 +14,10 @@ public static partial class Errors
             code: "Common.CannotBeNegative",
             description: $"The field '{fieldName}' cannot be negative.");
 
+        public static Error InvalidInput(string message) => Error.Validation(
+            code: "Common.InvalidInput",
+            description: message);
+
         public static Error CannotBeNegativeOrZero(string fieldName) => Error.Validation(
             code: "Common.CannotBeNegativeOrZero",
             description: $"The field '{fieldName}' cannot be negative or zero.");

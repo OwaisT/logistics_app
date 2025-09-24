@@ -1,5 +1,6 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 
 namespace LogisticsApp.Infrastructure.Persistence.Repositories.Warehouses;
 
@@ -12,9 +13,9 @@ public class WarehouseRepository : IWarehouseRepository
         _warehouses.Add(warehouse);
     }
 
-    public Warehouse? GetById(Guid id)
+    public Warehouse? GetById(WarehouseId id)
     {
-        return _warehouses.FirstOrDefault(w => w.Id.Value == id);
+        return _warehouses.FirstOrDefault(w => w.Id == id);
     }
 
     public Warehouse? GetByDetails(string name, string street, string area, string city, string postcode, string country)

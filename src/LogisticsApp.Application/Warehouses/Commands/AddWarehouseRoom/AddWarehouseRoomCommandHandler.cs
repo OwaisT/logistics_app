@@ -1,6 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Warehouses.Commands.AddWarehouseRoom;
@@ -17,7 +18,7 @@ public class AddWarehouseRoomCommandHandler :
     public async Task<ErrorOr<Warehouse>> Handle(AddWarehouseRoomCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
-        var warehouseId = Guid.Parse(command.WarehouseId);
+        var warehouseId = WarehouseId.Create(Guid.Parse(command.WarehouseId));
         var warehouse = _warehouseRepository.GetById(warehouseId);
         if (warehouse is null)
         {

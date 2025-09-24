@@ -1,4 +1,5 @@
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 
@@ -9,7 +10,7 @@ public interface IWarehouseRepository
     // Task SaveAsync(Warehouse warehouse);
     void Add(Warehouse warehouse);
 
-    Warehouse? GetById(Guid id);
+    Warehouse? GetById(WarehouseId id);
 
     Warehouse? GetByDetails(string name, string street, string area, string city, string postcode, string country);
 

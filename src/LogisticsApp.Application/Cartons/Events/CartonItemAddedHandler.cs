@@ -17,8 +17,8 @@ public class CartonItemAddedHandler : INotificationHandler<CartonItemAdded>
     public Task Handle(CartonItemAdded notification, CancellationToken cancellationToken)
     {
         // Handle the event (e.g., update read models, send notifications, etc.)
-        var product = _productRepository.GetById(notification.ProductId);
-        var variationId = VariationId.Create(notification.VariationId);
+        // var product = _productRepository.GetById(notification.ProductId);
+        // var variationId = VariationId.Create(notification.VariationId);
         // product!.IncreaseReceivedForVariation(variationId, notification.Quantity);
         return Task.CompletedTask;
     }

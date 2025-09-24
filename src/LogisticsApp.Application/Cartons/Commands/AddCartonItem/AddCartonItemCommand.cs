@@ -8,6 +8,5 @@ public record AddCartonItemCommand(
     string CartonId,
     string ProductId,
     string VariationId,
-    string RefCode,
     int Quantity
 ) : IRequest<ErrorOr<Carton>>;

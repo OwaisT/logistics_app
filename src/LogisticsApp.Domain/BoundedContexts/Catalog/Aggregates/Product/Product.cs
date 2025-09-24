@@ -59,6 +59,11 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations = variations;
     }
 
+    public Variation? GetVariation(VariationId variationId)
+    {
+        return _variations.FirstOrDefault(v => v.Id == variationId);
+    }
+
     public ErrorOr<Product> AddVariation(string color, string size)
     {
         if (_variations.Any(v => v.Color == color && v.Size == size))

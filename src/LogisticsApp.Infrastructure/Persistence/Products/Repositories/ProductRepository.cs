@@ -51,9 +51,9 @@ public class ProductRepository : IProductRepository
         return await Task.FromResult(_products);
     }
 
-    public Product? GetById(Guid id)
+    public Product? GetById(ProductId id)
     {
-        return _products.FirstOrDefault(p => p.Id.Value == id);
+        return _products.FirstOrDefault(p => p.Id == id);
     }
 
     public Product? GetByDetails(string refCode, string season)

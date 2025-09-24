@@ -1,4 +1,5 @@
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 
@@ -12,7 +13,7 @@ public interface IProductRepository
     List<Product> GetAll();
     Task<List<Product>> GetAllAsync();
 
-    Product? GetById(Guid id);
+    Product? GetById(ProductId id);
 
     Product? GetByDetails(string refCode, string season);
 }
