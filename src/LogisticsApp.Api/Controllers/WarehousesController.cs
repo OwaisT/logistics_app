@@ -3,6 +3,7 @@ using LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
 using LogisticsApp.Contracts.Warehouse;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticsApp.Api.Controllers;
@@ -20,6 +21,7 @@ public class WarehousesController : ApiController
         _mapper = mapper;
     }
 
+    [Authorize(Roles = "BusinessManager")]
     [HttpPost]
     public async Task<IActionResult> CreateWarehouse(CreateWarehouseRequest request)
     {
@@ -30,6 +32,7 @@ public class WarehousesController : ApiController
             Problem);
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager")]
     [HttpPost("{warehouseId}/rooms")]
     public async Task<IActionResult> AddRoomToWarehouse(AddWarehouseRoomRequest request, string warehouseId)
     {

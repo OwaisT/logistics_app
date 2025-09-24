@@ -35,6 +35,12 @@ public class JWTTokenGenerator : IJwtTokenGenerator
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        foreach (var role in user.Roles)
+        {
+            claims = [.. claims, new Claim(ClaimTypes.Role, role)];
+        }
+
         var securityToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,

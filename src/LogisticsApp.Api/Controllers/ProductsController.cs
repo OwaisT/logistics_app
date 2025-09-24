@@ -4,6 +4,7 @@ using LogisticsApp.Application.Products.Commands.CreateProduct;
 using MediatR;
 using MapsterMapper;
 using LogisticsApp.Application.Products.Queries.GetProducts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LogisticsApp.Api.Controllers;
 
@@ -19,6 +20,7 @@ public class ProductsController : ApiController
         _mapper = mapper;
     }
 
+    [Authorize(Roles = "BusinessManager")]
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request, string hostId)
     {
@@ -29,6 +31,7 @@ public class ProductsController : ApiController
             Problem);
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager,FacilityWorker")]
     [HttpGet]
     public async Task<IActionResult> GetProducts()
     {

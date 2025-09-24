@@ -30,7 +30,7 @@ public class RegisterCommandHandler :
         }
 
         // Create user
-        var user = User.Create(command.FirstName, command.LastName, command.Email, command.Password);
+        var user = User.Create(command.FirstName, command.LastName, command.Email, command.Password, command.Roles);
         _userRepository.Add(user);
 
         // Create JWT token

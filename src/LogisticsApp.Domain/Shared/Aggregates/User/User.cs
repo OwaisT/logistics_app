@@ -34,9 +34,18 @@ public sealed class User : AggregateRoot<UserId, Guid>
         string firstName,
         string lastName,
         string email,
-        string passwordHash)
+        string passwordHash,
+        IEnumerable<string>? roles = null)
     {
-        return new User(UserId.CreateUnique(), firstName, lastName, email, passwordHash);
+        var user = new User(UserId.CreateUnique(), firstName, lastName, email, passwordHash);
+        if (roles != null)
+        {
+            foreach (var role in roles)
+            {
+                user.AddRole(role);
+            }
+        }
+        return user;
     }
 
     public void Update(string firstName, string lastName, string email)

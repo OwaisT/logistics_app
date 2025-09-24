@@ -5,6 +5,7 @@ using LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
 using LogisticsApp.Contracts.Carton;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogisticsApp.Api.Controllers;
@@ -22,6 +23,7 @@ public class CartonsController : ApiController
         _mapper = mapper;
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager")]
     [HttpPost]
     public async Task<IActionResult> CreateCarton(CreateCartonRequest request)
     {
@@ -32,6 +34,7 @@ public class CartonsController : ApiController
             Problem);
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager,FacilityWorker")]
     [HttpPost("{cartonId}/CartonItem")]
     public async Task<IActionResult> AddCartonItem(AddCartonItemRequest request, string cartonId)
     {
@@ -42,6 +45,7 @@ public class CartonsController : ApiController
             Problem);
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager,FacilityWorker")]
     [HttpDelete("{cartonId}/CartonItem")]
     public async Task<IActionResult> RemoveCartonItem(RemoveCartonItemRequest request, string cartonId)
     {
@@ -52,6 +56,7 @@ public class CartonsController : ApiController
             Problem);
     }
 
+    [Authorize(Roles = "BusinessManager,FacilityManager,FacilityWorker")]
     [HttpPost("{cartonId}/CartonLocation")]
     public async Task<IActionResult> AssignCartonLocation(AssignCartonLocationRequest request, string cartonId)
     {
