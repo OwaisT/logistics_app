@@ -2,6 +2,7 @@ using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
@@ -19,7 +20,7 @@ public class RemoveCartonItemCommandHandler :
     {
         await Task.CompletedTask;
         var cartonId = Guid.Parse(command.CartonId);
-        var carton = _cartonRepository.GetById(cartonId);
+        var carton = _cartonRepository.GetById(CartonId.Create(cartonId));
         if (carton is null)
         {
             return Error.NotFound(description: "Carton not found.");

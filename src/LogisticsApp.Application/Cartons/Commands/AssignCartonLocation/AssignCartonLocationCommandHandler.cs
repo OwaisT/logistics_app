@@ -1,6 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using MediatR;
 
@@ -21,7 +22,7 @@ public class AssignCartonLocationCommandHandler :
     {
         await Task.CompletedTask;
         var cartonId = Guid.Parse(command.CartonId);
-        var carton = _cartonRepository.GetById(cartonId);
+        var carton = _cartonRepository.GetById(CartonId.Create(cartonId));
         if (carton is null)
         {
             return Error.NotFound(description: "Carton not found.");

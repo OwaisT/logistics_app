@@ -1,5 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Entities;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
@@ -8,6 +9,7 @@ namespace LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 
 public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
 {
+    private readonly IWarehouseUniquenessChecker _uniquenessChecker;
     private readonly List<Room> _rooms = [];
     public string Name { get; private set; }
     public string Street { get; private set; }
@@ -27,7 +29,8 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         string area,
         string city,
         string postcode,
-        string country)
+        string country,
+        IWarehouseUniquenessChecker uniquenessChecker)
         : base(id)
     {
         Name = name;
@@ -40,25 +43,30 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         UpdatedAt = DateTime.UtcNow;
         IsActive = true;
         _rooms = [];
+        _uniquenessChecker = uniquenessChecker;
     }
-
-    public static Warehouse Create(
+    public static ErrorOr<Warehouse> Create(
         string name,
         string street,
         string area,
         string city,
         string postcode,
-        string country)
+        string country,
+        IWarehouseUniquenessChecker uniquenessChecker)
     {
         var warehouseId = WarehouseId.CreateUnique();
-        return new Warehouse(warehouseId, name, street, area, city, postcode, country);
+        if (!uniquenessChecker.IsUnique(name, street, area, city, postcode, country))
+        {
+            return Errors.Common.DuplicateEntity("Warehouse", [$"Name: {name}", $"Street: {street}", $"Area: {area}", $"City: {city}", $"Postcode: {postcode}", $"Country: {country}"]);
+        }
+        return new Warehouse(warehouseId, name, street, area, city, postcode, country, uniquenessChecker);
     }
 
     public ErrorOr<Warehouse> AddWarehouseRoom(string roomName)
     {
         if (_rooms.Any(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase)))
         {
-            return Errors.Common.DuplicateEntity("Room", new List<string> { $"Name: {roomName}" });
+            return Errors.Common.DuplicateEntity("Room", [$"Name: {roomName}"]);
         }
 
         var room = Room.Create(roomName);

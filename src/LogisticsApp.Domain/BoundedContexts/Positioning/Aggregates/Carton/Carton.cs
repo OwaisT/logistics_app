@@ -17,15 +17,16 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
     public CartonLocation? Location { get; private set; }
     public IReadOnlyList<CartonItem> Items => _items.AsReadOnly();
 
-    private Carton(CartonId id) : base(id)
+    private Carton(CartonId id, ICartonLocationUniquenessChecker locationUniquenessChecker) : base(id)
     {
+        _locationUniquenessChecker = locationUniquenessChecker;
         Location = null;
     }
 
-    public static Carton Create()
+    public static Carton Create(ICartonLocationUniquenessChecker locationUniquenessChecker)
     {
         var cartonId = CartonId.CreateUnique();
-        return new Carton(cartonId);
+        return new Carton(cartonId, locationUniquenessChecker);
     }
 
     public ErrorOr<Carton> SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)

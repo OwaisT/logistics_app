@@ -17,4 +17,16 @@ public class WarehouseRepository : IWarehouseRepository
         return _warehouses.FirstOrDefault(w => w.Id.Value == id);
     }
 
+    public Warehouse? GetByDetails(string name, string street, string area, string city, string postcode, string country)
+    {
+        return _warehouses.FirstOrDefault(w =>
+            w.Name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
+            w.Street.Equals(street, StringComparison.OrdinalIgnoreCase) &&
+            w.Area.Equals(area, StringComparison.OrdinalIgnoreCase) &&
+            w.City.Equals(city, StringComparison.OrdinalIgnoreCase) &&
+            w.Postcode.Equals(postcode, StringComparison.OrdinalIgnoreCase) &&
+            w.Country.Equals(country, StringComparison.OrdinalIgnoreCase)
+        );
+    }
+
 }

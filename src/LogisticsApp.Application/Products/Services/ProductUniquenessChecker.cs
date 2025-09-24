@@ -8,7 +8,7 @@ public class ProductUniquenessChecker(IProductRepository _productRepository) : I
 
     public bool IsUnique(string refCode, string season)
     {
-        var existingProducts = _productRepository.GetAll();
-        return !existingProducts.Any(p => p.RefCode == refCode && p.Season == season);
+        var existingProduct = _productRepository.GetByDetails(refCode, season);
+        return existingProduct == null;
     }
 }

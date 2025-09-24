@@ -13,4 +13,6 @@ public interface IProductRepository
     Task<List<Product>> GetAllAsync();
 
     Product? GetById(Guid id);
+
+    Product? GetByDetails(string refCode, string season);
 }

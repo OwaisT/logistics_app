@@ -56,6 +56,12 @@ public class ProductRepository : IProductRepository
         return _products.FirstOrDefault(p => p.Id.Value == id);
     }
 
+    public Product? GetByDetails(string refCode, string season)
+    {
+        return _products.FirstOrDefault(p => p.RefCode == refCode && p.Season == season);
+    }
+
+
     // Helper: Map persistence Size entities to domain List<string>
     private List<string> MapSizesToDomain(List<Size> sizes)
     {
@@ -82,4 +88,5 @@ public class ProductRepository : IProductRepository
             .Select(g => Assortment.Create(g.Key, g.ToDictionary(e => e.Size, e => e.Quantity)))
             .ToList();
     }
+
 }

@@ -19,7 +19,7 @@ public class CartonItemAddedHandler : INotificationHandler<CartonItemAdded>
         // Handle the event (e.g., update read models, send notifications, etc.)
         var product = _productRepository.GetById(notification.ProductId);
         var variationId = VariationId.Create(notification.VariationId);
-        product!.IncreaseReceivedForVariation(variationId, notification.Quantity);
+        // product!.IncreaseReceivedForVariation(variationId, notification.Quantity);
         return Task.CompletedTask;
     }
 }

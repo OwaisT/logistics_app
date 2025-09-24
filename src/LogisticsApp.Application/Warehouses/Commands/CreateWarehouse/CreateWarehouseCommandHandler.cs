@@ -1,5 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Application.Warehouses.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using MediatR;
 
@@ -23,10 +24,17 @@ public class CreateWarehouseCommandHandler :
             command.Area,
             command.City,
             command.Postcode,
-            command.Country);
-
-        _warehouseRepository.Add(warehouse);
+            command.Country,
+            new WarehouseUniquenessChecker(_warehouseRepository)
+            );
         
-        return await Task.FromResult<ErrorOr<Warehouse>>(warehouse);
+        if (warehouse.IsError)
+        {
+            return warehouse.Errors;
+        }
+
+        _warehouseRepository.Add(warehouse.Value);
+
+        return await Task.FromResult<ErrorOr<Warehouse>>(warehouse.Value);
     }
 }
