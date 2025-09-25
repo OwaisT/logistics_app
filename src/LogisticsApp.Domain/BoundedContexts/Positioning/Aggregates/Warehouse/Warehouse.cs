@@ -85,4 +85,8 @@ public sealed class Warehouse : AggregateRoot<WarehouseId, Guid>
         return this;
     }
 
+#pragma warning disable CS8618
+    private Warehouse() : base(default!) { }
+#pragma warning restore CS8618
+
 }

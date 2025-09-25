@@ -26,4 +26,8 @@ public sealed class Room : Entity<RoomId>
         Name = name;
     }
 
+#pragma warning disable CS8618
+    private Room() : base(default!) { }
+#pragma warning restore CS8618
+
 }

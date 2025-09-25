@@ -1,23 +1,25 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
-using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
-using LogisticsApp.Infrastructure.Persistence.Products.Models;
+// using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
+// using LogisticsApp.Infrastructure.Persistence.Products.Models;
 
 namespace LogisticsApp.Infrastructure.Persistence.Products.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly LogisticsAppDbContext _dbContext;
+    // private readonly LogisticsAppDbContext _dbContext;
     private static readonly List<Product> _products = [];
-    private readonly MappingInHelper _mappingInHelper;
-    private readonly DBInsertionHelper _dbInsertionHelper;
+    // private readonly MappingInHelper _mappingInHelper;
+    // private readonly DBInsertionHelper _dbInsertionHelper;
 
-    public ProductRepository(LogisticsAppDbContext dbContext)
+    public ProductRepository(
+        // LogisticsAppDbContext dbContext
+        )
     {
-        _dbContext = dbContext;
-        _mappingInHelper = new MappingInHelper(dbContext);
-        _dbInsertionHelper = new DBInsertionHelper(dbContext);
+        // _dbContext = dbContext;
+        // _mappingInHelper = new MappingInHelper(dbContext);
+        // _dbInsertionHelper = new DBInsertionHelper(dbContext);
     }
 
     public void Add(Product product)
@@ -63,30 +65,30 @@ public class ProductRepository : IProductRepository
 
 
     // Helper: Map persistence Size entities to domain List<string>
-    private List<string> MapSizesToDomain(List<Size> sizes)
-    {
-        return sizes.Select(s => s.Name).ToList();
-    }
+    // private List<string> MapSizesToDomain(List<Size> sizes)
+    // {
+    //     return sizes.Select(s => s.Name).ToList();
+    // }
 
-    // Helper: Map persistence Color entities to domain List<string>
-    private List<string> MapColorsToDomain(List<Color> colors)
-    {
-        return colors.Select(c => c.Name).ToList();
-    }
+    // // Helper: Map persistence Color entities to domain List<string>
+    // private List<string> MapColorsToDomain(List<Color> colors)
+    // {
+    //     return colors.Select(c => c.Name).ToList();
+    // }
 
-    // Helper: Map persistence Category entities to domain List<string>
-    private List<string> MapCategoriesToDomain(List<Category> categories)
-    {
-        return categories.Select(c => c.Name).ToList();
-    }
+    // // Helper: Map persistence Category entities to domain List<string>
+    // private List<string> MapCategoriesToDomain(List<Category> categories)
+    // {
+    //     return categories.Select(c => c.Name).ToList();
+    // }
 
-    // Helper: Map persistence AssortmentEntry entities to domain Assortment objects
-    private List<Assortment> MapAssortmentsToDomain(List<AssortmentEntry> entries)
-    {
-        return entries
-            .GroupBy(e => e.Color)
-            .Select(g => Assortment.Create(g.Key, g.ToDictionary(e => e.Size, e => e.Quantity)))
-            .ToList();
-    }
+    // // Helper: Map persistence AssortmentEntry entities to domain Assortment objects
+    // private List<Assortment> MapAssortmentsToDomain(List<AssortmentEntry> entries)
+    // {
+    //     return entries
+    //         .GroupBy(e => e.Color)
+    //         .Select(g => Assortment.Create(g.Key, g.ToDictionary(e => e.Size, e => e.Quantity)))
+    //         .ToList();
+    // }
 
 }

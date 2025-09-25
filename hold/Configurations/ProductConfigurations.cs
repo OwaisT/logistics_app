@@ -1,3 +1,4 @@
+using System.Text.Json;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Infrastructure.Persistence.Products.Models;
@@ -17,22 +18,82 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         ConfigureProductSizesTable(builder);
     }
 
+    private void ConfigureProductsTable(EntityTypeBuilder<Product> builder)
+    {
+        builder.ToTable("Products");
+
+        builder.HasKey(p => p.Id);
+
+        builder.Property(p => p.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
+                id => id.Value,
+                value => ProductId.Create(value));
+
+        builder.Property(p => p.RefCode)
+            .IsRequired()
+            .HasMaxLength(50);
+
+        builder.Property(p => p.Season)
+            .IsRequired()
+            .HasMaxLength(50);
+
+        builder.Property(p => p.Name)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        builder.Property(p => p.Description)
+            .HasMaxLength(500);
+
+        builder.Property(p => p.GeneralPrice)
+            .IsRequired();
+
+        // builder.Property(p => p.CreatedAt)
+        //     .IsRequired();
+
+        // builder.Property(p => p.UpdatedAt)
+        //     .IsRequired();
+
+        builder.Property(p => p.IsActive)
+            .IsRequired()
+            .HasDefaultValue(true);
+
+        builder.Property(p => p.Assortments)
+            .HasColumnType("jsonb")
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<List<Assortment>>(v, (JsonSerializerOptions?)null)!
+            );
+        builder.Metadata.FindNavigation(nameof(Product.Assortments))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+    }
+
     private void ConfigureVariationsTable(EntityTypeBuilder<Product> builder)
     {
         builder.OwnsMany(p => p.Variations, vb =>
         {
             vb.ToTable("ProductVariations");
             vb.WithOwner().HasForeignKey("ProductId");
+
+            vb.HasKey("Id", "ProductId");
+
             vb.Property(v => v.Id)
                 .HasColumnName("VariationId")
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
                     value => VariationId.Create(value));
-            vb.HasKey("Id", "ProductId");
+            
             vb.Property(v => v.ProductRefCode)
                 .IsRequired()
                 .HasMaxLength(50);
+            vb.Property(v => v.ProductSeason)
+                .IsRequired()
+                .HasMaxLength(50);
+            vb.Property(v => v.VariationRefCode)
+                .IsRequired()
+                .HasMaxLength(100);
             vb.Property(v => v.Name)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -53,14 +114,14 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             vb.Property(v => v.Sold)
                 .IsRequired()
                 .HasDefaultValue(0);
+            vb.Property(v => v.Available)
+                .IsRequired();
             vb.Property(v => v.Returned)
                 .IsRequired()
                 .HasDefaultValue(0);
             vb.Property(v => v.Defective)
                 .IsRequired()
                 .HasDefaultValue(0);
-            // vb.Property(v => v.Available)
-            //     .IsRequired();
             // vb.Property(v => v.CreatedAt)
             //     .IsRequired();
             // vb.Property(v => v.UpdatedAt)
@@ -74,29 +135,18 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
 
     private void ConfigureProductSizesTable(EntityTypeBuilder<Product> builder)
     {
-        builder
-            .Ignore(p => p.Sizes); // EF doesn’t persist domain names directly
+        builder.OwnsMany(p => p.Sizes, psb =>
+        {
+            psb.ToTable("ProductSizes");
+            psb.WithOwner().HasForeignKey("ProductId");
 
-        builder
-            .HasMany<Size>() // use EF Size entity
-            .WithMany()
-            .UsingEntity<Dictionary<string, object>>(
-                "ProductSizes",
-                j => j
-                    .HasOne<Size>()
-                    .WithMany()
-                    .HasForeignKey("SizeId")
-                    .OnDelete(DeleteBehavior.Cascade),
-                j => j
-                    .HasOne<Product>()
-                    .WithMany()
-                    .HasForeignKey("ProductId")
-                    .OnDelete(DeleteBehavior.Cascade),
-                j =>
-                {
-                    j.ToTable("ProductSizes");
-                    j.HasKey("ProductId", "SizeId");
-                });
+            psb.HasKey("Size");
+
+            psb.Property(s => s)
+                .HasColumnName("Size")
+                .ValueGeneratedNever()
+                .HasMaxLength(50);
+        });
     }
 
     private void ConfigureProductColorsTable(EntityTypeBuilder<Product> builder)
@@ -153,45 +203,4 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 });
     }
 
-
-    private void ConfigureProductsTable(EntityTypeBuilder<Product> builder)
-    {
-        builder.ToTable("Products");
-
-        builder.HasKey(p => p.Id);
-
-        builder.Property(p => p.Id)
-            .ValueGeneratedNever()
-            .HasConversion(
-                id => id.Value,
-                value => ProductId.Create(value));
-
-        builder.Property(p => p.RefCode)
-            .IsRequired()
-            .HasMaxLength(50);
-
-        builder.Property(p => p.Season)
-            .IsRequired()
-            .HasMaxLength(50);
-
-        builder.Property(p => p.Name)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(p => p.Description)
-            .HasMaxLength(500);
-
-        // builder.Property(p => p.CreatedAt)
-        //     .IsRequired();
-
-        // builder.Property(p => p.UpdatedAt)
-        //     .IsRequired();
-
-        builder.Property(p => p.IsActive)
-            .IsRequired()
-            .HasDefaultValue(true);
-
-        builder.Ignore(p => p.Assortments);
-
-    }
 }
