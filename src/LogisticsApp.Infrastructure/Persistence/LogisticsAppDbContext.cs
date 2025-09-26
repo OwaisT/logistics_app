@@ -1,7 +1,10 @@
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.Common.Models;
+using LogisticsApp.Domain.Shared.Aggregates.User;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
+using LogisticsApp.Infrastructure.Persistence.Users.Entities;
+
 // using LogisticsApp.Infrastructure.Persistence.Products.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +21,8 @@ public class LogisticsAppDbContext : DbContext
     }
 
     public DbSet<Warehouse> Warehouses { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<RoleEntity> Roles { get; set; }
     // public DbSet<Product> Products { get; set; } = null!;
     // public DbSet<AssortmentEntry> ProductAssortments { get; set; } = null!;
 

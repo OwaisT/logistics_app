@@ -16,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 // builder.Services.AddSwaggerGen();
 
 
+// TODO: make sure to change the secret key in appsettings.json before deploying the application
+// TODO: make sure to change the database connection string in appsettings.json before deploying the application
+
+
 var app = builder.Build();
 {
     // app.UseSwagger();

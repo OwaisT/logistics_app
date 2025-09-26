@@ -3,6 +3,7 @@ using ErrorOr;
 using FluentValidation;
 using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
+using LogisticsApp.Application.Authentication.Services;
 using LogisticsApp.Application.Cartons.Services;
 using LogisticsApp.Application.Common.Behaviors;
 using LogisticsApp.Application.Products.Services;
@@ -11,6 +12,7 @@ using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Services;
+using LogisticsApp.Domain.Shared.Aggregates.User.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +29,7 @@ public static class DependencyInjection
             typeof(IPipelineBehavior<,>),
             typeof(ValidateBehavior<,>));
         services.AddScoped<IProductUniquenessChecker, ProductUniquenessChecker>();
+        services.AddScoped<IUserUniquenessChecker, UserUniquenessChecker>();
         services.AddScoped<ICartonLocationUniquenessChecker, CartonLocationUniquenessChecker>();
         services.AddScoped<IWarehouseUniquenessChecker, WarehouseUniquenessChecker>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

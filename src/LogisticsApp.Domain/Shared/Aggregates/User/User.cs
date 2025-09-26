@@ -1,4 +1,7 @@
+using ErrorOr;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
+using LogisticsApp.Domain.Shared.Aggregates.User.Services;
 using LogisticsApp.Domain.Shared.Aggregates.User.ValueObjects;
 
 namespace LogisticsApp.Domain.Shared.Aggregates.User;
@@ -16,36 +19,22 @@ public sealed class User : AggregateRoot<UserId, Guid>
     public bool IsActive { get; private set; }
 
 
-    private User(
+    internal User(
         UserId id,
         string firstName,
         string lastName,
         string email,
-        string passwordHash)
+        string passwordHash,
+        IEnumerable<string>? roles = null)
         : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PasswordHash = passwordHash;
-    }
-
-    public static User Create(
-        string firstName,
-        string lastName,
-        string email,
-        string passwordHash,
-        IEnumerable<string>? roles = null)
-    {
-        var user = new User(UserId.CreateUnique(), firstName, lastName, email, passwordHash);
-        if (roles != null)
-        {
-            foreach (var role in roles)
-            {
-                user.AddRole(role);
-            }
-        }
-        return user;
+        _roles = roles?.ToList() ?? [];
+        CreatedAt = DateTime.UtcNow;
+        IsActive = true;
     }
 
     public void Update(string firstName, string lastName, string email)
@@ -81,5 +70,7 @@ public sealed class User : AggregateRoot<UserId, Guid>
         IsActive = false;
     }
 
-
+#pragma warning disable CS8618
+    private User() : base(default!) { }
+#pragma warning restore CS8618
 }

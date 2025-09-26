@@ -1,6 +1,7 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogisticsApp.Infrastructure.Persistence.Warehouses.Repositories;
 
@@ -30,13 +31,13 @@ public class WarehouseRepository : IWarehouseRepository
 
     public Warehouse? GetByDetails(string name, string street, string area, string city, string postcode, string country)
     {
-        return _warehouses.FirstOrDefault(w =>
-            w.Name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
-            w.Street.Equals(street, StringComparison.OrdinalIgnoreCase) &&
-            w.Area.Equals(area, StringComparison.OrdinalIgnoreCase) &&
-            w.City.Equals(city, StringComparison.OrdinalIgnoreCase) &&
-            w.Postcode.Equals(postcode, StringComparison.OrdinalIgnoreCase) &&
-            w.Country.Equals(country, StringComparison.OrdinalIgnoreCase)
+        return _dbContext.Warehouses.FirstOrDefault(w =>
+            EF.Functions.ILike(w.Name, name) &&
+            EF.Functions.ILike(w.Street, street) &&
+            EF.Functions.ILike(w.Area, area) &&
+            EF.Functions.ILike(w.City, city) &&
+            EF.Functions.ILike(w.Postcode, postcode) &&
+            EF.Functions.ILike(w.Country, country)
         );
     }
 

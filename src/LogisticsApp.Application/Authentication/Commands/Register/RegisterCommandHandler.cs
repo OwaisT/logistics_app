@@ -5,6 +5,8 @@ using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.Common.Errors;
 using MediatR;
 using LogisticsApp.Domain.Shared.Aggregates.User;
+using LogisticsApp.Domain.Shared.Aggregates.User.Services;
+using LogisticsApp.Application.Authentication.Services;
 
 namespace LogisticsApp.Application.Authentication.Commands.Register;
 
@@ -13,11 +15,14 @@ public class RegisterCommandHandler :
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
+    private readonly UserFactory _userFactory;
+    
 
     public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
+        _userFactory = new UserFactory(new UserUniquenessChecker(_userRepository));
     }
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -30,7 +35,13 @@ public class RegisterCommandHandler :
         }
 
         // Create user
-        var user = User.Create(command.FirstName, command.LastName, command.Email, command.Password, command.Roles);
+        var userResult = _userFactory.Create(command.FirstName, command.LastName, command.Email, command.Password, command.Roles);
+        if (userResult.IsError)
+        {
+            return userResult.Errors;
+        }
+
+        var user = userResult.Value;
         _userRepository.Add(user);
 
         // Create JWT token
