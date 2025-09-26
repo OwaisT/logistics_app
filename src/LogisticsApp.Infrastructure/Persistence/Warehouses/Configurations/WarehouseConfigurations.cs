@@ -11,7 +11,6 @@ public class WarehouseConfigurations : IEntityTypeConfiguration<Warehouse>
     {
         ConfigureWarehousesTable(builder);
         ConfigureRoomsTable(builder);
-
     }
 
     public void ConfigureWarehousesTable(EntityTypeBuilder<Warehouse> builder)
@@ -79,6 +78,10 @@ public class WarehouseConfigurations : IEntityTypeConfiguration<Warehouse>
                 .IsRequired()
                 .HasMaxLength(100);
         });
+
+        builder.Metadata
+            .FindNavigation(nameof(Warehouse.Rooms))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
     
 }

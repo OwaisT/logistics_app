@@ -24,8 +24,14 @@ public class AddWarehouseRoomCommandHandler :
         {
             return Error.NotFound(description: "Warehouse not found.");
         }
-        warehouse.AddWarehouseRoom(command.RoomName);
+        var updatedWarehouseResult = warehouse.AddWarehouseRoom(command.RoomName);
+        if (updatedWarehouseResult.IsError)
+        {
+            return updatedWarehouseResult.Errors;
+        }
+        var updatedWarehouse = updatedWarehouseResult.Value;
+        _warehouseRepository.Update(updatedWarehouse);
 
-        return await Task.FromResult<ErrorOr<Warehouse>>(warehouse);
+        return await Task.FromResult<ErrorOr<Warehouse>>(updatedWarehouse);
     }
 }

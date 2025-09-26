@@ -14,4 +14,7 @@ public interface IWarehouseRepository
 
     Warehouse? GetByDetails(string name, string street, string area, string city, string postcode, string country);
 
+    void Update(Warehouse warehouse);
+    void Delete(Warehouse warehouse);
+
 }
