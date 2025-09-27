@@ -1,5 +1,6 @@
 using LogisticsApp.Application.Warehouses.Commands.AddWarehouseRoom;
 using LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
+using LogisticsApp.Application.Warehouses.Queries.GetWarehouse;
 using LogisticsApp.Contracts.Warehouse;
 using MapsterMapper;
 using MediatR;
@@ -28,6 +29,17 @@ public class WarehousesController : ApiController
         var command = _mapper.Map<CreateWarehouseCommand>(request);
         var createWarehouseResult = await _mediator.Send(command);
         return createWarehouseResult.Match(
+            warehouse => Ok(_mapper.Map<WarehouseResponse>(warehouse)),
+            Problem);
+    }
+
+    [Authorize(Roles = "BusinessManager,FacilityManager")]
+    [HttpGet("{warehouseId}")]
+    public async Task<IActionResult> GetWarehouse(string warehouseId)
+    {
+        var query = new GetWarehouseQuery(warehouseId);
+        var warehouse = await _mediator.Send(query);
+        return warehouse.Match(
             warehouse => Ok(_mapper.Map<WarehouseResponse>(warehouse)),
             Problem);
     }

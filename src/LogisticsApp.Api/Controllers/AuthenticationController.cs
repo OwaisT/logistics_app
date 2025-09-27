@@ -49,6 +49,7 @@ public class AuthenticationController : ApiController
             authResult.User.FirstName,
             authResult.User.LastName,
             authResult.User.Email,
+            authResult.User.Roles,
             authResult.Token);
     }
 }

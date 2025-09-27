@@ -13,7 +13,7 @@ public class WarehouseConfigurations : IEntityTypeConfiguration<Warehouse>
         ConfigureRoomsTable(builder);
     }
 
-    public void ConfigureWarehousesTable(EntityTypeBuilder<Warehouse> builder)
+    private static void ConfigureWarehousesTable(EntityTypeBuilder<Warehouse> builder)
     {
         builder.ToTable("Warehouses");
 
@@ -59,7 +59,7 @@ public class WarehouseConfigurations : IEntityTypeConfiguration<Warehouse>
             .HasDefaultValue(true);
     }
 
-    public void ConfigureRoomsTable(EntityTypeBuilder<Warehouse> builder)
+    private static void ConfigureRoomsTable(EntityTypeBuilder<Warehouse> builder)
     {
         builder.OwnsMany(w => w.Rooms, rb =>
         {

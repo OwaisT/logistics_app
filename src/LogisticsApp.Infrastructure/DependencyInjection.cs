@@ -32,7 +32,7 @@ public static class DependencyInjection
             .AddPersistance(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        
+
         return services;
     }
 
@@ -41,15 +41,11 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<LogisticsAppDbContext>(options => 
+        services.AddDbContext<LogisticsAppDbContext>(options =>
             options.UseNpgsql(connectionString));
         services.AddScoped<PublishDomainEventsInterceptor>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
-        services.AddScoped<ICartonRepository, CartonRepository>();
-        services.AddScoped<UserMappingInHelper>();
-        services.AddScoped<UserDBInsertionHelper>();
+        services.AddRepositories();
+        services.AddHelpers();
 
         return services;
     }
@@ -79,6 +75,24 @@ public static class DependencyInjection
                 ClockSkew = TimeSpan.Zero
             });
 
+        return services;
+    }
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+        services.AddScoped<ICartonRepository, CartonRepository>();
+        return services;
+    }
+    
+    public static IServiceCollection AddHelpers(this IServiceCollection services)
+    {
+        services.AddScoped<UserMappingInHelper>();
+        services.AddScoped<UserDBInsertionHelper>();
+        services.AddScoped<UserMappingOutHelper>();
+        services.AddScoped<UserDBExtractionHelper>();
         return services;
     }
 }
