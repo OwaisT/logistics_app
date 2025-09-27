@@ -3,15 +3,9 @@ using LogisticsApp.Infrastructure.Persistence.Users.Entities;
 
 namespace LogisticsApp.Infrastructure.Persistence.Users.Helpers;
 
-public class UserDBInsertionHelper
+public class UserDBInsertionHelper(
+    LogisticsAppDbContext _dbContext)
 {
-    private readonly LogisticsAppDbContext _dbContext;
-
-    public UserDBInsertionHelper(LogisticsAppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public void CreateAndInsertUserRoles(User user, List<RoleEntity> roles)
     {
         foreach (var role in roles)

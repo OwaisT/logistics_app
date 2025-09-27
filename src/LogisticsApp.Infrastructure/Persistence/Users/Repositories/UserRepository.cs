@@ -5,28 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LogisticsApp.Infrastructure.Persistence.Users.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(
+    LogisticsAppDbContext _dbContext,
+    UserMappingInHelper _mappingInHelper,
+    UserDBInsertionHelper _dbInsertionHelper,
+    UserMappingOutHelper _mappingOutHelper,
+    UserDBExtractionHelper _dbExtractionHelper) : IUserRepository
 {
     private static readonly List<User> _users = [];
-    private readonly LogisticsAppDbContext _dbContext;
-    private readonly UserMappingInHelper _mappingInHelper;
-    private readonly UserDBInsertionHelper _dbInsertionHelper;
-    private readonly UserMappingOutHelper _mappingOutHelper;
-    private readonly UserDBExtractionHelper _dbExtractionHelper;
-
-    public UserRepository(
-        LogisticsAppDbContext dbContext,
-        UserMappingInHelper mappingInHelper,
-        UserDBInsertionHelper dbInsertionHelper,
-        UserMappingOutHelper mappingOutHelper,
-        UserDBExtractionHelper dbExtractionHelper)
-    {
-        _dbContext = dbContext;
-        _mappingInHelper = mappingInHelper;
-        _mappingOutHelper = mappingOutHelper;
-        _dbInsertionHelper = dbInsertionHelper;
-        _dbExtractionHelper = dbExtractionHelper;
-    }
 
     public void Add(User user)
     {

@@ -3,6 +3,7 @@ using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Domain.Shared.Aggregates.User;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
+using LogisticsApp.Infrastructure.Persistence.Products.Entities;
 using LogisticsApp.Infrastructure.Persistence.Users.Entities;
 
 // using LogisticsApp.Infrastructure.Persistence.Products.Models;
@@ -23,8 +24,10 @@ public class LogisticsAppDbContext : DbContext
     public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<RoleEntity> Roles { get; set; }
-    // public DbSet<Product> Products { get; set; } = null!;
-    // public DbSet<AssortmentEntry> ProductAssortments { get; set; } = null!;
+    public DbSet<Product> Products { get; set; }
+    public DbSet<SizeEntity> ProductSizes { get; set; }
+    public DbSet<ColorEntity> ProductColors { get; set; }
+    public DbSet<CategoryEntity> ProductCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

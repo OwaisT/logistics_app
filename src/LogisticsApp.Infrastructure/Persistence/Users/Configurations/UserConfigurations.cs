@@ -14,7 +14,7 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         ConfigureUserRolesTable(builder);
     }
 
-    private void ConfigureUsersTable(EntityTypeBuilder<User> builder)
+    private static void ConfigureUsersTable(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users");
 
@@ -51,7 +51,7 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
 
     }
 
-    private void ConfigureUserRolesTable(EntityTypeBuilder<User> builder)
+    private static void ConfigureUserRolesTable(EntityTypeBuilder<User> builder)
     {
         builder.Ignore(u => u.Roles);
 
@@ -64,11 +64,13 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
                     .HasOne<RoleEntity>()
                     .WithMany()
                     .HasForeignKey("RoleId")
+                    .HasConstraintName("FK_UserRoles_Roles_RoleId")
                     .OnDelete(DeleteBehavior.Cascade),
                 j => j
                     .HasOne<User>()
                     .WithMany()
                     .HasForeignKey("UserId")
+                    .HasConstraintName("FK_UserRoles_Users_UserId")
                     .OnDelete(DeleteBehavior.Cascade),
                 j =>
                 {

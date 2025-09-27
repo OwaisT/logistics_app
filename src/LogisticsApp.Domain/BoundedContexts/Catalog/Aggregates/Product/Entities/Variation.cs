@@ -5,9 +5,11 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entitie
 
 public sealed class Variation : Entity<VariationId>
 {
+    private int _availableStock => Received - Sold + Returned - Defective;
+    private string _variationRefCode => $"{ProductRefCode}-{Color}-{Size}";
     public string ProductRefCode { get; private set; }
     public string ProductSeason { get; private set; }
-    public string VariationRefCode => $"{ProductRefCode}-{Color}-{Size}";
+    public string VariationRefCode { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
     public decimal Price { get; private set; }
@@ -15,7 +17,7 @@ public sealed class Variation : Entity<VariationId>
     public string Size { get; private set; }
     public int Received { get; private set; }
     public int Sold { get; private set; }
-    public int Available => Received - Sold + Returned - Defective;
+    public int Available { get; private set; }
     public int Returned { get; private set; }
     public int Defective { get; private set; }
     public DateTime CreatedAt { get; private set; }
@@ -41,10 +43,12 @@ public sealed class Variation : Entity<VariationId>
         Price = price;
         Color = color;
         Size = size;
+        VariationRefCode = _variationRefCode;
         Received = 0;
         Sold = 0;
         Returned = 0;
         Defective = 0;
+        Available = _availableStock;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }

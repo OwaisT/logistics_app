@@ -18,6 +18,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LogisticsApp.Infrastructure;
+
+using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
 using LogisticsApp.Infrastructure.Persistence.Users.Helpers;
 
 public static class DependencyInjection
@@ -93,6 +95,8 @@ public static class DependencyInjection
         services.AddScoped<UserDBInsertionHelper>();
         services.AddScoped<UserMappingOutHelper>();
         services.AddScoped<UserDBExtractionHelper>();
+        services.AddScoped<ProductMappingInHelper>();
+        services.AddScoped<ProductDBInsertionHelper>();
         return services;
     }
 }
