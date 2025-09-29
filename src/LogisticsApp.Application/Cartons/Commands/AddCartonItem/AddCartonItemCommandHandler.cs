@@ -28,6 +28,7 @@ public class AddCartonItemCommandHandler(ICartonRepository _cartonRepository, IP
             return variationRefCodeResult.Errors;
         }
         cartonResult.Value.AddItem(productId, variationId, variationRefCodeResult.Value, command.Quantity);
+        _cartonRepository.Update(cartonResult.Value);
 
         return await Task.FromResult<ErrorOr<Carton>>(cartonResult.Value);
     }

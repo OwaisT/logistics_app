@@ -8,7 +8,7 @@ namespace LogisticsApp.Infrastructure.Persistence.Cartons;
 public class CartonRepository(
     LogisticsAppDbContext _dbContext) : ICartonRepository
 {
-    private static readonly List<Carton> _cartons = [];
+    // private static readonly List<Carton> _cartons = [];
 
     public void Add(Carton carton)
     {

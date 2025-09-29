@@ -9,13 +9,13 @@ public sealed class Assortment : ValueObject
     public IReadOnlyDictionary<string, int> Sizes { get; private set; }
 
     [JsonConstructor]
-    public Assortment(string color, IDictionary<string, int> sizes)
+    public Assortment(string color, IReadOnlyDictionary<string, int> sizes)
     {
         Color = color;
-        Sizes = new Dictionary<string, int>(sizes);
+        Sizes = sizes;
     }
 
-    public static Assortment Create(string color, IDictionary<string, int> sizes)
+    public static Assortment Create(string color, IReadOnlyDictionary<string, int> sizes)
     {
         return new Assortment(color, sizes);
     }
