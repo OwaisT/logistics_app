@@ -13,6 +13,8 @@ public interface ICartonRepository
 
     Carton? GetById(CartonId id);
 
+    void Update(Carton carton);
+
     bool ExistsAtLocation(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind);
 
 }

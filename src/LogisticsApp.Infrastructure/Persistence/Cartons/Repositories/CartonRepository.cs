@@ -5,26 +5,36 @@ using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Value
 
 namespace LogisticsApp.Infrastructure.Persistence.Cartons;
 
-public class CartonRepository : ICartonRepository
+public class CartonRepository(
+    LogisticsAppDbContext _dbContext) : ICartonRepository
 {
     private static readonly List<Carton> _cartons = [];
 
     public void Add(Carton carton)
     {
-        _cartons.Add(carton);
+        _dbContext.Add(carton);
+        _dbContext.SaveChanges();
+        // _cartons.Add(carton);
+    }
+
+    public void Update(Carton carton)
+    {
+        _dbContext.Update(carton);
+        _dbContext.SaveChanges();
     }
 
     public Carton? GetById(CartonId id)
     {
-        return _cartons.FirstOrDefault(c => c.Id == id);
+        return _dbContext.Cartons.Find(id);
     }
 
     public bool ExistsAtLocation(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind)
     {
-        return _cartons.Any(c => c.Location?.WarehouseId == warehouseId &&
-                                c.Location?.RoomId == roomId &&
-                                c.Location?.OnLeft == onLeft &&
-                                c.Location?.Below == below &&
-                                c.Location?.Behind == behind);
+        return _dbContext.Cartons.Any(c => c.Location != null &&
+                                c.Location.WarehouseId == warehouseId &&
+                                c.Location.RoomId == roomId &&
+                                c.Location.OnLeft == onLeft &&
+                                c.Location.Below == below &&
+                                c.Location.Behind == behind);
     }
 }

@@ -33,6 +33,7 @@ public static class DependencyInjection
         services.AddScoped<ICartonLocationUniquenessChecker, CartonLocationUniquenessChecker>();
         services.AddScoped<IWarehouseUniquenessChecker, WarehouseUniquenessChecker>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddScoped<CartonLocationAssigner>();
         return services;
     }
 }

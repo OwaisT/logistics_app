@@ -1,6 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
@@ -8,17 +9,11 @@ using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.AssignCartonLocation;
 
-public class AssignCartonLocationCommandHandler :
-    IRequestHandler<AssignCartonLocationCommand, ErrorOr<Carton>>
+public class AssignCartonLocationCommandHandler(
+    ICartonRepository _cartonRepository,
+    IWarehouseRepository _warehouseRepository,
+    CartonLocationAssigner _cartonLocationAssigner) : IRequestHandler<AssignCartonLocationCommand, ErrorOr<Carton>>
 {
-    private readonly ICartonRepository _cartonRepository;
-    private readonly IWarehouseRepository _warehouseRepository;
-
-    public AssignCartonLocationCommandHandler(ICartonRepository cartonRepository, IWarehouseRepository warehouseRepository)
-    {
-        _cartonRepository = cartonRepository;
-        _warehouseRepository = warehouseRepository;
-    }
     public async Task<ErrorOr<Carton>> Handle(AssignCartonLocationCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
@@ -39,7 +34,14 @@ public class AssignCartonLocationCommandHandler :
         var carton = cartonResult.Value;
         var warehouseAndRoomNames = warehouseAndRoomNamesResult.Value;
 
-        carton.SetLocation(warehouseId, warehouseAndRoomNames["WarehouseName"], roomId, warehouseAndRoomNames["RoomName"], command.OnLeft, command.Below, command.Behind);
+        var result = _cartonLocationAssigner.AssignLocationToCarton(carton, warehouseId, warehouseAndRoomNames["WarehouseName"], roomId, warehouseAndRoomNames["RoomName"], command.OnLeft, command.Below, command.Behind);
+
+        if (result.IsError)
+        {
+            return result.Errors;
+        }
+        carton = result.Value;
+        _cartonRepository.Update(carton);
 
         return await Task.FromResult<ErrorOr<Carton>>(carton);
     }

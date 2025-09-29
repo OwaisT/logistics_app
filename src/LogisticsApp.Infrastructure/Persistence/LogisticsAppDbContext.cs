@@ -1,4 +1,5 @@
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Domain.Shared.Aggregates.User;
@@ -28,6 +29,7 @@ public class LogisticsAppDbContext : DbContext
     public DbSet<SizeEntity> ProductSizes { get; set; }
     public DbSet<ColorEntity> ProductColors { get; set; }
     public DbSet<CategoryEntity> ProductCategories { get; set; }
+    public DbSet<Carton> Cartons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -4,14 +4,9 @@ using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Value
 
 namespace LogisticsApp.Application.Cartons.Services;
 
-public class CartonLocationUniquenessChecker : ICartonLocationUniquenessChecker
+public class CartonLocationUniquenessChecker(
+    ICartonRepository _cartonRepository) : ICartonLocationUniquenessChecker
 {
-    private readonly ICartonRepository _cartonRepository;
-
-    public CartonLocationUniquenessChecker(ICartonRepository cartonRepository)
-    {
-        _cartonRepository = cartonRepository;
-    }
 
     public bool IsLocationUnique(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind)
     {

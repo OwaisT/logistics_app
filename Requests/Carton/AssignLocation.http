@@ -1,13 +1,13 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6IjMxMzgyZWY5LTcxZWUtNDQ5NS05Yjg3LWFjNjVhNDI0ZDNiZiIsImV4cCI6MTc1ODU3MzU0MiwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.ou0LYdQoC18eDkmq2EJBUM_hYCvEwhP-_6izRecri4g
-@cartonId=1efeb45f-5f83-46aa-a755-d9137e20fecd
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI3MWJlNzFkMy0yZWM3LTRjNWUtYTA3NS1hNDVkNGI1ZjBiYzAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTkxOTMwOTcsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.36TCUppLbHdH5ejIj7fCCCI3zNdVTz96E8G8iZ4my7w
+@cartonId=63dc0610-3501-4f0c-be65-993341766b77
 POST {{Api_HostAddress}}/cartons/{{cartonId}}/cartonlocation
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "warehouseId" : "d3824ca8-464b-4ce9-9db6-524527bf29de",
-    "roomId" : "ea55bfc8-fc70-4f9e-b1fc-e25de457bbeb",
+    "warehouseId" : "a16beac6-5c69-4fd9-be32-ae4062782a1d",
+    "roomId" : "2a379029-9b60-4308-8dcc-e41199491dec",
     "onLeft" : 0,
     "below" : 1,
     "behind" : 0

@@ -24,4 +24,5 @@ public class CartonItem : ValueObject
         yield return VariationId;
         yield return Quantity;
     }
+
 }

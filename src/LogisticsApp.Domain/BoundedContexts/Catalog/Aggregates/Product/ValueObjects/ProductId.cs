@@ -26,4 +26,5 @@ public sealed class ProductId : AggregateRootId<Guid>
         yield return Value;
     }
 
+
 }

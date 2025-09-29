@@ -1,7 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Events;
-using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
@@ -11,30 +10,23 @@ namespace LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 
 public sealed class Carton : AggregateRoot<CartonId, Guid>
 {
-    private readonly ICartonLocationUniquenessChecker _locationUniquenessChecker;
-
     private List<CartonItem> _items = [];
     public CartonLocation? Location { get; private set; }
     public IReadOnlyList<CartonItem> Items => _items.AsReadOnly();
 
-    private Carton(CartonId id, ICartonLocationUniquenessChecker locationUniquenessChecker) : base(id)
+    private Carton(CartonId id) : base(id)
     {
-        _locationUniquenessChecker = locationUniquenessChecker;
-        Location = null;
+        Location = CartonLocation.Create(WarehouseId.Create(Guid.Empty), "Unassigned", RoomId.Create(Guid.Empty), "Unassigned", 0, 0, 0);
     }
 
-    public static Carton Create(ICartonLocationUniquenessChecker locationUniquenessChecker)
+    public static Carton Create()
     {
         var cartonId = CartonId.CreateUnique();
-        return new Carton(cartonId, locationUniquenessChecker);
+        return new Carton(cartonId);
     }
 
     public ErrorOr<Carton> SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
     {
-        if (_locationUniquenessChecker.IsLocationUnique(warehouseId, roomId, onLeft, below, behind) == false)
-        {
-            return Errors.Carton.LocationNotUnique;
-        }
         Location = CartonLocation.Create(warehouseId, warehouseName, roomId, roomName, onLeft, below, behind);
         return this;
     }
@@ -91,4 +83,7 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
         // TODO: Check if need to raise domain event for removing item from carton
     }
 
+#pragma warning disable CS8618
+    private Carton() : base(default!) { }
+#pragma warning restore CS8618
 }
