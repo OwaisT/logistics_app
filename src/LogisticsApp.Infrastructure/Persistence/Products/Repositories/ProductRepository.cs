@@ -10,12 +10,10 @@ namespace LogisticsApp.Infrastructure.Persistence.Products.Repositories;
 public class ProductRepository(
     LogisticsAppDbContext _dbContext,
     ProductMappingInHelper _mappingInHelper,
-    ProductDBInsertionHelper _dbInsertionHelper) : IProductRepository
+    ProductDBInsertionHelper _dbInsertionHelper,
+    ProductDBExtractionHelper _dbExtractionHelper) : IProductRepository
 {
-    // private readonly LogisticsAppDbContext _dbContext;
     private static readonly List<Product> _products = [];
-    // private readonly MappingInHelper _mappingInHelper;
-    // private readonly DBInsertionHelper _dbInsertionHelper;
 
     public void Add(Product product)
     {
@@ -35,7 +33,15 @@ public class ProductRepository(
 
     public List<Product> GetAll()
     {
-        return _products;
+        // Fetch products with related entities from the database
+        var products = _dbContext.Products.ToList();
+        var completeProducts = new List<Product>();
+        foreach (var product in products)
+        {
+            var completeProduct = MapToAggregate(product);
+            completeProducts.Add(completeProduct);
+        }
+        return completeProducts;
     }
 
     public async Task<List<Product>> GetAllAsync()
@@ -46,40 +52,30 @@ public class ProductRepository(
 
     public Product? GetById(ProductId id)
     {
-        return _products.FirstOrDefault(p => p.Id == id);
+        var product = _dbContext.Products.FirstOrDefault(p => p.Id == id);
+        if (product == null) return null;
+        return MapToAggregate(product);
     }
 
     public Product? GetByDetails(string refCode, string season)
     {
-        return _products.FirstOrDefault(p => p.RefCode == refCode && p.Season == season);
+        var product = _dbContext.Products.FirstOrDefault(p => p.RefCode == refCode && p.Season == season);
+        if (product == null) return null;
+        return MapToAggregate(product);
     }
 
+    private Product MapToAggregate(Product product)
+    {
+        var categoryIds = _dbExtractionHelper.GetProductCategoryIds(product.Id.Value);
+        var categoryNames = ProductMappingOutHelper.MapCategoryEntitiesToNames(_dbExtractionHelper.GetCategoriesByIds(categoryIds));
+        product = ProductMappingOutHelper.MapCategoriesToProductAggregate(product, categoryNames);
+        var sizeIds = _dbExtractionHelper.GetProductSizeIds(product.Id.Value);
+        var sizesNames = ProductMappingOutHelper.MapSizeEntitiesToSizes(_dbExtractionHelper.GetSizesByIds(sizeIds));
+        product = ProductMappingOutHelper.MapSizesToProductAggregate(product, sizesNames);
+        var colorIds = _dbExtractionHelper.GetProductColorIds(product.Id.Value);
+        var colorNames = ProductMappingOutHelper.MapColorEntitiesToColors(_dbExtractionHelper.GetColorsByIds(colorIds));
+        product = ProductMappingOutHelper.MapColorsToProductAggregate(product, colorNames);
 
-    // Helper: Map persistence Size entities to domain List<string>
-    // private List<string> MapSizesToDomain(List<Size> sizes)
-    // {
-    //     return sizes.Select(s => s.Name).ToList();
-    // }
-
-    // // Helper: Map persistence Color entities to domain List<string>
-    // private List<string> MapColorsToDomain(List<Color> colors)
-    // {
-    //     return colors.Select(c => c.Name).ToList();
-    // }
-
-    // // Helper: Map persistence Category entities to domain List<string>
-    // private List<string> MapCategoriesToDomain(List<Category> categories)
-    // {
-    //     return categories.Select(c => c.Name).ToList();
-    // }
-
-    // // Helper: Map persistence AssortmentEntry entities to domain Assortment objects
-    // private List<Assortment> MapAssortmentsToDomain(List<AssortmentEntry> entries)
-    // {
-    //     return entries
-    //         .GroupBy(e => e.Color)
-    //         .Select(g => Assortment.Create(g.Key, g.ToDictionary(e => e.Size, e => e.Quantity)))
-    //         .ToList();
-    // }
-
+        return product;
+    }
 }

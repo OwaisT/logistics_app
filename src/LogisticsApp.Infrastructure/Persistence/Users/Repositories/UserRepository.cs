@@ -12,7 +12,8 @@ public class UserRepository(
     UserMappingOutHelper _mappingOutHelper,
     UserDBExtractionHelper _dbExtractionHelper) : IUserRepository
 {
-    private static readonly List<User> _users = [];
+    // private static readonly List<User> _users = [];
+
 
     public void Add(User user)
     {

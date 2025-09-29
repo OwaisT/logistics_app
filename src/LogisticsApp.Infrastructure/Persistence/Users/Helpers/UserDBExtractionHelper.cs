@@ -2,15 +2,9 @@ using LogisticsApp.Infrastructure.Persistence.Users.Entities;
 
 namespace LogisticsApp.Infrastructure.Persistence.Users.Helpers;
 
-public class UserDBExtractionHelper
+public class UserDBExtractionHelper(LogisticsAppDbContext _dbContext)
 {
     // Implement mapping from persistence entities to domain models if needed
-    private readonly LogisticsAppDbContext _dbContext;
-
-    public UserDBExtractionHelper(LogisticsAppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
 
     public List<Guid> GetUserRoleIds(Guid userId)
     {

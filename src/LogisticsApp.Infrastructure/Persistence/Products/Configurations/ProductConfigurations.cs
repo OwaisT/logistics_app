@@ -67,7 +67,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 v => JsonSerializer.Deserialize<List<Assortment>>(v, (JsonSerializerOptions?)null)!);
     }
 
-    public static void ConfigureVariationsTable(EntityTypeBuilder<Product> builder)
+    private static void ConfigureVariationsTable(EntityTypeBuilder<Product> builder)
     {
         builder.OwnsMany(p => p.Variations, vb =>
         {
@@ -142,7 +142,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
-    public static void ConfigureProductCategoriesTable(EntityTypeBuilder<Product> builder)
+    private static void ConfigureProductCategoriesTable(EntityTypeBuilder<Product> builder)
     {
         builder.Ignore(p => p.Categories);
 
@@ -170,7 +170,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 });
     }
 
-    public static void ConfigureProductSizesTable(EntityTypeBuilder<Product> builder)
+    private static void ConfigureProductSizesTable(EntityTypeBuilder<Product> builder)
     {
         builder.Ignore(p => p.Sizes);
 
@@ -198,7 +198,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 });
     }
 
-    public static void ConfigureProductColorsTable(EntityTypeBuilder<Product> builder)
+    private static void ConfigureProductColorsTable(EntityTypeBuilder<Product> builder)
     {
         builder.Ignore(p => p.Colors);
 

@@ -97,6 +97,8 @@ public static class DependencyInjection
         services.AddScoped<UserDBExtractionHelper>();
         services.AddScoped<ProductMappingInHelper>();
         services.AddScoped<ProductDBInsertionHelper>();
+        services.AddScoped<ProductMappingOutHelper>();
+        services.AddScoped<ProductDBExtractionHelper>();
         return services;
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
@@ -7,7 +8,8 @@ public sealed class Assortment : ValueObject
     public string Color { get; private set; }
     public IReadOnlyDictionary<string, int> Sizes { get; private set; }
 
-    private Assortment(string color, IDictionary<string, int> sizes)
+    [JsonConstructor]
+    public Assortment(string color, IDictionary<string, int> sizes)
     {
         Color = color;
         Sizes = new Dictionary<string, int>(sizes);
@@ -33,8 +35,8 @@ public sealed class Assortment : ValueObject
         }
     }
 
-// #pragma warning disable CS8618
-//     private Assortment() { } // For EF Core
-// #pragma warning restore CS8618
+#pragma warning disable CS8618
+    public Assortment() { } // For EF Core
+#pragma warning restore CS8618
 }
 

@@ -6,13 +6,6 @@ namespace LogisticsApp.Infrastructure.Persistence.Users.Helpers;
 public class UserMappingOutHelper
 {
     // Implement mapping from persistence entities to domain models if needed
-    private readonly LogisticsAppDbContext _dbContext;
-
-    public UserMappingOutHelper(LogisticsAppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public List<string> MapRoleEntitiesToNames(List<RoleEntity> roleEntities)
     {
         return roleEntities.Select(re => re.Name).ToList();

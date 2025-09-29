@@ -96,6 +96,60 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         return this;
     }
 
+    public void AddCategory(string category)
+    {
+        if (!_categories.Contains(category))
+        {
+            _categories.Add(category);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
+    public void RemoveCategory(string category)
+    {
+        if (_categories.Contains(category))
+        {
+            _categories.Remove(category);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
+    public void AddColor(string color)
+    {
+        if (!_colors.Contains(color))
+        {
+            _colors.Add(color);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
+    public void RemoveColor(string color)
+    {
+        if (_colors.Contains(color))
+        {
+            _colors.Remove(color);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
+    public void AddSize(string size)
+    {
+        if (!_sizes.Contains(size))
+        {
+            _sizes.Add(size);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
+    public void RemoveSize(string size)
+    {
+        if (_sizes.Contains(size))
+        {
+            _sizes.Remove(size);
+            UpdatedAt = DateTime.UtcNow;
+        }
+    }
+
     public ErrorOr<Product> ModifyReceivedForVariation(VariationId variationId, int quantity)
     {
         var variation = _variations.FirstOrDefault(v => v.Id == variationId);
