@@ -1,12 +1,12 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLkFnZ3JlZ2F0ZXMuVXNlci5WYWx1ZU9iamVjdHMuVXNlcklkIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvZSIsImp0aSI6IjMxMzgyZWY5LTcxZWUtNDQ5NS05Yjg3LWFjNjVhNDI0ZDNiZiIsImV4cCI6MTc1ODU3MzU0MiwiaXNzIjoiTG9naXN0aWNzQXBwIiwiYXVkIjoiTG9naXN0aWNzQXBwVXNlcnMifQ.ou0LYdQoC18eDkmq2EJBUM_hYCvEwhP-_6izRecri4g
-@cartonId=aa77034b-9704-43c9-9e23-b0807eb69683
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiIyYzE2ODBlMS03NjBlLTRjYjMtODBiZC1jZTFkNWU2YzExZTUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTkyNjY4NDYsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.wPiRmvyRtya3wM2lB3bplat0sUH-oe_UnjQPMofLls0
+@cartonId=63dc0610-3501-4f0c-be65-993341766b77
 DELETE {{Api_HostAddress}}/cartons/{{cartonId}}/cartonItem
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "productId" : "b87cf52d-22c7-4021-ad79-2456affb2f24",
-    "variationId" : "5798c450-566f-4c6d-aa7c-98cf8020b5ad",
-    "quantity" : 15
+    "productId" : "30b39aba-cf2f-454f-83e8-d9b93f410c08",
+    "variationId" : "e80036a5-4a79-4e83-925c-14d9ce10fff4",
+    "quantity" : 5
 }

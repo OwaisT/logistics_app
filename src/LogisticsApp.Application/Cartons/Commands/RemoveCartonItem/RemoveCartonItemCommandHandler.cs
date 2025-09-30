@@ -7,15 +7,9 @@ using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
 
-public class RemoveCartonItemCommandHandler :
+public class RemoveCartonItemCommandHandler(ICartonRepository _cartonRepository) :
     IRequestHandler<RemoveCartonItemCommand, ErrorOr<Carton>>
 {
-    private readonly ICartonRepository _cartonRepository;
-
-    public RemoveCartonItemCommandHandler(ICartonRepository cartonRepository)
-    {
-        _cartonRepository = cartonRepository;
-    }
     public async Task<ErrorOr<Carton>> Handle(RemoveCartonItemCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
@@ -28,6 +22,7 @@ public class RemoveCartonItemCommandHandler :
         var productId = ProductId.Create(Guid.Parse(command.ProductId));
         var variationId = VariationId.Create(Guid.Parse(command.VariationId));
         carton.RemoveItem(productId, variationId, command.Quantity);
+        _cartonRepository.Update(carton);
 
         return await Task.FromResult<ErrorOr<Carton>>(carton);
     }
