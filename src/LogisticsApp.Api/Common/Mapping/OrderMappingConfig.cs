@@ -2,7 +2,7 @@ using LogisticsApp.Application.Aggregates.Orders.Commands.CreateOrder;
 using LogisticsApp.Application.Aggregates.Orders.Commands.UpdateOrderStatus;
 using LogisticsApp.Contracts.Aggregates.Order;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;
@@ -24,8 +24,9 @@ public class OrderMappingConfig : IRegister
 
         config.NewConfig<Order, OrderResponse>()
             .Map(dest => dest.OrderId, src => src.Id.Value);
-        
+
         config.NewConfig<OrderItem, OrderItemResponse>()
+            .Map(dest => dest.Id, src => src.Id.Value)
             .Map(dest => dest.ProductId, src => src.ProductId.Value)
             .Map(dest => dest.VariationId, src => src.VariationId.Value);
     }

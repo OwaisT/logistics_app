@@ -8,7 +8,7 @@ public class ProductAvailabilityChecker(
     IProductRepository _productRepository)
      : IProductAvailabilityChecker
 {
-    public bool IsProductVariationInStock(ProductId productId, VariationId variationId, int requiredQuantity)
+    public bool IsProductVariationInStock(ProductId productId, VariationId variationId)
     {
         var product = _productRepository.GetById(productId);
         if (product == null)
@@ -20,7 +20,7 @@ public class ProductAvailabilityChecker(
         {
             return false; // Variation does not exist
         }
-        if (variation.Available < requiredQuantity)
+        if (variation.Available < 1)
         {
             return false; // Not enough stock
         }

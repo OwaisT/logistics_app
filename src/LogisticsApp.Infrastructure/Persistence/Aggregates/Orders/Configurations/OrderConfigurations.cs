@@ -39,27 +39,36 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
     
     private static void ConfigureOrderItem(EntityTypeBuilder<Order> builder)
     {
-        builder.OwnsMany(c => c.Items, item =>
+        builder.OwnsMany(c => c.Items, ib =>
         {
-            item.WithOwner().HasForeignKey("OrderId");
-            item.Property(i => i.ProductId)
+            ib.ToTable("OrderItems");
+            ib.WithOwner().HasForeignKey("OrderId");
+
+            ib.HasKey("Id", "OrderId");
+
+            ib.Property(i => i.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("Id")
+                .HasConversion(
+                    id => id.Value,
+                    value => OrderItemId.Create(value));
+
+            ib.Property(i => i.ProductId)
                 .HasColumnName("ProductId")
                 .HasConversion(
                     id => id.Value,
                     value => ProductId.Create(value));
-            item.Property(i => i.VariationId)
+
+            ib.Property(i => i.VariationId)
                 .HasColumnName("VariationId")
                 .HasConversion(
                     id => id.Value,
                     value => VariationId.Create(value));
-            item.Property(i => i.RefCode)
+            ib.Property(i => i.RefCode)
                 .HasColumnName("RefCode")
                 .IsRequired()
                 .HasMaxLength(100);
-            item.Property(i => i.Quantity)
-                .HasColumnName("Quantity")
-                .IsRequired();
-            item.Property(i => i.Status)
+            ib.Property(i => i.Status)
                 .HasColumnName("Status")
                 .IsRequired()
                 .HasMaxLength(50);

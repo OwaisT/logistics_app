@@ -1,43 +1,36 @@
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
 
-namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
 
-public class OrderItem : ValueObject
+public sealed class OrderItem : Entity<OrderItemId>
 {
     public ProductId ProductId { get; private set; }
     public VariationId VariationId { get; private set; }
     public string RefCode { get; private set; }
-    public int Quantity { get; private set; }
     public string Status { get; private set; } = "Pending";
 
     private OrderItem(
+        OrderItemId id,
         ProductId productId,
         VariationId variationId,
-        string refCode,
-        int quantity)
+        string refCode)
+        : base(id)
     {
         ProductId = productId;
         VariationId = variationId;
         RefCode = refCode;
-        Quantity = quantity;
     }
 
-    public static OrderItem Create(ProductId productId, VariationId variationId, string refCode, int quantity)
+    public static OrderItem Create(ProductId productId, VariationId variationId, string refCode)
     {
         // Add any necessary validation here
-        return new OrderItem(productId, variationId, refCode, quantity);
+        return new OrderItem(OrderItemId.CreateUnique(), productId, variationId, refCode);
     }
 
     public void UpdateStatus(string status)
     {
         Status = status;
-    }
-
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return ProductId;
-        yield return VariationId;
-        yield return Quantity;
     }
 }

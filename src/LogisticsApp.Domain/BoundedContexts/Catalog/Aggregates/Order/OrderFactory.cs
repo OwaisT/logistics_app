@@ -1,5 +1,5 @@
 using ErrorOr;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Services;
 using LogisticsApp.Domain.Common.Errors;
 
@@ -13,11 +13,10 @@ public class OrderFactory(
         decimal totalValue
     )
     {
-        // TODO: implement interface for stock checking
         foreach (var item in items)
             {
                 // Check stock availability for each item
-                var isAvailable = _productAvailabilityChecker.IsProductVariationInStock(item.ProductId, item.VariationId, item.Quantity);
+                var isAvailable = _productAvailabilityChecker.IsProductVariationInStock(item.ProductId, item.VariationId);
 
                 // If any item is out of stock, return an error
                 if (!isAvailable)

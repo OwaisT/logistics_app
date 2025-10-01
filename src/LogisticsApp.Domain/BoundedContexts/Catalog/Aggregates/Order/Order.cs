@@ -1,4 +1,5 @@
 using ErrorOr;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
 
@@ -8,7 +9,7 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
 {
     private List<OrderItem> _items = null!;
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
-    private int TotalItems => _items.Sum(i => i.Quantity);
+    private int TotalItems => _items.Count;
     public int TotalItemsCount { get; private set; }
     public decimal TotalValue { get; private set; }
     public string Status { get; private set; } = "Pending";

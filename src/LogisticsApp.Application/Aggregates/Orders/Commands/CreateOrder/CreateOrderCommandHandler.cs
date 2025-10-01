@@ -2,7 +2,7 @@ using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using MediatR;
 
@@ -27,12 +27,14 @@ public class CreateOrderCommandHandler(
             {
                 return variationRefCodeResult.Errors;
             }
-            var orderItem = OrderItem.Create(
-                ProductId.Create(Guid.Parse(item.ProductId)),
-                VariationId.Create(Guid.Parse(item.VariationId)),
-                variationRefCodeResult.Value,
-                item.Quantity);
-            orderItems.Add(orderItem);
+            for (int i = 0; i < item.Quantity; i++)
+            {
+                var orderItem = OrderItem.Create(
+                    ProductId.Create(Guid.Parse(item.ProductId)),
+                    VariationId.Create(Guid.Parse(item.VariationId)),
+                    variationRefCodeResult.Value);
+                orderItems.Add(orderItem);
+            }
         }
 
         var orderResult = _orderFactory.CreateOrder(

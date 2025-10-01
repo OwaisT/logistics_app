@@ -9,9 +9,9 @@ public record OrderResponse(
 );
 
 public record OrderItemResponse(
+    Guid Id,
     Guid ProductId,
     Guid VariationId,
     string RefCode,
-    int Quantity,
     string Status
 );
