@@ -1,8 +1,6 @@
 @Api_HostAddress = http://localhost:5123
-
 POST {{Api_HostAddress}}/auth/Login
 Content-Type: application/json
-
 {
     "Email": "john.doe@example.com",
     "Password": "P@ssw0rd"

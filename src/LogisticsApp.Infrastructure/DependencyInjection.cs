@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LogisticsApp.Infrastructure;
 
+using LogisticsApp.Infrastructure.Persistence.Orders.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
 using LogisticsApp.Infrastructure.Persistence.Users.Helpers;
 
@@ -86,6 +87,7 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IWarehouseRepository, WarehouseRepository>();
         services.AddScoped<ICartonRepository, CartonRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
         return services;
     }
     

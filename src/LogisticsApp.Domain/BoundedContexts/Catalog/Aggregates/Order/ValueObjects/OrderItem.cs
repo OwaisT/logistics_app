@@ -3,13 +3,31 @@ using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
 
-public class OrderItem(ProductId productId, VariationId variationId, string refCode, int quantity) : ValueObject
+public class OrderItem : ValueObject
 {
-    public ProductId ProductId { get; } = productId;
-    public VariationId VariationId { get; } = variationId;
-    public string RefCode { get; } = refCode;
-    public int Quantity { get; } = quantity;
+    public ProductId ProductId { get; private set; }
+    public VariationId VariationId { get; private set; }
+    public string RefCode { get; private set; }
+    public int Quantity { get; private set; }
     public string Status { get; private set; } = "Pending";
+
+    private OrderItem(
+        ProductId productId,
+        VariationId variationId,
+        string refCode,
+        int quantity)
+    {
+        ProductId = productId;
+        VariationId = variationId;
+        RefCode = refCode;
+        Quantity = quantity;
+    }
+
+    public static OrderItem Create(ProductId productId, VariationId variationId, string refCode, int quantity)
+    {
+        // Add any necessary validation here
+        return new OrderItem(productId, variationId, refCode, quantity);
+    }
 
     public override IEnumerable<object> GetEqualityComponents()
     {

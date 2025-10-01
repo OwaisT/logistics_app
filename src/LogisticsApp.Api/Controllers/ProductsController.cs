@@ -5,10 +5,11 @@ using MediatR;
 using MapsterMapper;
 using LogisticsApp.Application.Products.Queries.GetProducts;
 using Microsoft.AspNetCore.Authorization;
+using LogisticsApp.Application.Products.Commands.AddReceivedForVariation;
 
 namespace LogisticsApp.Api.Controllers;
 
-[Route("hosts/{hostId}/products")]
+[Route("products")]
 public class ProductsController : ApiController
 {
     private readonly ISender _mediator;
@@ -40,6 +41,17 @@ public class ProductsController : ApiController
         var productsResult = await _mediator.Send(query);
         return productsResult.Match(
             products => Ok(_mapper.Map<List<ProductResponse>>(products)),
+            Problem);
+    }
+
+    [Authorize(Roles = "BusinessManager,FacilityManager")]
+    [HttpPost("{productId}/VariationQuantity")]
+    public async Task<IActionResult> AddReceivedForVariation(string productId, [FromBody] AddReceivedForVariationRequest request)
+    {
+        var command = _mapper.Map<AddReceivedForVariationCommand>((productId, request));
+        var result = await _mediator.Send(command);
+        return result.Match(
+            product => Ok(_mapper.Map<ProductResponse>(product)),
             Problem);
     }
 }

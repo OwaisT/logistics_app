@@ -16,4 +16,6 @@ public interface IProductRepository
     Product? GetById(ProductId id);
 
     Product? GetByDetails(string refCode, string season);
+
+    void Update(Product product);
 }

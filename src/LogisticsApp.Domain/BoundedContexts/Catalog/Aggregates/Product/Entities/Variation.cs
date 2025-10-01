@@ -85,6 +85,7 @@ public sealed class Variation : Entity<VariationId>
     public void ModifyReceived(int quantity)
     {
         Received = quantity;
+        Available = _availableStock;
         UpdatedAt = DateTime.UtcNow;
     }
 

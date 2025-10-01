@@ -7,32 +7,34 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
 {
     private List<OrderItem> _items = null!;
     public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
-    public int TotalItems => _items.Sum(i => i.Quantity);
-    public decimal TotalPrice { get; private set; }
+    private int TotalItems => _items.Sum(i => i.Quantity);
+    public int TotalItemsCount { get; private set; }
+    public decimal TotalValue { get; private set; }
     public string Status { get; private set; } = "Pending";
 
     private Order(
         OrderId id,
         List<OrderItem> items,
-        decimal totalPrice,
-        string status)
+        decimal totalValue)
          : base(id)
     {
         _items = items;
-        TotalPrice = totalPrice;
-        Status = status;
+        TotalItemsCount = TotalItems;
+        TotalValue = totalValue;
     }
 
-    public static Order Create(
+    internal static Order Create(
         List<OrderItem> items,
-        decimal totalPrice,
-        string status)
+        decimal totalValue)
     {
         return new Order(
             OrderId.CreateUnique(),
             items,
-            totalPrice,
-            status);
+            totalValue);
     }
+
+#pragma warning disable CS8618
+    private Order() : base(default!) { }
+#pragma warning restore CS8618
 
 }

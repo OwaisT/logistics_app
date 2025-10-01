@@ -31,6 +31,21 @@ public class ProductRepository(
         _dbContext.SaveChanges();
     }
 
+    public void Update(Product product)
+    {
+        // var sizes = _mappingInHelper.MapSizesToEntities([.. product.Sizes]);
+        // _dbInsertionHelper.CreateAndInsertProductSizes(product, sizes);
+
+        // var colors = _mappingInHelper.MapColorsToEntities(product.Colors.ToList());
+        // _dbInsertionHelper.CreateAndInsertProductColors(product, colors);
+
+        // var categories = _mappingInHelper.MapCategoriesToEntities(product.Categories.ToList());
+        // _dbInsertionHelper.CreateAndInsertProductCategories(product, categories);
+
+        _dbContext.Update(product);
+        _dbContext.SaveChanges();
+    }
+
     public List<Product> GetAll()
     {
         // Fetch products with related entities from the database

@@ -6,10 +6,13 @@ using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Authentication.Services;
 using LogisticsApp.Application.Cartons.Services;
 using LogisticsApp.Application.Common.Behaviors;
+using LogisticsApp.Application.Common.Services;
 using LogisticsApp.Application.Products.Services;
 using LogisticsApp.Application.Warehouses.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Services;
 using LogisticsApp.Domain.Shared.Aggregates.User.Services;
@@ -25,6 +28,7 @@ public static class DependencyInjection
         // Register infrastructure services here
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
         services.AddScoped<ProductFactory>();
+        services.AddScoped<OrderFactory>();
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidateBehavior<,>));
@@ -34,6 +38,8 @@ public static class DependencyInjection
         services.AddScoped<IWarehouseUniquenessChecker, WarehouseUniquenessChecker>();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<CartonLocationAssigner>();
+        services.AddScoped<EnforceProductInvariantsAndGetVariationRefCodeService>();
+        services.AddScoped<IProductAvailabilityChecker, ProductAvailabilityChecker>();
         return services;
     }
 }

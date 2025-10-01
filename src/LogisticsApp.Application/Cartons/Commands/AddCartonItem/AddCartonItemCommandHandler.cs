@@ -1,5 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Application.Common.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
@@ -9,7 +10,9 @@ using MediatR;
 
 namespace LogisticsApp.Application.Cartons.Commands.AddCartonItem;
 
-public class AddCartonItemCommandHandler(ICartonRepository _cartonRepository, IProductRepository _productRepository) :
+public class AddCartonItemCommandHandler(
+    ICartonRepository _cartonRepository,
+    EnforceProductInvariantsAndGetVariationRefCodeService _enforceProductInvariantsAndGetVariationRefCodeService) :
     IRequestHandler<AddCartonItemCommand, ErrorOr<Carton>>
 {
     public async Task<ErrorOr<Carton>> Handle(AddCartonItemCommand command, CancellationToken cancellationToken)
@@ -22,7 +25,7 @@ public class AddCartonItemCommandHandler(ICartonRepository _cartonRepository, IP
         }
         var productId = ProductId.Create(Guid.Parse(command.ProductId));
         var variationId = VariationId.Create(Guid.Parse(command.VariationId));
-        var variationRefCodeResult = EnforceProductInvariantsAndGetVariationRefCode(productId, variationId);
+        var variationRefCodeResult = _enforceProductInvariantsAndGetVariationRefCodeService.Enforce(productId, variationId);
         if (variationRefCodeResult.IsError)
         {
             return variationRefCodeResult.Errors;
@@ -46,24 +49,5 @@ public class AddCartonItemCommandHandler(ICartonRepository _cartonRepository, IP
             return Errors.Common.EntityNotFound(nameof(Carton), cartonId.Value.ToString());
         }
         return carton;
-    }
-
-    private ErrorOr<string> EnforceProductInvariantsAndGetVariationRefCode(ProductId productId, VariationId variationId)
-    {
-        if (productId == null || variationId == null)
-        {
-            return Errors.Common.InvalidInput("Invalid product or variation information.");
-        }
-        var product = _productRepository.GetById(productId);
-        if (product is null)
-        {
-            return Errors.Common.EntityNotFound(nameof(Product), productId.Value.ToString());
-        }
-        var variation = product.GetVariation(variationId);
-        if (variation is null)
-        {
-            return Errors.Common.EntityNotFound(nameof(Product) + " Variation", variationId.Value.ToString());
-        }
-        return variation.VariationRefCode;
     }
 }

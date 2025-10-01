@@ -42,12 +42,12 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
         {
             var existingItem = _items.First(i => i.ProductId == productId && i.VariationId == variationId);
             _items.Remove(existingItem);
-            var updatedItem = new CartonItem(productId, variationId, refCode, existingItem.Quantity + quantity);
+            var updatedItem = CartonItem.Create(productId, variationId, refCode, existingItem.Quantity + quantity);
             _items.Add(updatedItem);
         }
         else
         {
-            var item = new CartonItem(productId, variationId, refCode, quantity);
+            var item = CartonItem.Create(productId, variationId, refCode, quantity);
             _items.Add(item);
         }
         AddDomainEvent(new CartonItemAdded(Id.Value, productId.Value, variationId.Value, quantity));
@@ -72,11 +72,12 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
         {
             return Errors.Common.CannotBeNegativeOrZero(nameof(quantityToRemove));
         }
+        // TODO: assign directly to existing item
         _items.Remove(existingItem);
         var remainingQuantity = existingItem.Quantity - quantityToRemove;
         if (remainingQuantity > 0)
         {
-            var updatedItem = new CartonItem(productId, variationId, existingItem.RefCode, remainingQuantity);
+            var updatedItem = CartonItem.Create(productId, variationId, existingItem.RefCode, remainingQuantity);
             _items.Add(updatedItem);
         }
         return this;

@@ -6,12 +6,11 @@ using MediatR;
 
 namespace LogisticsApp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommandHandler(IProductRepository productRepository, ProductFactory productFactory) :
-    IRequestHandler<CreateProductCommand, ErrorOr<Product>>
+public class CreateProductCommandHandler(
+    IProductRepository _productRepository,
+    ProductFactory _productFactory)
+     : IRequestHandler<CreateProductCommand, ErrorOr<Product>>
 {
-    private readonly IProductRepository _productRepository = productRepository;
-    private readonly ProductFactory _productFactory = productFactory;
-
     public async Task<ErrorOr<Product>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;

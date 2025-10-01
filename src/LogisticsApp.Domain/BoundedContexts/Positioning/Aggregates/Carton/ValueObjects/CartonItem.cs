@@ -10,12 +10,18 @@ public class CartonItem : ValueObject
     public string RefCode { get; private set; }
     public int Quantity { get; private set; }
 
-    public CartonItem(ProductId productId, VariationId variationId, string refCode, int quantity)
+    private CartonItem(ProductId productId, VariationId variationId, string refCode, int quantity)
     {
         ProductId = productId;
         VariationId = variationId;
         RefCode = refCode;
         Quantity = quantity;
+    }
+
+    public static CartonItem Create(ProductId productId, VariationId variationId, string refCode, int quantity)
+    {
+        // Add any necessary validation here
+        return new CartonItem(productId, variationId, refCode, quantity);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

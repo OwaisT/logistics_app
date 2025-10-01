@@ -11,6 +11,13 @@ public class CartonConfigurations : IEntityTypeConfiguration<Carton>
 {
     public void Configure(EntityTypeBuilder<Carton> builder)
     {
+        ConfigureCarton(builder);
+        ConfigureLocation(builder);
+        ConfigureItems(builder);
+    }
+
+    private static void ConfigureCarton(EntityTypeBuilder<Carton> builder)
+    {
         builder.ToTable("Cartons");
 
         builder.HasKey(c => c.Id);
@@ -20,7 +27,10 @@ public class CartonConfigurations : IEntityTypeConfiguration<Carton>
             .HasConversion(
                 id => id.Value,
                 value => CartonId.Create(value));
+    }
 
+    private static void ConfigureLocation(EntityTypeBuilder<Carton> builder)
+    {
         builder.OwnsOne(c => c.Location, loc =>
         {
             loc.Property(l => l.WarehouseId)
@@ -60,7 +70,10 @@ public class CartonConfigurations : IEntityTypeConfiguration<Carton>
             loc.HasIndex(l => new { l.WarehouseId, l.RoomId, l.OnLeft, l.Below, l.Behind })
                 .IsUnique();
         });
+    }
 
+    private static void ConfigureItems(EntityTypeBuilder<Carton> builder)
+    {
         builder.OwnsMany(c => c.Items, item =>
         {
             item.WithOwner().HasForeignKey("CartonId");
@@ -82,6 +95,5 @@ public class CartonConfigurations : IEntityTypeConfiguration<Carton>
                 .HasColumnName("Quantity")
                 .IsRequired();
         });
-
     }
 }

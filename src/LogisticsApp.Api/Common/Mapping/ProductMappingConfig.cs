@@ -1,3 +1,4 @@
+using LogisticsApp.Application.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Products.Commands.CreateProduct;
 using LogisticsApp.Contracts.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
@@ -27,6 +28,10 @@ public class ProductMappingConfig : IRegister
         config.NewConfig<Variation, VariationResponse>()
             .Map(dest => dest.VariationId, src => src.Id.Value)
             .Map(dest => dest, src => src);
+
+        config.NewConfig<(string productId, AddReceivedForVariationRequest request), AddReceivedForVariationCommand>()
+            .Map(dest => dest.ProductId, src => src.productId)
+            .Map(dest => dest, src => src.request); 
 
     }
 }
