@@ -1,4 +1,5 @@
 using LogisticsApp.Application.Orders.CreateOrder;
+using LogisticsApp.Application.Orders.UpdateOrderStatus;
 using LogisticsApp.Contracts.Order;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
@@ -16,6 +17,10 @@ public class OrderMappingConfig : IRegister
 
         config.NewConfig<OrderItemRequest, OrderItemCommand>()
             .Map(dest => dest, src => src);
+
+        config.NewConfig<(Guid orderId, UpdateOrderStatusRequest request), UpdateOrderStatusCommand>()
+            .Map(dest => dest.OrderId, src => src.orderId)
+            .Map(dest => dest, src => src.request);
 
         config.NewConfig<Order, OrderResponse>()
             .Map(dest => dest.OrderId, src => src.Id.Value);

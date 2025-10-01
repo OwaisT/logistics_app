@@ -1,6 +1,7 @@
 
 
 using LogisticsApp.Application.Orders.CreateOrder;
+using LogisticsApp.Application.Orders.UpdateOrderStatus;
 using LogisticsApp.Contracts.Order;
 using MapsterMapper;
 using MediatR;
@@ -23,6 +24,18 @@ public class OrdersController(ISender mediator, IMapper mapper) : ApiController
         var command = _mapper.Map<CreateOrderCommand>(request);
         var createOrderResult = await _mediator.Send(command);
         return createOrderResult.Match(
+            order => Ok(_mapper.Map<OrderResponse>(order)),
+            Problem);
+    }
+
+    [Authorize(Roles = "BusinessManager,FacilityManager,FacilityWorker")]
+    [HttpPut("{orderId}/Status")]
+    public async Task<IActionResult> UpdateOrderStatus(Guid orderId, UpdateOrderStatusRequest request)
+    {
+        var command = _mapper.Map<UpdateOrderStatusCommand>((orderId, request));
+
+        var updateOrderStatusResult = await _mediator.Send(command);
+        return updateOrderStatusResult.Match(
             order => Ok(_mapper.Map<OrderResponse>(order)),
             Problem);
     }

@@ -29,6 +29,11 @@ public class OrderItem : ValueObject
         return new OrderItem(productId, variationId, refCode, quantity);
     }
 
+    public void UpdateStatus(string status)
+    {
+        Status = status;
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return ProductId;

@@ -12,5 +12,6 @@ public record OrderItemResponse(
     Guid ProductId,
     Guid VariationId,
     string RefCode,
-    int Quantity
+    int Quantity,
+    string Status
 );

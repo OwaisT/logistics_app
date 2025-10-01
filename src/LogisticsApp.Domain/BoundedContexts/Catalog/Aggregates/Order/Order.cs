@@ -1,3 +1,4 @@
+using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
 using LogisticsApp.Domain.Common.Models;
 
@@ -31,6 +32,13 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
             OrderId.CreateUnique(),
             items,
             totalValue);
+    }
+
+    public ErrorOr<Order> UpdateStatus(string status)
+    {
+        Status = status;
+        _items.ForEach(i => i.UpdateStatus(status));
+        return this;
     }
 
 #pragma warning disable CS8618

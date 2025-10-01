@@ -45,7 +45,7 @@ public class ProductsController : ApiController
     }
 
     [Authorize(Roles = "BusinessManager,FacilityManager")]
-    [HttpPost("{productId}/VariationQuantity")]
+    [HttpPut("{productId}/VariationQuantity")]
     public async Task<IActionResult> AddReceivedForVariation(string productId, [FromBody] AddReceivedForVariationRequest request)
     {
         var command = _mapper.Map<AddReceivedForVariationCommand>((productId, request));
