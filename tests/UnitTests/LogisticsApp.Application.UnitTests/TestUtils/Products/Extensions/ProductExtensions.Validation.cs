@@ -1,5 +1,5 @@
 using FluentAssertions;
-using LogisticsApp.Application.Products.Commands.CreateProduct;
+using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
 

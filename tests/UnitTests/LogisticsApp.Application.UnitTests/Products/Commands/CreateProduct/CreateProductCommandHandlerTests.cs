@@ -1,6 +1,6 @@
 using FluentAssertions;
+using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Application.Products.Commands.CreateProduct;
 using LogisticsApp.Application.UnitTests.Products.Commands.TestUtils;
 using LogisticsApp.Application.UnitTests.TestUtils.Products.Extensions;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;

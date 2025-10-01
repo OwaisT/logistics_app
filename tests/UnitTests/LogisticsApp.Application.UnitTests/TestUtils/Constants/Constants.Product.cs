@@ -1,5 +1,3 @@
-using LogisticsApp.Application.Products.Commands.CreateProduct;
-
 namespace LogisticsApp.Application.UnitTests.TestUtils.Constants;
 
 public static partial class Constants

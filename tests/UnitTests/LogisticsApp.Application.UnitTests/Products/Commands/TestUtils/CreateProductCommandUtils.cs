@@ -1,4 +1,4 @@
-using LogisticsApp.Application.Products.Commands.CreateProduct;
+using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.UnitTests.TestUtils.Constants;
 
 namespace LogisticsApp.Application.UnitTests.Products.Commands.TestUtils;

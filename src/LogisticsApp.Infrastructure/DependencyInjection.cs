@@ -4,11 +4,7 @@ using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Infrastructure.Authentication;
 using LogisticsApp.Infrastructure.Persistence;
-using LogisticsApp.Infrastructure.Persistence.Cartons;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
-using LogisticsApp.Infrastructure.Persistence.Products.Repositories;
-using LogisticsApp.Infrastructure.Persistence.Users.Repositories;
-using LogisticsApp.Infrastructure.Persistence.Warehouses.Repositories;
 using LogisticsApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +15,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LogisticsApp.Infrastructure;
 
-using LogisticsApp.Infrastructure.Persistence.Orders.Repositories;
-using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
-using LogisticsApp.Infrastructure.Persistence.Users.Helpers;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Cartons.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Orders.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Helpers;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Helpers;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Warehouses.Repositories;
 
 public static class DependencyInjection
 {

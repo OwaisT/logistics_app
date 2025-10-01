@@ -1,14 +1,14 @@
 using System.Reflection;
 using ErrorOr;
 using FluentValidation;
+using LogisticsApp.Application.Aggregates.Cartons.Services;
+using LogisticsApp.Application.Aggregates.Products.Services;
+using LogisticsApp.Application.Aggregates.Warehouses.Services;
 using LogisticsApp.Application.Authentication.Commands.Register;
 using LogisticsApp.Application.Authentication.Common;
 using LogisticsApp.Application.Authentication.Services;
-using LogisticsApp.Application.Cartons.Services;
 using LogisticsApp.Application.Common.Behaviors;
 using LogisticsApp.Application.Common.Services;
-using LogisticsApp.Application.Products.Services;
-using LogisticsApp.Application.Warehouses.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Services;

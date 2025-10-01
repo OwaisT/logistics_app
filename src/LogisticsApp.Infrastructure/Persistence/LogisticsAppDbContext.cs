@@ -5,11 +5,11 @@ using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.Shared.Aggregates.User;
 using LogisticsApp.Domain.Common.Models;
 using LogisticsApp.Infrastructure.Persistence.Interceptors;
-using LogisticsApp.Infrastructure.Persistence.Products.Entities;
-using LogisticsApp.Infrastructure.Persistence.Users.Entities;
 
 // using LogisticsApp.Infrastructure.Persistence.Products.Models;
 using Microsoft.EntityFrameworkCore;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Entities;
 
 namespace LogisticsApp.Infrastructure.Persistence;
 

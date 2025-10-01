@@ -1,6 +1,6 @@
-using LogisticsApp.Application.Products.Commands.AddReceivedForVariation;
-using LogisticsApp.Application.Products.Commands.CreateProduct;
-using LogisticsApp.Contracts.Product;
+using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
+using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
+using LogisticsApp.Contracts.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;

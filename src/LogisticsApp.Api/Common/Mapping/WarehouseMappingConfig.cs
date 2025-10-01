@@ -1,6 +1,6 @@
+using LogisticsApp.Application.Aggregates.Warehouses.Commands.CreateWarehouse;
 using LogisticsApp.Application.Warehouses.Commands.AddWarehouseRoom;
-using LogisticsApp.Application.Warehouses.Commands.CreateWarehouse;
-using LogisticsApp.Contracts.Warehouse;
+using LogisticsApp.Contracts.Aggregates.Warehouse;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.Entities;
 using Mapster;

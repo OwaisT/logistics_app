@@ -1,9 +1,9 @@
 
-using LogisticsApp.Application.Cartons.Commands.AddCartonItem;
-using LogisticsApp.Application.Cartons.Commands.AssignCartonLocation;
-using LogisticsApp.Application.Cartons.Commands.CreateCarton;
-using LogisticsApp.Application.Cartons.Commands.RemoveCartonItem;
-using LogisticsApp.Contracts.Carton;
+using LogisticsApp.Application.Aggregates.Cartons.Commands.AddCartonItem;
+using LogisticsApp.Application.Aggregates.Cartons.Commands.AssignCartonLocation;
+using LogisticsApp.Application.Aggregates.Cartons.Commands.CreateCarton;
+using LogisticsApp.Application.Aggregates.Cartons.Commands.RemoveCartonItem;
+using LogisticsApp.Contracts.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using Mapster;
