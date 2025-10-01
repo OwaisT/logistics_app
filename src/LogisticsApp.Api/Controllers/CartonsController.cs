@@ -11,17 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace LogisticsApp.Api.Controllers;
 
 [Route("/Cartons")]
-public class CartonsController : ApiController
+public class CartonsController(ISender mediator, IMapper mapper) : ApiController
 {
-    private readonly ISender _mediator;
+    private readonly ISender _mediator = mediator;
 
-    private readonly IMapper _mapper;
-
-    public CartonsController(ISender mediator, IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
+    private readonly IMapper _mapper = mapper;
 
     [Authorize(Roles = "BusinessManager,FacilityManager")]
     [HttpPost]

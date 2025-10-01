@@ -1,11 +1,21 @@
 @Api_HostAddress = http://localhost:5123
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI0N2VkMGYwYy0zYzIyLTQwYWEtYWU3MS0wMzBiY2FjZTAwMWMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTkzNjIwNzEsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.l49YkIHRW1NdI54_gTqtlNmfjfDQqjP9fdHbmwH7tz4
-@productId=30b39aba-cf2f-454f-83e8-d9b93f410c08
-POST {{Api_HostAddress}}/products/{{productId}}/VariationQuantity
+POST {{Api_HostAddress}}/Orders
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "color" : "Blue",
-    "colorQuantity" : 480
+    "totalValue": 100.0,
+    "items": [
+        {
+            "productId": "30b39aba-cf2f-454f-83e8-d9b93f410c08",
+            "variationId": "99b1cee7-2bb0-48a4-aaa2-0c54e73d8124",
+            "quantity": 2
+        },
+        {
+            "productId": "30b39aba-cf2f-454f-83e8-d9b93f410c08",
+            "variationId": "828d6072-aec8-4e8d-b719-cbeea6019135",
+            "quantity": 1
+        }
+    ]
 }

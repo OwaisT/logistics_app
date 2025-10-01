@@ -1,7 +1,7 @@
 namespace LogisticsApp.Contracts.Order;
 
 public record OrderResponse(
-    string OrderId,
+    Guid OrderId,
     decimal TotalValue,
     int TotalItemsCount,
     List<OrderItemResponse> Items,
@@ -9,8 +9,8 @@ public record OrderResponse(
 );
 
 public record OrderItemResponse(
-    string ProductId,
-    string VariationId,
+    Guid ProductId,
+    Guid VariationId,
     string RefCode,
     int Quantity
 );
