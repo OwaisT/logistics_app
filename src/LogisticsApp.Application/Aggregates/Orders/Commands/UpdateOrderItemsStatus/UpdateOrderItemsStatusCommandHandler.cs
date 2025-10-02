@@ -6,14 +6,14 @@ using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Valu
 using LogisticsApp.Domain.Common.Errors;
 using MediatR;
 
-namespace LogisticsApp.Application.Aggregates.Orders.Commands.UpdateOrderStatus;
+namespace LogisticsApp.Application.Aggregates.Orders.Commands.UpdateOrderItemsStatus;
 
-public class UpdateOrderStatusCommandHandler(
+public class UpdateOrderItemsStatusCommandHandler(
     IOrderRepository _orderRepository,
-    OrderStatusChangeService _orderStatusChangeService)
-     : IRequestHandler<UpdateOrderStatusCommand, ErrorOr<Order>>
+    OrderItemsStatusChangeService _orderStatusChangeService)
+     : IRequestHandler<UpdateOrderItemsStatusCommand, ErrorOr<Order>>
 {
-    public async Task<ErrorOr<Order>> Handle(UpdateOrderStatusCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Order>> Handle(UpdateOrderItemsStatusCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var orderId = OrderId.Create(command.OrderId);
@@ -22,7 +22,7 @@ public class UpdateOrderStatusCommandHandler(
         {
             return Errors.Common.EntityNotFound(nameof(Order), orderId.Value.ToString());
         }
-        var updateStatusResult = _orderStatusChangeService.ChangeOrderStatus(order, command.Status);
+        var updateStatusResult = _orderStatusChangeService.ChangeOrderItemsStatus(order, command.OrderItemsIds, command.Status);
         if (updateStatusResult.IsError)
         {
             return updateStatusResult.Errors;

@@ -29,8 +29,9 @@ public sealed class OrderItem : Entity<OrderItemId>
         return new OrderItem(OrderItemId.CreateUnique(), productId, variationId, refCode);
     }
 
-    public void UpdateStatus(string status)
+    internal void UpdateStatus(string status)
     {
         Status = status;
     }
+
 }

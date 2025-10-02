@@ -35,10 +35,20 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
             totalValue);
     }
 
-    public ErrorOr<Order> UpdateStatus(string status)
+    internal ErrorOr<Order> UpdateStatus(string status)
     {
         Status = status;
         _items.ForEach(i => i.UpdateStatus(status));
+        return this;
+    }
+
+    internal Order UpdateItemsStatus(List<OrderItem> items, string status)
+    {
+        foreach (var item in items)
+        {
+            var orderItem = _items.FirstOrDefault(i => i.Id == item.Id);
+            orderItem?.UpdateStatus(status);
+        }
         return this;
     }
 

@@ -8,6 +8,7 @@ using LogisticsApp.Application.Aggregates.Warehouses.Services;
 using LogisticsApp.Application.Authentication.Services;
 using LogisticsApp.Application.Common.Behaviors;
 using LogisticsApp.Application.Common.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Policies;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
@@ -30,6 +31,10 @@ public static class DependencyInjection
         services.AddScoped<ProductFactory>();
         services.AddScoped<OrderCreationService>();
         services.AddScoped<OrderReturnCreationService>();
+        services.AddScoped<OrderStatusChangeService>();
+        services.AddScoped<OrderItemsStatusChangeService>();
+        services.AddScoped<IOrderStatusChangePolicy, OrderStatusChangePolicy>();
+        services.AddScoped<IOrderItemsStatusChangePolicy, OrderItemsStatusChangePolicy>();
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidateBehavior<,>));
@@ -42,6 +47,7 @@ public static class DependencyInjection
         services.AddScoped<EnforceProductInvariantsAndGetVariationRefCodeService>();
         services.AddScoped<IProductAvailabilityChecker, ProductAvailabilityChecker>();
         services.AddScoped<IOrderReturnItemsValidation, OrderReturnItemsValidation>();
+        
 
         return services;
     }

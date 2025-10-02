@@ -1,21 +1,13 @@
 @Api_HostAddress = http://localhost:5123
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiJiMDcwMDExOS1hZDZkLTRlNDgtOGU4Zi0zZTI4NDk0YjkxNDQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTk0NTYzNzIsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.IAfAIlWDlaeEMAR2KIKJqKIsF_G6_uEG3NZsUzhLQ8g
-POST {{Api_HostAddress}}/Orders
+@orderId=b378515e-1885-4a8d-8343-735c4dcf7f21
+PUT {{Api_HostAddress}}/Orders/{{orderId}}/OrderItems/status
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "totalValue": 100.0,
-    "items": [
-        {
-            "productId": "30b39aba-cf2f-454f-83e8-d9b93f410c08",
-            "variationId": "99b1cee7-2bb0-48a4-aaa2-0c54e73d8124",
-            "quantity": 2
-        },
-        {
-            "productId": "30b39aba-cf2f-454f-83e8-d9b93f410c08",
-            "variationId": "828d6072-aec8-4e8d-b719-cbeea6019135",
-            "quantity": 1
-        }
-    ]
+    "orderItemsIds": [
+        "3cb5edb4-7a45-4f6f-a5c1-aa3febc745a5"
+    ],
+    "status": "Returned"
 }
