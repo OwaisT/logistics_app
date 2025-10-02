@@ -33,8 +33,9 @@ public sealed class OrderReturnItem : Entity<OrderReturnItemId>
         return new OrderReturnItem(OrderReturnItemId.CreateUnique(), orderItemId, productId, variationId, refCode);
     }
 
-    public void UpdateStatus(string status)
+    internal void UpdateStatus(string status)
     {
         Status = status;
     }
+
 }

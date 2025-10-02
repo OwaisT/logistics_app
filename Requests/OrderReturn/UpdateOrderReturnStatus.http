@@ -1,0 +1,10 @@
+@Api_HostAddress = http://localhost:5123
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI5MDc4NmQwZC05MTQyLTQwNzctYjNhMS1mZDA0NWJhY2NmNzYiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTk0NDYwOTgsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.hU-rKKJ2wyI2JyBuVmXfQGnl7UOsAIUMAMAItgVnqJU
+@orderReturnId=731e620c-12b8-452c-ac6e-539d316d9101
+PUT {{Api_HostAddress}}/OrderReturns/{{orderReturnId}}/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "status": "Approved"
+}

@@ -1,4 +1,5 @@
 using LogisticsApp.Application.Aggregates.OrderReturns.Commands.CreateOrderReturn;
+using LogisticsApp.Application.Aggregates.OrderReturns.Commands.UpdateOrderReturnStatus;
 using LogisticsApp.Contracts.Aggregates.OrderReturn;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.Entities;
@@ -13,6 +14,10 @@ public class OrderReturnMappingConfig : IRegister
 
         config.NewConfig<CreateOrderReturnRequest, CreateOrderReturnCommand>()
             .Map(dest => dest, src => src);
+
+        config.NewConfig<(Guid orderReturnId, UpdateOrderReturnStatusRequest request), UpdateOrderReturnStatusCommand>()
+            .Map(dest => dest.OrderReturnId, src => src.orderReturnId)
+            .Map(dest => dest, src => src.request);
 
         config.NewConfig<OrderReturn, OrderReturnResponse>()
             .Map(dest => dest.Id, src => src.Id.Value)

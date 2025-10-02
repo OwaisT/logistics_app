@@ -1,4 +1,5 @@
 using LogisticsApp.Application.Aggregates.OrderReturns.Commands.CreateOrderReturn;
+using LogisticsApp.Application.Aggregates.OrderReturns.Commands.UpdateOrderReturnStatus;
 using LogisticsApp.Contracts.Aggregates.OrderReturn;
 using MapsterMapper;
 using MediatR;
@@ -22,6 +23,17 @@ public class OrderReturnsController(ISender mediator, IMapper mapper) : ApiContr
         var createOrderReturnResult = await _mediator.Send(command);
         return createOrderReturnResult.Match(
             order => Ok(_mapper.Map<OrderReturnResponse>(order)),
+            Problem);
+    }
+
+    [Authorize(Roles = "BusinessManager,FacilityManager")]
+    [HttpPut("{orderReturnId}/status")]
+    public async Task<IActionResult> UpdateOrderReturnStatus(Guid orderReturnId, UpdateOrderReturnStatusRequest request)
+    {
+        var command = _mapper.Map<UpdateOrderReturnStatusCommand>((orderReturnId, request));
+        var updateOrderReturnStatusResult = await _mediator.Send(command);
+        return updateOrderReturnStatusResult.Match(
+            orderReturn => Ok(_mapper.Map<OrderReturnResponse>(orderReturn)),
             Problem);
     }
 }

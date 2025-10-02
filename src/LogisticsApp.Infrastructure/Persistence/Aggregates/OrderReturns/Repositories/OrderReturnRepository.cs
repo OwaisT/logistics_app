@@ -1,5 +1,6 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.ValueObjects;
 
 namespace LogisticsApp.Infrastructure.Persistence.Aggregates.OrderReturns.Repositories;
 
@@ -13,7 +14,7 @@ public class OrderReturnRepository(
         _dbContext.SaveChanges();
     }
 
-    public OrderReturn? GetById(Guid id)
+    public OrderReturn? GetById(OrderReturnId id)
     {
         return _dbContext.OrderReturns.Find(id);
     }

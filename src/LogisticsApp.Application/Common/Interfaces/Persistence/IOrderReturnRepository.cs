@@ -1,10 +1,11 @@
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.ValueObjects;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 
 public interface IOrderReturnRepository
 {
     void Add(OrderReturn orderReturn);
-    OrderReturn? GetById(Guid id);
+    OrderReturn? GetById(OrderReturnId id);
     void Update(OrderReturn orderReturn);
 }
