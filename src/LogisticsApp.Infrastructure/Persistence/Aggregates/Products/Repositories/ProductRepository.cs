@@ -1,6 +1,6 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Helpers;
 // using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
 // using LogisticsApp.Infrastructure.Persistence.Products.Models;

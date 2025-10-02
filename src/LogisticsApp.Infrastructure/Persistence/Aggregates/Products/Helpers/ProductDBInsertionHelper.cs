@@ -1,4 +1,4 @@
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
 
 namespace LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Helpers;

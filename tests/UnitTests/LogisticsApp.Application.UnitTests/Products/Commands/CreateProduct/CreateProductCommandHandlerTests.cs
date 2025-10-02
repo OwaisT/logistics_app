@@ -3,8 +3,8 @@ using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.UnitTests.Products.Commands.TestUtils;
 using LogisticsApp.Application.UnitTests.TestUtils.Products.Extensions;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services;
 using Moq;
 
 namespace LogisticsApp.Application.UnitTests.Products.Commands.CreateProduct;

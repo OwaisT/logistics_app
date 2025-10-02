@@ -1,6 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using MediatR;
 
 namespace LogisticsApp.Application.Aggregates.Products.Queries.GetProducts;

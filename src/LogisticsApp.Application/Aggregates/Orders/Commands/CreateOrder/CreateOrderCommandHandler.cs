@@ -1,9 +1,10 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Services;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Services;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using MediatR;
 
 namespace LogisticsApp.Application.Aggregates.Orders.Commands.CreateOrder;
@@ -11,7 +12,7 @@ namespace LogisticsApp.Application.Aggregates.Orders.Commands.CreateOrder;
 public class CreateOrderCommandHandler(
     IOrderRepository _orderRepository,
     EnforceProductInvariantsAndGetVariationRefCodeService _enforceProductInvariantsAndGetVariationRefCodeService,
-    OrderFactory _orderFactory)
+    OrderCreationService _orderCreationService)
      : IRequestHandler<CreateOrderCommand, ErrorOr<Order>>
 {
     public async Task<ErrorOr<Order>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
@@ -37,7 +38,7 @@ public class CreateOrderCommandHandler(
             }
         }
 
-        var orderResult = _orderFactory.CreateOrder(
+        var orderResult = _orderCreationService.CreateOrder(
             orderItems,
             command.TotalValue
         );

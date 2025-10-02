@@ -1,7 +1,7 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
 using MediatR;
 

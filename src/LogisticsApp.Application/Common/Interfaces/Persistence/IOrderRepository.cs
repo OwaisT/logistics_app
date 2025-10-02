@@ -1,5 +1,5 @@
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.ValueObjects;
 
 namespace LogisticsApp.Application.Common.Interfaces.Persistence;
 

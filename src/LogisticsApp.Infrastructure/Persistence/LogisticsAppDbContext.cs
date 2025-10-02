@@ -1,5 +1,3 @@
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse;
 using LogisticsApp.Domain.Shared.Aggregates.User;
@@ -10,6 +8,9 @@ using LogisticsApp.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
 
 namespace LogisticsApp.Infrastructure.Persistence;
 
@@ -32,6 +33,7 @@ public class LogisticsAppDbContext : DbContext
     public DbSet<CategoryEntity> ProductCategories { get; set; }
     public DbSet<Carton> Cartons { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderReturn> OrderReturns { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

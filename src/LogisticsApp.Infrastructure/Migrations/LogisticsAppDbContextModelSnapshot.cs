@@ -22,7 +22,7 @@ namespace LogisticsApp.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Order", b =>
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,25 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("Orders", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Product", b =>
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.OrderReturn", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderReturns", (string)null);
+                });
+
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -327,12 +345,11 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Order", b =>
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Order", b =>
                 {
-                    b.OwnsMany("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities.OrderItem", "Items", b1 =>
+                    b.OwnsMany("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Entities.OrderItem", "Items", b1 =>
                         {
                             b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
                                 .HasColumnType("uuid")
                                 .HasColumnName("Id");
 
@@ -372,9 +389,50 @@ namespace LogisticsApp.Infrastructure.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Product", b =>
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.OrderReturn", b =>
                 {
-                    b.OwnsMany("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entities.Variation", "Variations", b1 =>
+                    b.OwnsMany("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.Entities.OrderReturnItem", "Items", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid")
+                                .HasColumnName("Id");
+
+                            b1.Property<Guid>("OrderReturnId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<Guid>("OrderItemId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<Guid>("ProductId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("RefCode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Status")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("VariationId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Id", "OrderReturnId");
+
+                            b1.HasIndex("OrderReturnId");
+
+                            b1.ToTable("OrderReturnItems", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderReturnId");
+                        });
+
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Product", b =>
+                {
+                    b.OwnsMany("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities.Variation", "Variations", b1 =>
                         {
                             b1.Property<Guid>("Id")
                                 .HasColumnType("uuid");
@@ -585,7 +643,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_ProductCategories_Categories_CategoryId");
 
-                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Product", null)
+                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -602,7 +660,7 @@ namespace LogisticsApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_ProductColors_Colors_ColorId");
 
-                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Product", null)
+                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -612,7 +670,7 @@ namespace LogisticsApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ProductSizes", b =>
                 {
-                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Product", null)
+                    b.HasOne("LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

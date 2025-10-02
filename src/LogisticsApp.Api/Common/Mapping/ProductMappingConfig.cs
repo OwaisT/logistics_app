@@ -1,9 +1,9 @@
 using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Contracts.Aggregates.Product;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.Entities;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Product.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;

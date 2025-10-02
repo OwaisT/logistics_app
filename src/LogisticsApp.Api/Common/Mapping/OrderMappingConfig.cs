@@ -1,8 +1,8 @@
 using LogisticsApp.Application.Aggregates.Orders.Commands.CreateOrder;
 using LogisticsApp.Application.Aggregates.Orders.Commands.UpdateOrderStatus;
 using LogisticsApp.Contracts.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Entities;
 using Mapster;
 
 namespace LogisticsApp.Api.Common.Mapping;

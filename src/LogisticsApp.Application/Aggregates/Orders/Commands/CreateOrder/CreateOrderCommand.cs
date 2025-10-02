@@ -1,5 +1,5 @@
 using ErrorOr;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.Order;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
 using MediatR;
 
 namespace LogisticsApp.Application.Aggregates.Orders.Commands.CreateOrder;
