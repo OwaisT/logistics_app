@@ -27,7 +27,7 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     public IReadOnlyList<Assortment> Assortments => _assortments.AsReadOnly();
     public IReadOnlyList<Variation> Variations => _variations.AsReadOnly();
 
-    internal Product(
+    private Product(
         ProductId id,
         string refCode,
         string season,
@@ -59,40 +59,44 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations = variations;
     }
 
+    public static Product Create(
+        string refCode,
+        string season,
+        string name,
+        string description,
+        decimal generalPrice,
+        bool isActive,
+        List<string> categories,
+        List<string> colors,
+        List<string> sizes,
+        List<Assortment> assortments,
+        List<Variation> variations)
+    {
+        return new Product(
+            ProductId.CreateUnique(),
+            refCode,
+            season,
+            name,
+            description,
+            generalPrice,
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            isActive,
+            categories,
+            colors,
+            sizes,
+            assortments,
+            variations);
+    }
+
     public Variation? GetVariation(VariationId variationId)
     {
         return _variations.FirstOrDefault(v => v.Id == variationId);
     }
 
-    public ErrorOr<Product> AddVariation(string color, string size)
+    internal Product AddVariations(List<Variation> variations)
     {
-        if (_variations.Any(v => v.Color == color && v.Size == size))
-        {
-            // Variation with the same color and size already exists
-            return Errors.Common.DuplicateEntity("Variation", new List<string> { $"Color: {color}", $"Size: {size}" });
-        }
-        _variations.Add(Variation.Create(
-            RefCode,
-            Season,
-            Name,
-            Description,
-            GeneralPrice,
-            color,
-            size));
-        UpdatedAt = DateTime.UtcNow;
-        return this;
-    }
-
-    public ErrorOr<Product> RemoveVariation(VariationId variationId, string color, string size)
-    {
-        var variation = _variations.FirstOrDefault(v => v.Id == variationId && v.Color == color && v.Size == size);
-        if (variation == null)
-        {
-            // Variation not found
-            return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
-        }
-        _variations.Remove(variation);
-        UpdatedAt = DateTime.UtcNow;
+        _variations.AddRange(variations);
         return this;
     }
 
@@ -114,13 +118,11 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         }
     }
 
-    public void AddColor(string color)
+    public Product AddColor(string color)
     {
-        if (!_colors.Contains(color))
-        {
-            _colors.Add(color);
-            UpdatedAt = DateTime.UtcNow;
-        }
+        _colors.Add(color);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
     public void RemoveColor(string color)

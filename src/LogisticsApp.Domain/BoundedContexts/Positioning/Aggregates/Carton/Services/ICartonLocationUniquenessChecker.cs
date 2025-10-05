@@ -4,6 +4,5 @@ namespace LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Serv
 
 public interface ICartonLocationUniquenessChecker
 {
-    // TODO: create an implementation that checks the database for existing locations
     bool IsLocationUnique(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind);
 }

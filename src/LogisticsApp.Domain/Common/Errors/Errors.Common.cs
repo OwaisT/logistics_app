@@ -33,5 +33,9 @@ public static partial class Errors
         public static Error DuplicateEntity(string entityName, List<string> parameters) => Error.Conflict(
             code: "Common.Duplicate",
             description: $"{entityName} with parameters {string.Join(", ", parameters)} already exists.");
+
+        public static Error DuplicatePropertyValue(string entityName, string propertyName, string propertyValue) => Error.Conflict(
+            code: "Common.Duplicate",
+            description: $"Property {propertyName} with value {propertyValue} already exists for {entityName}.");
     }
 }

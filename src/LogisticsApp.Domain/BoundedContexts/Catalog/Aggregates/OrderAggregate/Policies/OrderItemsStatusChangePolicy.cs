@@ -21,12 +21,14 @@ public class OrderItemsStatusChangePolicy : IOrderItemsStatusChangePolicy
         {
             if (!order.Items.Contains(item))
             {
+                // TODO: Create a specific error type for this
                 return Error.Failure($"Order does not contain item with ID: {item.Id.Value}");
             }
 
             // 1. Basic transition check
             if (!IsValidStatusTransition(item.Status, newStatus))
             {
+                // TODO: Create a specific error type for this
                 return Error.Failure(
                     $"Invalid status transition for item ID {item.Id.Value} from {item.Status} to {newStatus}");
             }
@@ -34,6 +36,7 @@ public class OrderItemsStatusChangePolicy : IOrderItemsStatusChangePolicy
             // 2. Guardrails based on order-level status
             if (!IsAllowedByOrderStatus(order.Status, newStatus))
             {
+                // TODO: Create a specific error type for this
                 return Error.Failure(
                     $"Order status '{order.Status}' does not allow items to transition to '{newStatus}' (item ID {item.Id})");
             }
@@ -48,6 +51,7 @@ public class OrderItemsStatusChangePolicy : IOrderItemsStatusChangePolicy
                && allowedStatuses.Contains(newStatus);
     }
 
+    // TODO: Need to enforce more guardrails based on business rules
     private static bool IsAllowedByOrderStatus(string orderStatus, string newStatus)
     {
         // Example guardrails

@@ -1,5 +1,4 @@
 using ErrorOr;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.ValueObjects;
@@ -11,6 +10,7 @@ public sealed class OrderReturn : AggregateRoot<OrderReturnId, Guid>
 {
     private List<OrderReturnItem> _items = [];
     public OrderId OrderId { get; private set; }
+    // public int OrderNumber { get; private set; }
     public IReadOnlyList<OrderReturnItem> Items => _items.AsReadOnly();
     public string Status { get; private set; } = "Pending";
 

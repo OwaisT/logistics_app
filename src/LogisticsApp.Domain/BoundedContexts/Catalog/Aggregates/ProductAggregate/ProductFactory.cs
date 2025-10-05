@@ -36,17 +36,12 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
             colors,
             sizes);
 
-        var productId = ProductId.CreateUnique();
-
-        var product = new Product(
-            productId,
+        var product = Product.Create(
             refCode,
             season,
             name,
             description,
             generalPrice,
-            DateTime.UtcNow,
-            DateTime.UtcNow,
             isActive,
             categories,
             colors,
@@ -77,7 +72,7 @@ public class ProductFactory(IProductUniquenessChecker productUniquenessChecker)
         return productUniquenessChecker.IsUnique(refCode, season);
     }
 
-    private List<Variation> GenerateVariations(
+    private static List<Variation> GenerateVariations(
         string refCode,
         string season,
         string name,

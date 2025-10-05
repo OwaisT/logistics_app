@@ -10,16 +10,10 @@ using LogisticsApp.Application.Aggregates.Products.Queries.GetProducts;
 namespace LogisticsApp.Api.Controllers.AggregatesControllers;
 
 [Route("products")]
-public class ProductsController : ApiController
+public class ProductsController(ISender mediator, IMapper mapper) : ApiController
 {
-    private readonly ISender _mediator;
-    private readonly IMapper _mapper;
-
-    public ProductsController(ISender mediator, IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
+    private readonly ISender _mediator = mediator;
+    private readonly IMapper _mapper = mapper;
 
     [Authorize(Roles = "BusinessManager")]
     [HttpPost]
