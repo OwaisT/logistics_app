@@ -5,7 +5,7 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregat
 
 public sealed class Variation : Entity<VariationId>
 {
-    private int _availableStock => Received - Sold + Returned - Defective;
+    private int _availableStock => Received - Sold + Returned - Defective + Repaired;
     private string _variationRefCode => $"{ProductRefCode}-{Color}-{Size}";
     public string ProductRefCode { get; private set; }
     public string ProductSeason { get; private set; }
@@ -20,6 +20,7 @@ public sealed class Variation : Entity<VariationId>
     public int Available { get; private set; }
     public int Returned { get; private set; }
     public int Defective { get; private set; }
+    public int Repaired { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
