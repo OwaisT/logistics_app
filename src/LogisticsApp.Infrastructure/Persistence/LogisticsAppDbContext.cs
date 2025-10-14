@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
 
 namespace LogisticsApp.Infrastructure.Persistence;
@@ -27,10 +26,10 @@ public class LogisticsAppDbContext : DbContext
     public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<RoleEntity> Roles { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<SizeEntity> ProductSizes { get; set; }
-    public DbSet<ColorEntity> ProductColors { get; set; }
-    public DbSet<CategoryEntity> ProductCategories { get; set; }
+    public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<SizeEntity> Sizes { get; set; }
+    public DbSet<ColorEntity> Colors { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<Carton> Cartons { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderReturn> OrderReturns { get; set; }

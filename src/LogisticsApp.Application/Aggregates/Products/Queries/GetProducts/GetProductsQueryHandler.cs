@@ -12,7 +12,8 @@ public class GetProductsQueryHandler(IProductRepository productRepository) :
     
     public async Task<ErrorOr<List<Product>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await _productRepository.GetAllAsync();
+        await Task.CompletedTask;
+        var products = _productRepository.GetAll();
         return ErrorOrFactory.From(products);
     }
 }

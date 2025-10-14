@@ -35,5 +35,6 @@ public record VariationResponse(
     int Available,
     int Returned,
     int Defective,
+    int Repaired,
     DateTime CreatedAt,
     DateTime UpdatedAt);

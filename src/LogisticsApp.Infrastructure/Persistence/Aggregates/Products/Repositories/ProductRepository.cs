@@ -1,96 +1,106 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Helpers;
-// using LogisticsApp.Infrastructure.Persistence.Products.Helpers;
-// using LogisticsApp.Infrastructure.Persistence.Products.Models;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Repositories;
 
 public class ProductRepository(
-    LogisticsAppDbContext _dbContext,
-    ProductMappingInHelper _mappingInHelper,
-    ProductDBInsertionHelper _dbInsertionHelper,
-    ProductDBExtractionHelper _dbExtractionHelper) : IProductRepository
+    LogisticsAppDbContext _dbContext) : IProductRepository
 {
-    private static readonly List<Product> _products = [];
+    // private static readonly List<Product> _products = [];
 
-    public void Add(Product product)
+    public void Add(Product domainProduct)
     {
-        var sizes = _mappingInHelper.MapSizesToEntities([.. product.Sizes]);
-        _dbInsertionHelper.CreateAndInsertProductSizes(product, sizes);
+        var productEntity = domainProduct.Adapt<ProductEntity>();
 
-        var colors = _mappingInHelper.MapColorsToEntities(product.Colors.ToList());
-        _dbInsertionHelper.CreateAndInsertProductColors(product, colors);
+        productEntity.Categories = EntityResolvingHelpers.ResolveCategories(domainProduct, _dbContext);
+        productEntity.Sizes = EntityResolvingHelpers.ResolveSizes(domainProduct, _dbContext);
+        productEntity.Colors = EntityResolvingHelpers.ResolveColors(domainProduct, _dbContext);
 
-        var categories = _mappingInHelper.MapCategoriesToEntities(product.Categories.ToList());
-        _dbInsertionHelper.CreateAndInsertProductCategories(product, categories);
-
-        // // Add the product aggregate itself
-        _dbContext.Add(product);
+        _dbContext.Add(productEntity);
         _dbContext.SaveChanges();
     }
 
-    public void Update(Product product)
+    public void Update(Product domainProduct)
     {
-        // var sizes = _mappingInHelper.MapSizesToEntities([.. product.Sizes]);
-        // _dbInsertionHelper.CreateAndInsertProductSizes(product, sizes);
+        var existing = _dbContext.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Categories)
+            .Include(p => p.Colors)
+            .Include(p => p.Sizes)
+            .FirstOrDefault(p => p.Id == domainProduct.Id.Value);
+        
+        if (existing == null)
+        {
+            // TODO: Use error or
+            throw new InvalidOperationException($"Product with ID {domainProduct.Id} not found.");
+        }
 
-        // var colors = _mappingInHelper.MapColorsToEntities(product.Colors.ToList());
-        // _dbInsertionHelper.CreateAndInsertProductColors(product, colors);
 
-        // var categories = _mappingInHelper.MapCategoriesToEntities(product.Categories.ToList());
-        // _dbInsertionHelper.CreateAndInsertProductCategories(product, categories);
+        domainProduct.Adapt(existing);
 
-        _dbContext.Update(product);
+        existing.Categories = EntityResolvingHelpers.ResolveCategories(domainProduct, _dbContext);
+        existing.Sizes = EntityResolvingHelpers.ResolveSizes(domainProduct, _dbContext);
+        existing.Colors = EntityResolvingHelpers.ResolveColors(domainProduct, _dbContext);
+
         _dbContext.SaveChanges();
     }
 
     public List<Product> GetAll()
     {
         // Fetch products with related entities from the database
-        var products = _dbContext.Products.ToList();
-        var completeProducts = new List<Product>();
-        foreach (var product in products)
-        {
-            var completeProduct = MapToAggregate(product);
-            completeProducts.Add(completeProduct);
-        }
-        return completeProducts;
+        var productsEntities = _dbContext.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Categories)
+            .Include(p => p.Colors)
+            .Include(p => p.Sizes)
+            .ToList();
+
+        var products = productsEntities.Adapt<List<Product>>();
+
+        return products;
     }
 
     public async Task<List<Product>> GetAllAsync()
     {
-        // Fetch products with related entities from the database
-        return await Task.FromResult(_products);
+        var productsEntities = await _dbContext.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Categories)
+            .Include(p => p.Colors)
+            .Include(p => p.Sizes)
+            .ToListAsync();
+
+        return productsEntities.Adapt<List<Product>>();
     }
 
     public Product? GetById(ProductId id)
     {
-        var product = _dbContext.Products.FirstOrDefault(p => p.Id == id);
-        if (product == null) return null;
-        return MapToAggregate(product);
+        var productEntity = _dbContext.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Categories)
+            .Include(p => p.Colors)
+            .Include(p => p.Sizes)
+            .FirstOrDefault(p => p.Id == id.Value);
+
+        if (productEntity == null) return null;
+        return productEntity.Adapt<Product>();
     }
 
     public Product? GetByDetails(string refCode, string season)
     {
-        var product = _dbContext.Products.FirstOrDefault(p => p.RefCode == refCode && p.Season == season);
-        if (product == null) return null;
-        return MapToAggregate(product);
+        var productEntity = _dbContext.Products
+            .Include(p => p.Variations)
+            .Include(p => p.Categories)
+            .Include(p => p.Colors)
+            .Include(p => p.Sizes)
+            .FirstOrDefault(p => p.RefCode == refCode && p.Season == season);
+
+        if (productEntity == null) return null;
+        return productEntity.Adapt<Product>();
     }
 
-    private Product MapToAggregate(Product product)
-    {
-        var categoryIds = _dbExtractionHelper.GetProductCategoryIds(product.Id.Value);
-        var categoryNames = ProductMappingOutHelper.MapCategoryEntitiesToNames(_dbExtractionHelper.GetCategoriesByIds(categoryIds));
-        product = ProductMappingOutHelper.MapCategoriesToProductAggregate(product, categoryNames);
-        var sizeIds = _dbExtractionHelper.GetProductSizeIds(product.Id.Value);
-        var sizesNames = ProductMappingOutHelper.MapSizeEntitiesToSizes(_dbExtractionHelper.GetSizesByIds(sizeIds));
-        product = ProductMappingOutHelper.MapSizesToProductAggregate(product, sizesNames);
-        var colorIds = _dbExtractionHelper.GetProductColorIds(product.Id.Value);
-        var colorNames = ProductMappingOutHelper.MapColorEntitiesToColors(_dbExtractionHelper.GetColorsByIds(colorIds));
-        product = ProductMappingOutHelper.MapColorsToProductAggregate(product, colorNames);
-
-        return product;
-    }
 }

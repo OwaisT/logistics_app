@@ -1,12 +1,12 @@
 @Api_HostAddress = http://localhost:5123
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI5NjY3MzAwNS1hNzZiLTQ4YmYtOWZiOS0wNzgzNDkzYzg4ZmMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NTkxNTUzNzcsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.KsKq640MyPC3GnUsfYudG8Szq48ZCrsaNVEVd_yIE48
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI1Mzk4YjcyZC04MWI2LTQ5N2MtYWUwNS0zOWM0NDZiNWJmZjUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NjA0OTA0NzksImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.EWyddqdNeaXtAgJh4i9YM6SLJNmFmQUiQ-a0EKHEU2Q
 @hostId=abcd
-POST {{Api_HostAddress}}/hosts/{{hostId}}/products
+POST {{Api_HostAddress}}/products
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "RefCode": "PROD-002",
+    "RefCode": "PROD-020",
     "Season": "SS2024",
     "Name": "Summer T-Shirt",
     "Description": "A light and comfortable t-shirt perfect for summer.",

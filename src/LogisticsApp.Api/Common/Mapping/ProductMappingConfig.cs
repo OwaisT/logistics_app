@@ -12,8 +12,8 @@ public class ProductMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<(CreateProductRequest request, string hostId), CreateProductCommand>()
-            .Map(dest => dest, src => src.request);
+        config.NewConfig<CreateProductRequest, CreateProductCommand>()
+            .Map(dest => dest, src => src);
 
         config.NewConfig<Product, ProductResponse>()
             .Map(dest => dest.Categories, src => src.Categories.ToList())

@@ -13,8 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace LogisticsApp.Infrastructure;
-
+using LogisticsApp.Infrastructure.Common.Mapping;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Cartons.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.OrderReturns.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Orders.Repositories;
@@ -23,6 +22,11 @@ using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Helpers;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Warehouses.Repositories;
+using Mapster;
+using System.Reflection;
+using MapsterMapper;
+
+namespace LogisticsApp.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -34,6 +38,7 @@ public static class DependencyInjection
         services
             .AddAuth(configuration)
             .AddPersistance(configuration);
+        services.AddMappings();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
 
@@ -92,17 +97,22 @@ public static class DependencyInjection
         services.AddScoped<IOrderReturnRepository, OrderReturnRepository>();
         return services;
     }
-    
+
     public static IServiceCollection AddHelpers(this IServiceCollection services)
     {
         services.AddScoped<UserMappingInHelper>();
         services.AddScoped<UserDBInsertionHelper>();
         services.AddScoped<UserMappingOutHelper>();
         services.AddScoped<UserDBExtractionHelper>();
-        services.AddScoped<ProductMappingInHelper>();
-        services.AddScoped<ProductDBInsertionHelper>();
-        services.AddScoped<ProductMappingOutHelper>();
-        services.AddScoped<ProductDBExtractionHelper>();
+        return services;
+    }
+
+    private static IServiceCollection AddMappings(this IServiceCollection services)
+    {
+        var config = TypeAdapterConfig.GlobalSettings;
+        config.Scan(Assembly.GetExecutingAssembly());
+        services.AddSingleton(config);
+        services.AddScoped<IMapper, ServiceMapper>();
         return services;
     }
 }

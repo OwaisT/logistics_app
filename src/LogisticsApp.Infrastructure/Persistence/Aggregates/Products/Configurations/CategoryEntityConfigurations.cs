@@ -9,12 +9,10 @@ public class CategoryEntityConfiguration : IEntityTypeConfiguration<CategoryEnti
     public void Configure(EntityTypeBuilder<CategoryEntity> builder)
     {
         builder.ToTable("Categories");
-
         builder.HasKey(category => category.Id);
         builder.Property(category => category.Name)
             .IsRequired()
             .HasMaxLength(100);
-
         builder.HasIndex(category => category.Name).IsUnique(); // avoid duplicates
     }
 }
