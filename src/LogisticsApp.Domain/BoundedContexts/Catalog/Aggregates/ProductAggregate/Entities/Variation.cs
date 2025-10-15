@@ -77,7 +77,7 @@ public sealed class Variation : Entity<VariationId>
             DateTime.UtcNow);
     }
 
-    public void UpdatePrice(decimal newPrice)
+    internal void UpdatePrice(decimal newPrice)
     {
         Price = newPrice;
         UpdatedAt = DateTime.UtcNow;

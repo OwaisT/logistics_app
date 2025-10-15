@@ -7,7 +7,7 @@ using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Queries.GetProducts;
 
-namespace LogisticsApp.Api.Controllers.AggregatesControllers;
+namespace LogisticsApp.Api.Controllers.AggregatesControllers.Products;
 
 [Route("products")]
 public class ProductsController(ISender mediator, IMapper mapper) : ApiController
@@ -38,6 +38,7 @@ public class ProductsController(ISender mediator, IMapper mapper) : ApiControlle
             Problem);
     }
 
+    // TODO: MMove to a separate controller
     [Authorize(Roles = "BusinessManager,FacilityManager")]
     [HttpPut("{productId}/VariationQuantity")]
     public async Task<IActionResult> AddReceivedForVariation(string productId, [FromBody] AddReceivedForVariationRequest request)

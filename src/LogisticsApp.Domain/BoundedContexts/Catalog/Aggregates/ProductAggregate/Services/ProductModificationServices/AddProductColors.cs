@@ -2,11 +2,26 @@ using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
 using LogisticsApp.Domain.Common.Errors;
 
-namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services;
+namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices;
 
-public class AddProductColor
+public static class AddProductColors
 {
-    public static ErrorOr<Product> Execute(Product product, string color)
+
+    public static ErrorOr<Product> Execute(Product product, List<string> colors)
+    {
+        foreach (var color in colors)
+        {
+            var result = AddColor(product, color);
+            if (result.IsError)
+            {
+                return result;
+            }
+            product = result.Value;
+        }
+        return product;
+    }
+
+    private static ErrorOr<Product> AddColor(Product product, string color)
     {
         if (product.Colors.Contains(color))
         {

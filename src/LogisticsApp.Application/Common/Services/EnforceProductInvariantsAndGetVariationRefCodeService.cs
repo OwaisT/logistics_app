@@ -20,7 +20,7 @@ public class EnforceProductInvariantsAndGetVariationRefCodeService(
         {
             return Errors.Common.EntityNotFound(nameof(Product), productId.Value.ToString());
         }
-        var variation = product.GetVariation(variationId);
+        var variation = product.Variations.FirstOrDefault(v => v.Id == variationId);
         if (variation is null)
         {
             return Errors.Common.EntityNotFound(nameof(Product) + " Variation", variationId.Value.ToString());

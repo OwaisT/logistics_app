@@ -89,9 +89,17 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
             variations);
     }
 
-    public Variation? GetVariation(VariationId variationId)
+    internal Product ModifyRefCode(string newRefCode)
     {
-        return _variations.FirstOrDefault(v => v.Id == variationId);
+        RefCode = newRefCode;
+        UpdatedAt = DateTime.UtcNow;
+        return this;
+    }
+    internal Product ModifySeason(string newSeason)
+    {
+        Season = newSeason;
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
     internal Product AddVariations(List<Variation> variations)
@@ -99,57 +107,67 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         _variations.AddRange(variations);
         return this;
     }
-
-    public void AddCategory(string category)
+    internal Product RemoveVariations(List<VariationId> variationIds)
     {
-        if (!_categories.Contains(category))
+        foreach (var variationId in variationIds)
         {
-            _categories.Add(category);
-            UpdatedAt = DateTime.UtcNow;
+            var variation = _variations.FirstOrDefault(v => v.Id == variationId);
+            if (variation != null)
+            {
+                _variations.Remove(variation);
+            }
         }
+        return this;
     }
 
-    public void RemoveCategory(string category)
+    internal Product AddCategory(string category)
     {
-        if (_categories.Contains(category))
-        {
-            _categories.Remove(category);
-            UpdatedAt = DateTime.UtcNow;
-        }
+        _categories.Add(category);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
+    }
+    internal Product RemoveCategory(string category)
+    {
+        _categories.Remove(category);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
-    public Product AddColor(string color)
+    internal Product AddColor(string color)
     {
         _colors.Add(color);
         UpdatedAt = DateTime.UtcNow;
         return this;
     }
-
-    public void RemoveColor(string color)
+    internal Product RemoveColor(string color)
     {
-        if (_colors.Contains(color))
-        {
-            _colors.Remove(color);
-            UpdatedAt = DateTime.UtcNow;
-        }
+        _colors.Remove(color);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
-    public void AddSize(string size)
+    internal Product AddSize(string size)
     {
         if (!_sizes.Contains(size))
         {
             _sizes.Add(size);
             UpdatedAt = DateTime.UtcNow;
         }
+        return this;
+    }
+    internal Product RemoveSize(string size)
+    {
+        _sizes.Remove(size);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
-    public void RemoveSize(string size)
+    internal Product ModifyAssortments(List<Assortment> assortments)
     {
-        if (_sizes.Contains(size))
-        {
-            _sizes.Remove(size);
-            UpdatedAt = DateTime.UtcNow;
-        }
+        _assortments.Clear();
+        _assortments.AddRange(assortments);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
     }
 
     public ErrorOr<Product> ModifyReceivedForVariation(VariationId variationId, int quantity)
@@ -160,6 +178,13 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
             return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
         }
         variation.ModifyReceived(quantity);
+        UpdatedAt = DateTime.UtcNow;
+        return this;
+    }
+
+    internal Product ModifyGeneralPrice(decimal newPrice)
+    {
+        GeneralPrice = newPrice;
         UpdatedAt = DateTime.UtcNow;
         return this;
     }

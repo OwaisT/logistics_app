@@ -37,5 +37,9 @@ public static partial class Errors
         public static Error DuplicatePropertyValue(string entityName, string propertyName, string propertyValue) => Error.Conflict(
             code: "Common.Duplicate",
             description: $"Property {propertyName} with value {propertyValue} already exists for {entityName}.");
+
+        public static Error PropertyNotFound(string entityName, string identifier) => Error.NotFound(
+            code: "Common.PropertyNotFound",
+            description: $"Property '{identifier}' was not found for {entityName}.");
     }
 }
