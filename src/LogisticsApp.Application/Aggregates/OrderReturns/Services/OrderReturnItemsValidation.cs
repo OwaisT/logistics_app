@@ -12,12 +12,17 @@ public class OrderReturnItemsValidation(
     IOrderRepository _orderRepository)
      : IOrderReturnItemsValidation
 {
-    public ErrorOr<bool> IsValidOrderItemsForReturn(OrderId orderId, List<OrderItem> orderItems)
+    public ErrorOr<List<OrderItem>> ValidateAndGetOrderItemsForReturn(OrderId orderId, List<Guid> orderItemIds)
     {
         var order = _orderRepository.GetById(orderId);
         if (order == null)
         {
             return Errors.Common.EntityNotFound(nameof(Order), orderId.Value.ToString());
+        }
+        var orderItems = order.Items.Where(oi => orderItemIds.Contains(oi.Id.Value)).ToList();
+        if (orderItems.Count != orderItemIds.Count)
+        {
+            return Errors.OrderReturn.InvalidReturnItems();
         }
         foreach (var item in orderItems)
         {
@@ -27,6 +32,6 @@ public class OrderReturnItemsValidation(
             }
         }
 
-        return orderItems != null && orderItems.Count > 0;
+        return orderItems;
     }
 }

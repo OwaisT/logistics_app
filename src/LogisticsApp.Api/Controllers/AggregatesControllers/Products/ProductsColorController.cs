@@ -15,6 +15,7 @@ public class ProductsColorController(ISender mediator, IMapper mapper) : ApiCont
     [HttpPost]
     public async Task<IActionResult> CreateProduct()
     {
+        await Task.CompletedTask;
         return Ok();
     }
 

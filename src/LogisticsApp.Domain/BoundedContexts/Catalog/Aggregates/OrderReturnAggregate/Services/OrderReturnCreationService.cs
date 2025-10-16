@@ -9,19 +9,20 @@ public class OrderReturnCreationService(
     IOrderReturnItemsValidation _orderReturnItemsValidation)
 {
 
-    public ErrorOr<OrderReturn> CreateOrderReturn(OrderId orderId, List<OrderItem> orderItems)
+    public ErrorOr<OrderReturn> CreateOrderReturn(OrderId orderId, List<Guid> orderItemIds)
     {
-        if (orderItems == null || orderItems.Count == 0)
+        if (orderItemIds == null || orderItemIds.Count == 0)
         {
             // TODO: Create a proper error type for this
             return Error.Validation(code: "OrderReturn.Items.Empty", description: "Order return must contain at least one item.");
         }
 
-        var areItemsValidResult = _orderReturnItemsValidation.IsValidOrderItemsForReturn(orderId, orderItems);
+        var areItemsValidResult = _orderReturnItemsValidation.ValidateAndGetOrderItemsForReturn(orderId, orderItemIds);
         if (areItemsValidResult.IsError)
         {
             return areItemsValidResult.FirstError;
         }
+        var orderItems = areItemsValidResult.Value;
 
         List<OrderReturnItem> orderReturnItems = [.. orderItems.Select(oi => OrderReturnItem.Create(
             oi.Id,

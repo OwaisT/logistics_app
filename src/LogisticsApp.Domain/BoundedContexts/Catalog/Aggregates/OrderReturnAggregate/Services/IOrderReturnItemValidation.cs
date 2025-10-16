@@ -6,5 +6,5 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggr
 
 public interface IOrderReturnItemsValidation
 {
-    ErrorOr<bool> IsValidOrderItemsForReturn(OrderId orderId, List<OrderItem> orderItems);
+    ErrorOr<List<OrderItem>> ValidateAndGetOrderItemsForReturn(OrderId orderId, List<Guid> orderItemIds);
 }

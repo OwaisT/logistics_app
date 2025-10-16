@@ -25,18 +25,14 @@ public sealed class Carton : AggregateRoot<CartonId, Guid>
         return new Carton(cartonId);
     }
 
-    public ErrorOr<Carton> SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
+    internal ErrorOr<Carton> SetLocation(WarehouseId warehouseId, string warehouseName, RoomId roomId, string roomName, int onLeft, int below, int behind)
     {
         Location = CartonLocation.Create(warehouseId, warehouseName, roomId, roomName, onLeft, below, behind);
         return this;
     }
 
-    public ErrorOr<Carton> AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)
+    internal ErrorOr<Carton> AddItem(ProductId productId, VariationId variationId, string refCode, int quantity)
     {
-        if (quantity <= 0)
-        {
-            return Errors.Common.CannotBeNegativeOrZero(nameof(quantity));
-        }
         // If item already exists, update quantity
         if (_items.Any(i => i.ProductId == productId && i.VariationId == variationId))
         {

@@ -25,9 +25,13 @@ public static partial class Errors
         public static Error SizeNotFound(string size) => Error.NotFound(
             code: "Product.SizeNotFound",
             description: $"Size '{size}' not found in product.");
-        
+
         public static Error VariationInUse(string color, string size) => Error.Validation(
             code: "Product.VariationInUse",
             description: $"Cannot remove color '{color}' because variation with color '{color}' and size '{size}' is in use. Please make sure that variation is not associated with any active orders or inventory before removing the color.");
+        
+        public static Error InsufficientStock(string variationId) => Error.Validation(
+            code: "Product.InsufficientStock",
+            description: $"Insufficient stock for variation with ID '{variationId}'.");
     }
 }

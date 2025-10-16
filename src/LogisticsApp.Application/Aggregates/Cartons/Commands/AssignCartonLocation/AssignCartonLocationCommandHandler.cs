@@ -1,5 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
@@ -11,8 +12,8 @@ namespace LogisticsApp.Application.Aggregates.Cartons.Commands.AssignCartonLocat
 
 public class AssignCartonLocationCommandHandler(
     ICartonRepository _cartonRepository,
-    IWarehouseRepository _warehouseRepository,
-    CartonLocationAssigner _cartonLocationAssigner) : IRequestHandler<AssignCartonLocationCommand, ErrorOr<Carton>>
+    CartonLocationAssigner _cartonLocationAssigner,
+    IWarehouseAndRoomExistenceChecker _warehouseAndRoomExistenceChecker) : IRequestHandler<AssignCartonLocationCommand, ErrorOr<Carton>>
 {
     public async Task<ErrorOr<Carton>> Handle(AssignCartonLocationCommand command, CancellationToken cancellationToken)
     {
@@ -24,17 +25,14 @@ public class AssignCartonLocationCommandHandler(
         }
         var warehouseId = WarehouseId.Create(Guid.Parse(command.WarehouseId));
         var roomId = RoomId.Create(Guid.Parse(command.RoomId));
-        var warehouseAndRoomNamesResult = EnforceWarehouseInvariantsAndGetWarehouseAndRoomNames(
-            warehouseId,
-            roomId);
+        var warehouseAndRoomNamesResult = _warehouseAndRoomExistenceChecker.CheckExistenceAndGetNames(warehouseId, roomId);
         if (warehouseAndRoomNamesResult.IsError)
         {
             return warehouseAndRoomNamesResult.Errors;
         }
         var carton = cartonResult.Value;
-        var warehouseAndRoomNames = warehouseAndRoomNamesResult.Value;
 
-        var result = _cartonLocationAssigner.AssignLocationToCarton(carton, warehouseId, warehouseAndRoomNames["WarehouseName"], roomId, warehouseAndRoomNames["RoomName"], command.OnLeft, command.Below, command.Behind);
+        var result = _cartonLocationAssigner.AssignLocationToCarton(carton, warehouseId, warehouseAndRoomNamesResult.Value["WarehouseName"], roomId, warehouseAndRoomNamesResult.Value["RoomName"], command.OnLeft, command.Below, command.Behind);
 
         if (result.IsError)
         {
@@ -60,25 +58,4 @@ public class AssignCartonLocationCommandHandler(
         }
         return carton;
     }
-
-    private ErrorOr<Dictionary<string, string>> EnforceWarehouseInvariantsAndGetWarehouseAndRoomNames(WarehouseId warehouseId, RoomId roomId)
-    {
-        if (warehouseId == null || roomId == null)
-        {
-            return Errors.Common.InvalidInput("Invalid warehouse or room information.");
-        }
-        var warehouse = _warehouseRepository.GetById(warehouseId);
-        if (warehouse is null)
-        {
-            return Errors.Common.EntityNotFound(nameof(warehouse), warehouseId.Value.ToString());
-        }
-        var room = warehouse.Rooms.FirstOrDefault(r => r.Id == roomId);
-        if (room is null)
-        {
-            return Errors.Common.EntityNotFound(nameof(warehouse) + " Room", roomId.Value.ToString());
-        }
-        var names = new Dictionary<string, string> { { "WarehouseName", warehouse.Name }, { "RoomName", room.Name } };
-        return names;
-    }
-
 }

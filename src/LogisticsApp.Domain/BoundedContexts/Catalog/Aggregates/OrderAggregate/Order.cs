@@ -25,7 +25,7 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
         TotalValue = totalValue;
     }
 
-    internal static Order Create(
+    public static Order Create(
         List<OrderItem> items,
         decimal totalValue)
     {
