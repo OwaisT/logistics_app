@@ -4,6 +4,6 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregat
 
 public interface IVariationNotUsedChecker
 {
-    // TODO: Implement interface in application layer
+    // TODO: Move the logic to application layer
     bool IsVariationUsed(ProductId productId, VariationId variationId);
 }

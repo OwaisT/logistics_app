@@ -26,7 +26,7 @@ public sealed class OrderReturn : AggregateRoot<OrderReturnId, Guid>
         Status = status;
     }
 
-    internal static OrderReturn Create(
+    public static OrderReturn Create(
         OrderId orderId,
         List<OrderReturnItem> items,
         string status)

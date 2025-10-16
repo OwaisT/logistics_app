@@ -34,6 +34,8 @@ public class RemoveProductSizes(IVariationNotUsedChecker _variationNotUsedChecke
         var variationsToCheck = product.Variations
             .Where(v => sizesToRemove.Contains(v.Size))
             .ToList();
+        
+        // TODO: Move the logic to application layer
 
         foreach (var variation in variationsToCheck)
         {

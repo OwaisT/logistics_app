@@ -15,6 +15,7 @@ public class RemoveProductVariations(IVariationNotUsedChecker _variationNotUsedC
                 return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
             }
 
+            // TODO: Move the logic to application layer
             if (_variationNotUsedChecker.IsVariationUsed(product.Id, variationId))
             {
                 var variationInUse = product.Variations.FirstOrDefault(v => v.Id == variationId);

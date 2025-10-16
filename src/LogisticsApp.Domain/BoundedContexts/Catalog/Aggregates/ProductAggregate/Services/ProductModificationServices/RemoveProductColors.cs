@@ -34,7 +34,7 @@ public class RemoveProductColors(IVariationNotUsedChecker _variationNotUsedCheck
         var variationsToCheck = product.Variations
             .Where(v => colorsToRemove.Contains(v.Color))
             .ToList();
-
+        // TODO: Move the logic to application layer
         foreach (var variation in variationsToCheck)
         {
             if (_variationNotUsedChecker.IsVariationUsed(product.Id, variation.Id))

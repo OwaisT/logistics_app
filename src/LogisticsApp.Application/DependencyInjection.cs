@@ -11,7 +11,6 @@ using LogisticsApp.Application.Common.Behaviors;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Policies;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate.Services;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.Services;
@@ -29,7 +28,6 @@ public static class DependencyInjection
         // Register infrastructure services here
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
         services.AddScoped<ProductFactory>();
-        services.AddScoped<OrderReturnCreationService>();
         services.AddScoped<OrderStatusChangeService>();
         services.AddScoped<OrderItemsStatusChangeService>();
         services.AddScoped<IOrderStatusChangePolicy, OrderStatusChangePolicy>();
@@ -47,7 +45,6 @@ public static class DependencyInjection
         services.AddScoped<IOrderReturnItemsValidation, OrderReturnItemsValidation>();
         services.AddScoped<IWarehouseAndRoomExistenceChecker, WarehouseAndRoomExistenceChecker>();
         services.AddScoped<IVariationExistenceChecker, VariationExistenceChecker>();
-        
 
         return services;
     }
