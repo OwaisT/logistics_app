@@ -4,7 +4,7 @@ using MediatR;
 
 namespace LogisticsApp.Application.Aggregates.Products.Commands.AddProductColor;
 
-public record AddProductColorCommand(
-    Guid ProductId,
-    string Color
+public record AddProductColorsCommand(
+    string ProductId,
+    List<string> Colors
 ) : IRequest<ErrorOr<Product>>;

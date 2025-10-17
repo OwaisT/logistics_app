@@ -24,6 +24,7 @@ public static class AddProductVariations
             }
         }
 
+        // TODO: Check for existing variations to avoid duplicates
         var variations = GenerateVariations(product, colors, sizes);
         product = product.AddVariations(variations);
         return product;

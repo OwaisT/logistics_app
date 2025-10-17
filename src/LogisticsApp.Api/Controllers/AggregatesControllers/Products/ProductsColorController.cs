@@ -1,3 +1,6 @@
+using LogisticsApp.Application.Aggregates.Products.Commands.AddProductColor;
+using LogisticsApp.Contracts.Aggregates.Product;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +16,14 @@ public class ProductsColorController(ISender mediator, IMapper mapper) : ApiCont
 
     [Authorize(Roles = "BusinessManager")]
     [HttpPost]
-    public async Task<IActionResult> CreateProduct()
+    public async Task<IActionResult> AddProductColor(string productId, AddProductColorsRequest request)
     {
         await Task.CompletedTask;
-        return Ok();
+        var command = _mapper.Map<AddProductColorsCommand>((productId, request));
+        var result = await _mediator.Send(command);
+        return result.Match(
+            product => Ok(_mapper.Map<ProductResponse>(product)),
+            Problem);
     }
 
 }

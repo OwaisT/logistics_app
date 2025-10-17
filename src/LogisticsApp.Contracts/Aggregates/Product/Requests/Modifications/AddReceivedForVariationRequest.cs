@@ -1,4 +1,4 @@
-namespace LogisticsApp.Contracts.Aggregates.Product;
+namespace LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
 
 public record AddReceivedForVariationRequest(
     string Color,

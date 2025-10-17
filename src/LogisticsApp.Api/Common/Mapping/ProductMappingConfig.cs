@@ -1,6 +1,8 @@
+using LogisticsApp.Application.Aggregates.Products.Commands.AddProductColor;
 using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Contracts.Aggregates.Product;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
@@ -32,6 +34,10 @@ public class ProductMappingConfig : IRegister
         config.NewConfig<(string productId, AddReceivedForVariationRequest request), AddReceivedForVariationCommand>()
             .Map(dest => dest.ProductId, src => src.productId)
             .Map(dest => dest, src => src.request); 
+
+        config.NewConfig<(string productId, AddProductColorsRequest request), AddProductColorsCommand>()
+            .Map(dest => dest.ProductId, src => src.productId)
+            .Map(dest => dest, src => src.request);
 
     }
 }

@@ -11,7 +11,3 @@ public record CreateProductRequest(
     List<string> Colors,
     List<string> Sizes,
     List<AssortmentRequest> Assortments);
-
-public record AssortmentRequest(
-    string Color,
-    Dictionary<string, int> Sizes);
