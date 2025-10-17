@@ -1,6 +1,6 @@
-using LogisticsApp.Application.Aggregates.Products.Commands.AddProductColor;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddProductColor;
 using LogisticsApp.Contracts.Aggregates.Product;
-using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Color;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

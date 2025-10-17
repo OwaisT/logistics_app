@@ -1,8 +1,10 @@
-using LogisticsApp.Application.Aggregates.Products.Commands.AddProductColor;
-using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddProductColor;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddReceivedForVariation;
 using LogisticsApp.Contracts.Aggregates.Product;
-using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
+using LogisticsApp.Contracts.Aggregates.Product.Requests;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Color;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Variations;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;

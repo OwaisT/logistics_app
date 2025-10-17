@@ -4,9 +4,10 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using LogisticsApp.Contracts.Aggregates.Product;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
-using LogisticsApp.Application.Aggregates.Products.Commands.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Queries.GetProducts;
-using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddReceivedForVariation;
+using LogisticsApp.Contracts.Aggregates.Product.Requests;
+using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Variations;
 
 namespace LogisticsApp.Api.Controllers.AggregatesControllers.Products;
 
