@@ -1,18 +1,19 @@
 using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
-using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices.Color;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
 using MediatR;
 
-namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddProductColor;
+namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.ModifyVariationsPrice;
 
-public class AddProductColorsCommandHandler(
+using ModifyVariationsPrice = Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices.Variations.ModifyVariationsPrice;
+
+public class ModifyVariationsPriceCommandHandler(
     IProductRepository _productRepository)
-    : IRequestHandler<AddProductColorsCommand, ErrorOr<Product>>
+    : IRequestHandler<ModifyVariationsPriceCommand, ErrorOr<Product>>
 {
-    public async Task<ErrorOr<Product>> Handle(AddProductColorsCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Product>> Handle(ModifyVariationsPriceCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var product = _productRepository.GetById(ProductId.Create(Guid.Parse(command.ProductId)));
@@ -20,7 +21,7 @@ public class AddProductColorsCommandHandler(
         {
             return Errors.Common.EntityNotFound("Product", command.ProductId);
         }
-        var productResult = AddProductColors.Execute(product, command.Colors);
+        var productResult = ModifyVariationsPrice.Execute(product, command.NewPrice, command.Color);
         if (productResult.IsError)
         {
             return productResult.Errors;

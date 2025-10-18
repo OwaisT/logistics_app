@@ -4,9 +4,9 @@ using LogisticsApp.Domain.Common.Errors;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices.Color;
 
-public class RemoveProductColors(IVariationNotUsedChecker _variationNotUsedChecker)
+public static class RemoveProductColors
 {
-    public ErrorOr<Product> Execute(Product product, List<string> colorsToRemove)
+    public static ErrorOr<Product> Execute(Product product, List<string> colorsToRemove, List<VariationId>? variationsToRemove)
     {
         foreach (var color in colorsToRemove)
         {
@@ -14,36 +14,14 @@ public class RemoveProductColors(IVariationNotUsedChecker _variationNotUsedCheck
             {
                 return Errors.Product.ColorNotFound(color);
             }
-        }
-        var notUsedResult = VariationsNotUsed(product, colorsToRemove);
-        if (notUsedResult.IsError)
-        {
-            return notUsedResult.Errors;
-        }
-
-        foreach (var color in colorsToRemove)
-        {
             product = product.RemoveColor(color);
         }
-        product = product.RemoveVariations(notUsedResult.Value);
-        return product;
-    }
-    
-    private ErrorOr<List<VariationId>> VariationsNotUsed(Product product, List<string> colorsToRemove)
-    {
-        var variationsToCheck = product.Variations
-            .Where(v => colorsToRemove.Contains(v.Color))
-            .ToList();
-        // TODO: Move the logic to application layer
-        foreach (var variation in variationsToCheck)
+
+        if (variationsToRemove is not null)
         {
-            if (_variationNotUsedChecker.IsVariationUsed(product.Id, variation.Id))
-            {
-                return Errors.Product.VariationInUse(variation.Color, variation.Size);
-            }
+            product = product.RemoveVariations(variationsToRemove!);
         }
-        var variationsToRemoveIds = variationsToCheck.Select(v => v.Id).ToList();
-        return variationsToRemoveIds;
+        return product;
     }
     
 }

@@ -1,3 +1,4 @@
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
@@ -17,4 +18,7 @@ public interface ICartonRepository
 
     bool ExistsAtLocation(WarehouseId warehouseId, RoomId roomId, int onLeft, int below, int behind);
 
+    bool IsVariationUsed(ProductId productId, VariationId variationId);
+
+    bool IsProductUsed(ProductId productId);
 }

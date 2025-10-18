@@ -4,7 +4,7 @@ using LogisticsApp.Domain.Common.Errors;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices;
 
-public static class ModifyProductAssortment
+public static class ModifyProductAssortments
 {
     // Create a public method to call for modifying product assortments.
     public static ErrorOr<Product> Execute(Product product, List<Assortment> assortments)

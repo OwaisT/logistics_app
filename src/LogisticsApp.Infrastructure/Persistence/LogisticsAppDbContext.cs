@@ -10,6 +10,7 @@ using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Entities;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Users.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.DefectiveItemAggregate;
 
 namespace LogisticsApp.Infrastructure.Persistence;
 
@@ -33,6 +34,7 @@ public class LogisticsAppDbContext : DbContext
     public DbSet<Carton> Cartons { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderReturn> OrderReturns { get; set; }
+    public DbSet<DefectiveItem> DefectiveItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

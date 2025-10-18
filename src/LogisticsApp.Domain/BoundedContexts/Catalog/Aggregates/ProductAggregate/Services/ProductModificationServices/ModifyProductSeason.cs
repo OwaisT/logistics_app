@@ -3,9 +3,9 @@ using LogisticsApp.Domain.Common.Errors;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices;
 
-public class ModifyProductSeason(IProductUniquenessChecker _productUniquenessChecker)
+public static class ModifyProductSeason
 {
-    public ErrorOr<Product> ModifySeason(Product product, string newSeason)
+    public static ErrorOr<Product> Execute(Product product, string newSeason, IProductUniquenessChecker productUniquenessChecker)
     {
         if (string.IsNullOrWhiteSpace(newSeason))
         {
@@ -14,7 +14,7 @@ public class ModifyProductSeason(IProductUniquenessChecker _productUniquenessChe
 
         if (product.Season == newSeason) return product;
 
-        if (!_productUniquenessChecker.IsUnique(product.RefCode, newSeason))
+        if (!productUniquenessChecker.IsUnique(product.RefCode, newSeason))
         {
             return Errors.Product.DuplicateSeason(newSeason);
         }

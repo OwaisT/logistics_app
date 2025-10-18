@@ -45,6 +45,8 @@ public static class DependencyInjection
         services.AddScoped<IOrderReturnItemsValidation, OrderReturnItemsValidation>();
         services.AddScoped<IWarehouseAndRoomExistenceChecker, WarehouseAndRoomExistenceChecker>();
         services.AddScoped<IVariationExistenceChecker, VariationExistenceChecker>();
+        services.AddScoped<IVariationNotUsedChecker, VariationNotUsedChecker>();
+        services.AddScoped<IProductNotUsedChecker, ProductNotUsedChecker>();
 
         return services;
     }

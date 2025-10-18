@@ -1,5 +1,5 @@
 namespace LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Variations;
 
-public record ModifyVariationPriceRequest(
+public record ModifyVariationsPriceRequest(
     decimal NewPrice,
     string Color);

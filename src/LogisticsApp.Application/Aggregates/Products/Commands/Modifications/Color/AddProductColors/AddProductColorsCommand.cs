@@ -2,7 +2,7 @@ using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
 using MediatR;
 
-namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddProductColor;
+namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Color.AddProductColors;
 
 public record AddProductColorsCommand(
     string ProductId,

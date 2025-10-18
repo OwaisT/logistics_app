@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using LogisticsApp.Infrastructure.Common.Mapping;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Cartons.Repositories;
+using LogisticsApp.Infrastructure.Persistence.Aggregates.DefectiveItems.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.OrderReturns.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Orders.Repositories;
 using LogisticsApp.Infrastructure.Persistence.Aggregates.Products.Helpers;
@@ -95,6 +96,7 @@ public static class DependencyInjection
         services.AddScoped<ICartonRepository, CartonRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderReturnRepository, OrderReturnRepository>();
+        services.AddScoped<IDefectiveItemRepository, DefectiveItemRepository>();
         return services;
     }
 

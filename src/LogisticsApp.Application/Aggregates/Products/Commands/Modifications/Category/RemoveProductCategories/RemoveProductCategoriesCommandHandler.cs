@@ -1,0 +1,33 @@
+using ErrorOr;
+using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
+using LogisticsApp.Domain.Common.Errors;
+using MediatR;
+
+namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Category.RemoveProductCategories;
+
+using RemoveProductCategories = Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices.Category.RemoveProductCategories;
+
+public class RemoveProductCategoriesCommandHandler(
+    IProductRepository _productRepository)
+    : IRequestHandler<RemoveProductCategoriesCommand, ErrorOr<Product>>
+{
+    public async Task<ErrorOr<Product>> Handle(RemoveProductCategoriesCommand command, CancellationToken cancellationToken)
+    {
+        await Task.CompletedTask;
+        var product = _productRepository.GetById(ProductId.Create(Guid.Parse(command.ProductId)));
+        if (product is null)
+        {
+            return Errors.Common.EntityNotFound("Product", command.ProductId);
+        }
+        var productResult = RemoveProductCategories.Execute(product, command.Categories);
+        if (productResult.IsError)
+        {
+            return productResult.Errors;
+        }
+        _productRepository.Update(productResult.Value);
+
+        return productResult.Value;
+    }
+}

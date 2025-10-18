@@ -1,6 +1,7 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.OrderReturnAggregate.ValueObjects;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 
 namespace LogisticsApp.Infrastructure.Persistence.Aggregates.OrderReturns.Repositories;
 
@@ -23,5 +24,15 @@ public class OrderReturnRepository(
     {
         _dbContext.OrderReturns.Update(orderReturn);
         _dbContext.SaveChanges();
+    }
+
+    public bool IsVariationUsed(ProductId productId, VariationId variationId)
+    {
+        return _dbContext.OrderReturns.Any(or => or.Items.Any(i => i.ProductId == productId && i.VariationId == variationId));
+    }
+
+    public bool IsProductUsed(ProductId productId)
+    {
+        return _dbContext.OrderReturns.Any(or => or.Items.Any(i => i.ProductId == productId));
     }
 }

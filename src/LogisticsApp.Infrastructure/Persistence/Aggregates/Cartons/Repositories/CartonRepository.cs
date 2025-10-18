@@ -1,4 +1,5 @@
 using LogisticsApp.Application.Common.Interfaces.Persistence;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Carton.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Positioning.Aggregates.Warehouse.ValueObjects;
@@ -36,5 +37,15 @@ public class CartonRepository(
                                 c.Location.OnLeft == onLeft &&
                                 c.Location.Below == below &&
                                 c.Location.Behind == behind);
+    }
+
+    public bool IsVariationUsed(ProductId productId, VariationId variationId)
+    {
+        return _dbContext.Cartons.Any(c => c.Items.Any(i => i.ProductId == productId && i.VariationId == variationId));
+    }
+
+    public bool IsProductUsed(ProductId productId)
+    {
+        return _dbContext.Cartons.Any(c => c.Items.Any(i => i.ProductId == productId));
     }
 }

@@ -11,6 +11,7 @@ public static class ModifyVariationsPrice
         {
             return Errors.Common.CannotBeNegativeOrZero("newPrice");
         }
+        // TODO: Check if color exists in product and variations exist for that color
         var variationsToModify = product.Variations
             .Where(v => v.Color.Equals(color, StringComparison.OrdinalIgnoreCase))
             .ToList();
