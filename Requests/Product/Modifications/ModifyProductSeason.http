@@ -1,0 +1,7 @@
+PUT {{Api_HostAddress}}/products/{{productId}}/Season
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "NewSeason": "AW2025"
+}

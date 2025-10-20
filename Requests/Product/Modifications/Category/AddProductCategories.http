@@ -1,0 +1,10 @@
+POST {{Api_HostAddress}}/products/{{productId}}/Categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "categories" : [
+        "Pants",
+        "Joggers"
+    ]
+}

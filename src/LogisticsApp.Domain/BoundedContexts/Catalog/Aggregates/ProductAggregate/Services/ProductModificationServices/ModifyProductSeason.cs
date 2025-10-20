@@ -19,6 +19,10 @@ public static class ModifyProductSeason
             return Errors.Product.DuplicateSeason(newSeason);
         }
         product = product.ModifySeason(newSeason);
+        foreach (var item in product.Variations)
+        {
+            item.UpdateSeason(newSeason);
+        }
         return product;
     }
 }

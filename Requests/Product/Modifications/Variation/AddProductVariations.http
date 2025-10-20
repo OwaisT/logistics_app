@@ -1,0 +1,16 @@
+POST {{Api_HostAddress}}/products/{{productId}}/Variations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    colorSizeCombinations: [
+        {
+            color: "Red",
+            size: "M"
+        },
+        {
+            color: "Blue",
+            size: "L"
+        }
+    ]
+}

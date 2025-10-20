@@ -15,6 +15,7 @@ public static class RemoveProductColors
                 return Errors.Product.ColorNotFound(color);
             }
             product = product.RemoveColor(color);
+            product = product.RemoveColorFromAssortments(color);
         }
 
         if (variationsToRemove is not null)

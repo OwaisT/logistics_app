@@ -1,0 +1,10 @@
+DELETE {{Api_HostAddress}}/products/{{productId}}/Variations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "variationIds": [
+        "246b568d-f8fe-4f03-a0ac-4cc1203e4c0b",
+        "bf6d6c56-7183-4c34-84af-901d60e19378"
+    ]
+}

@@ -21,6 +21,10 @@ public static class ModifyProductRefCode
         }
 
         product = product.ModifyRefCode(newRefCode);
+        foreach (var item in product.Variations)
+        {
+            item.UpdateRefCode(newRefCode);
+        }
         return product;
     }
 }

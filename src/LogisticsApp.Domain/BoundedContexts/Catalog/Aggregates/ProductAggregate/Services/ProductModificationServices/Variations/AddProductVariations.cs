@@ -7,51 +7,48 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregat
 public static class AddProductVariations
 {
 
-    public static ErrorOr<Product> Execute(Product product, List<string> colors, List<string> sizes)
+    public static ErrorOr<Product> Execute(Product product, List<Dictionary<string, string>> colorSizeCombinations)
     {
-        foreach (var size in sizes)
+        var variationsToAdd = new List<Variation>();
+        foreach (var combination in colorSizeCombinations)
         {
+            if (!combination.TryGetValue("color", out string? color) || !combination.TryGetValue("size", out string? size))
+            {
+                return Errors.Product.InvalidVariationCombinationFormat();
+            }
             if (!product.Sizes.Contains(size))
             {
                 return Errors.Common.PropertyNotFound("Product", nameof(size));
             }
-        }
-        foreach (var color in colors)
-        {
             if (!product.Colors.Contains(color))
             {
                 return Errors.Common.PropertyNotFound("Product", nameof(color));
             }
+            if (product.Variations.Any(v => v.Color == color && v.Size == size))
+            {
+                return Errors.Product.DuplicateVariationCombination(color, size);
+            }
+            var variation = GenerateVariation(product, color, size);
+            variationsToAdd.Add(variation);
         }
 
-        // TODO: Check for existing variations to avoid duplicates
-        var variations = GenerateVariations(product, colors, sizes);
-        product = product.AddVariations(variations);
+        product = product.AddVariations(variationsToAdd);
         return product;
 
     }
 
-    private static List<Variation> GenerateVariations(Product product, List<string> colors, List<string> sizes)
+    private static Variation GenerateVariation(Product product, string color, string size)
     {
-        var variations = new List<Variation>();
-        foreach (var color in colors)
-        {
-            foreach (var size in sizes)
-            {
-                var variationName = $"{product.Name} - {color} - {size}";
-                var variation = Variation.Create(
-                    product.RefCode,
-                    product.Season,
-                    variationName,
-                    product.Description,
-                    product.GeneralPrice,
-                    color,
-                    size);
-                variations.Add(variation);
-            }
-        }
-
-        return variations;
+        var variationName = $"{product.Name} - {color} - {size}";
+        var variation = Variation.Create(
+            product.RefCode,
+            product.Season,
+            variationName,
+            product.Description,
+            product.GeneralPrice,
+            color,
+            size);
+        return variation;
     }
 
 }

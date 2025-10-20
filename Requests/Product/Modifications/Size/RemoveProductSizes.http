@@ -1,0 +1,9 @@
+DELETE {{Api_HostAddress}}/products/{{productId}}/sizes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "sizes" : [
+        "3xl"
+    ]
+}

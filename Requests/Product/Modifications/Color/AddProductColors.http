@@ -1,17 +1,12 @@
-POST {{Api_HostAddress}}/products
+POST {{Api_HostAddress}}/products/{{productId}}/colors
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "RefCode": "PROD-Test-Use-Cases",
-    "Season": "SS2024",
-    "Name": "Summer T-Shirt",
-    "Description": "A light and comfortable t-shirt perfect for summer.",
-    "GeneralPrice": 19.99,
-    "IsActive": true,
-    "Categories": ["Men"],
-    "Colors": ["Red", "Blue", "Green"],
-    "Sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors" : [
+        "white",
+        "black"
+    ],
     "Assortments": [
         {
             "Color": "Red",
@@ -35,6 +30,26 @@ Content-Type: application/json
         },
         {
             "Color": "Green",
+            "Sizes": {
+                "s": 1,
+                "m": 2,
+                "l": 2,
+                "xl": 2,
+                "xxl": 1
+            }
+        },
+        {
+            "Color": "White",
+            "Sizes": {
+                "s": 1,
+                "m": 2,
+                "l": 2,
+                "xl": 2,
+                "xxl": 1
+            }
+        },
+        {
+            "Color": "Black",
             "Sizes": {
                 "s": 1,
                 "m": 2,

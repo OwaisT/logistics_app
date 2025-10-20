@@ -1,0 +1,8 @@
+PUT {{Api_HostAddress}}/products/{{productId}}/price
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "NewGeneralPrice": 21.99,
+    "UpdateVariationsPrices" : true
+}

@@ -1,3 +1,11 @@
 {
-    "todo-tree.tree.scanMode": "workspace"
+    "todo-tree.tree.scanMode": "workspace",
+    "rest-client.environmentVariables": {
+        "$shared": {},
+        "development": {
+            "Api_HostAddress": "http://localhost:5123",
+            "productId": "d4062553-1f3f-4f67-90cc-e58eebdb6398",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiI1ZjIyYzVjZi03YzQ3LTRlZWEtOTc5ZC0xYjk3ZTFjN2RiM2MiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NjEwMTk1NzcsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.cawzAigZuHzG-GA30pWMIJK5YUojQ-gd6Zn-CsjWoEM"
+        }
+    }
 }

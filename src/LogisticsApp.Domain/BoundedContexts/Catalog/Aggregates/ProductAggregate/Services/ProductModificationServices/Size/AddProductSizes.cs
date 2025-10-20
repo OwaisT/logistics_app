@@ -1,5 +1,6 @@
 using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
+using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
 using LogisticsApp.Domain.Common.Errors;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Services.ProductModificationServices.Size;
@@ -7,7 +8,7 @@ namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregat
 public static class AddProductSizes
 {
 
-    public static ErrorOr<Product> Execute(Product product, List<string> sizes)
+    public static ErrorOr<Product> Execute(Product product, List<string> sizes, List<Assortment> assortments)
     {
         foreach (var size in sizes)
         {
@@ -18,6 +19,11 @@ public static class AddProductSizes
             }
             product = result.Value;
         }
+        if (!MatchColorsAndSizesInAssortments.Execute(product, assortments))
+        {
+            return Errors.Product.InvalidAssortmentColorsOrSizes();
+        }
+        product = product.ModifyAssortments(assortments);
         return product;
     }
 
@@ -39,6 +45,10 @@ public static class AddProductSizes
         var variations = new List<Variation>();
         foreach (var color in product.Colors)
         {
+            if (product.Variations.Any(v => v.Color == color && v.Size == size))
+            {
+                continue; // Variation already exists
+            }
             var variationName = $"{product.Name} - {color} - {size}";
             var variation = Variation.Create(
                 product.RefCode,

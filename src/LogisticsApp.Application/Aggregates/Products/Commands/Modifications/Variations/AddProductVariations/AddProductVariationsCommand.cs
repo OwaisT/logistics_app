@@ -6,6 +6,5 @@ namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Va
 
 public record AddProductVariationsCommand(
     string ProductId,
-    List<string> Colors,
-    List<string> Sizes
+    List<Dictionary<string, string>> ColorSizeCombinations
 ) : IRequest<ErrorOr<Product>>;

@@ -1,0 +1,7 @@
+PUT {{Api_HostAddress}}/products/{{productId}}/Refcode
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "NewRefCode": "NEW-REF-CODE-123"
+}

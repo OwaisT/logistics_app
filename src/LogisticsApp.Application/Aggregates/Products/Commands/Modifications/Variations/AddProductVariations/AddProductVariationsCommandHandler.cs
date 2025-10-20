@@ -21,7 +21,7 @@ public class AddProductVariationsCommandHandler(
         {
             return Errors.Common.EntityNotFound("Product", command.ProductId);
         }
-        var productResult = AddProductVariations.Execute(product, command.Colors, command.Sizes);
+        var productResult = AddProductVariations.Execute(product, command.ColorSizeCombinations);
         if (productResult.IsError)
         {
             return productResult.Errors;

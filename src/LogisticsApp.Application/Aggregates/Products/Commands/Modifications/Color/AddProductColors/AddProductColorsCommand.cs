@@ -6,5 +6,10 @@ namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Co
 
 public record AddProductColorsCommand(
     string ProductId,
-    List<string> Colors
+    List<string> Colors,
+    List<ProductAssortmentCommand> Assortments
 ) : IRequest<ErrorOr<Product>>;
+
+public record ProductAssortmentCommand(
+    string Color,
+    Dictionary<string, int> Sizes);

@@ -1,0 +1,9 @@
+@productId=30b39aba-cf2f-454f-83e8-d9b93f410c08
+POST {{Api_HostAddress}}/products/{{productId}}/VariationQuantity
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "color" : "Blue",
+    "colorQuantity" : 480
+}

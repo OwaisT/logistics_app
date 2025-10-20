@@ -1,25 +1,16 @@
-POST {{Api_HostAddress}}/products
+PUT {{Api_HostAddress}}/products/{{productId}}/Assortments
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "RefCode": "PROD-Test-Use-Cases",
-    "Season": "SS2024",
-    "Name": "Summer T-Shirt",
-    "Description": "A light and comfortable t-shirt perfect for summer.",
-    "GeneralPrice": 19.99,
-    "IsActive": true,
-    "Categories": ["Men"],
-    "Colors": ["Red", "Blue", "Green"],
-    "Sizes": ["S", "M", "L", "XL", "XXL"],
     "Assortments": [
         {
             "Color": "Red",
             "Sizes": {
                 "s": 1,
-                "m": 2,
+                "m": 1,
                 "l": 2,
-                "xl": 2,
+                "xl": 1,
                 "xxl": 1
             }
         },

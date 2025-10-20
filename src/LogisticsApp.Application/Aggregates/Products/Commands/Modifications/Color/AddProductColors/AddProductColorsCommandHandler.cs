@@ -21,7 +21,12 @@ public class AddProductColorsCommandHandler(
         {
             return Errors.Common.EntityNotFound("Product", command.ProductId);
         }
-        var productResult = AddProductColors.Execute(product, command.Colors);
+        var assortments = command.Assortments
+            .Select(a => new Assortment(
+                a.Color,
+                a.Sizes.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)))
+            .ToList();
+        var productResult = AddProductColors.Execute(product, command.Colors, assortments);
         if (productResult.IsError)
         {
             return productResult.Errors;

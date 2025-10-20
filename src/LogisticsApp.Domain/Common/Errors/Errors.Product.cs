@@ -33,9 +33,21 @@ public static partial class Errors
         public static Error VariationInUse(string color, string size) => Error.Validation(
             code: "Product.VariationInUse",
             description: $"Cannot perform this action because a variation with color '{color}' and size '{size}' is in use. Please make sure that variation is not associated with any active records before proceeding.");
-        
+
         public static Error InsufficientStock(string variationId) => Error.Validation(
             code: "Product.InsufficientStock",
             description: $"Insufficient stock for variation with ID '{variationId}'.");
+
+        public static Error InvalidVariationCombinationFormat() => Error.Validation(
+            code: "Product.InvalidVariationCombination",
+            description: $"Invalid variation combination Format: Each combination should contain Color and Size.");
+
+        public static Error DuplicateVariationCombination(string color, string size) => Error.Conflict(
+            code: "Product.DuplicateVariationCombination",
+            description: $"A variation with Color '{color}' and Size '{size}' already exists.");
+            
+        public static Error InvalidAssortmentColorsOrSizes() => Error.Validation(
+            code: "Product.InvalidAssortmentColorsOrSizes",
+            description: $"Invalid assortment: Colors and sizes must match the product's existing colors and sizes.");
     }
 }

@@ -15,6 +15,7 @@ public static class RemoveProductSizes
                 return Errors.Product.SizeNotFound(size);
             }
             product = product.RemoveSize(size);
+            product = product.RemoveSizeFromAssortments(size);
         }
         if (variationsToRemove is not null)
         {

@@ -1,0 +1,9 @@
+DELETE {{Api_HostAddress}}/products/{{productId}}/colors
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "colors" : [
+        "white"
+    ]
+}

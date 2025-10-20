@@ -96,6 +96,19 @@ public sealed class Variation : Entity<VariationId>
         UpdatedAt = DateTime.UtcNow;
     }
 
+    internal void UpdateRefCode(string newProductRefCode)
+    {
+        ProductRefCode = newProductRefCode;
+        VariationRefCode = _variationRefCode;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    internal void UpdateSeason(string newSeason)
+    {
+        ProductSeason = newSeason;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
 #pragma warning disable CS8618
     private Variation() : base(default!) { }
 #pragma warning restore CS8618

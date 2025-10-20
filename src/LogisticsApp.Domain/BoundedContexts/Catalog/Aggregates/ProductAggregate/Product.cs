@@ -170,6 +170,38 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         return this;
     }
 
+    internal Product RemoveColorFromAssortments(string color)
+    {
+        foreach (var assortment in _assortments)
+        {
+            if (assortment.Color == color)
+            {
+                _assortments.Remove(assortment);
+                break;
+            }
+            UpdatedAt = DateTime.UtcNow;
+        }
+        return this;
+    }
+
+    internal Product RemoveSizeFromAssortments(string size)
+    {
+        foreach (var assortment in _assortments)
+        {
+            if (assortment.Sizes.ContainsKey(size))
+            {
+                var newAssortment = new Assortment(
+                    assortment.Color,
+                    assortment.Sizes.Where(kvp => kvp.Key != size)
+                                   .ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
+                _assortments.Remove(assortment);
+                _assortments.Add(newAssortment);
+            }
+        }
+        UpdatedAt = DateTime.UtcNow;
+        return this;
+    }
+
     public ErrorOr<Product> ModifyReceivedForVariation(VariationId variationId, int quantity)
     {
         var variation = _variations.FirstOrDefault(v => v.Id == variationId);
