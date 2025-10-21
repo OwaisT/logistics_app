@@ -3,14 +3,14 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    colorSizeCombinations: [
+    "colorSizeCombinations": [
         {
-            color: "Red",
-            size: "M"
+            "color": "Red",
+            "size": "M"
         },
         {
-            color: "Blue",
-            size: "L"
+            "color": "Blue",
+            "size": "L"
         }
     ]
 }

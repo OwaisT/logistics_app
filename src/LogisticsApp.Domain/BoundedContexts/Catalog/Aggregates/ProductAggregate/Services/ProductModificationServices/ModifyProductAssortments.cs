@@ -10,24 +10,21 @@ public static class ModifyProductAssortments
     public static ErrorOr<Product> Execute(Product product, List<Assortment> assortments)
     {
         // Check if the color & size already exists in the product's colors list.
-        foreach (var assortment in assortments)
+        // Ensure assortments cover all product colors and sizes before modifying.
+        var assortmentColors = assortments.Select(a => a.Color).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var assortmentSizes = assortments.SelectMany(a => a.Sizes.Keys).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        if (!product.Colors.All(color => assortmentColors.Contains(color, StringComparer.OrdinalIgnoreCase)))
         {
-            // Check if the color & size already exist in the product's colors & sizes list.
-            // If not, return an error.
-            // If yes, modify the assortments list of the product.
-            if (!product.Colors.Contains(assortment.Color))
-            {
-                return Errors.Common.PropertyNotFound("Product", nameof(assortment.Color));
-            }
-            foreach (var kv in assortment.Sizes)
-            {
-                if (!product.Sizes.Contains(kv.Key))
-                {
-                    return Errors.Common.PropertyNotFound("Product", nameof(kv.Key));
-                }
-            }
-            product = product.ModifyAssortments(assortments);
+            return Errors.Common.PropertyNotFound("Product", nameof(Product.Colors));
         }
+
+        if (!product.Sizes.All(size => assortmentSizes.Contains(size, StringComparer.OrdinalIgnoreCase)))
+        {
+            return Errors.Common.PropertyNotFound("Product", nameof(Product.Sizes));
+        }
+
+        product = product.ModifyAssortments(assortments);
 
         return product;
     }

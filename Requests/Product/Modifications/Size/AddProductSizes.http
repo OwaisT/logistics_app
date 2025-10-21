@@ -45,18 +45,6 @@ Content-Type: application/json
             }
         },
         {
-            "Color": "White",
-            "Sizes": {
-                "xs": 1,
-                "s": 1,
-                "m": 2,
-                "l": 2,
-                "xl": 2,
-                "xxl": 1,
-                "3xl": 1
-            }
-        },
-        {
             "Color": "Black",
             "Sizes": {
                 "xs": 1,

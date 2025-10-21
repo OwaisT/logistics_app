@@ -1,5 +1,4 @@
 using ErrorOr;
-using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Color.RemoveProductColors;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;
@@ -44,7 +43,7 @@ public class RemoveProductVariationsCommandHandler(
     {
         // TODO: Create IDs from strings in a safer way
         var variationsToCheck = product.Variations
-            .Where(v => variationsToCheckIdsString.Contains(v.Id.ToString()!))
+            .Where(v => variationsToCheckIdsString.Contains(v.Id.Value.ToString()!))
             .ToList();
         
         foreach (var variation in variationsToCheck)

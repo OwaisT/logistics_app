@@ -3,6 +3,6 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "NewGeneralPrice": 21.99,
+    "NewPrice": 21.99,
     "UpdateVariationsPrices" : true
 }

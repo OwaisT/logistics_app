@@ -4,8 +4,7 @@ Content-Type: application/json
 
 {
     "colors" : [
-        "white",
-        "black"
+        "white"
     ],
     "Assortments": [
         {

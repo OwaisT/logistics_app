@@ -174,30 +174,38 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     {
         foreach (var assortment in _assortments)
         {
-            if (assortment.Color == color)
+            if (string.Equals(assortment.Color, color, StringComparison.OrdinalIgnoreCase))
             {
                 _assortments.Remove(assortment);
                 break;
             }
-            UpdatedAt = DateTime.UtcNow;
         }
+        UpdatedAt = DateTime.UtcNow;
         return this;
     }
 
     internal Product RemoveSizeFromAssortments(string size)
     {
+        var assortmentToRemove = new List<Assortment>();
+        var newAssortments = new List<Assortment>();
         foreach (var assortment in _assortments)
         {
-            if (assortment.Sizes.ContainsKey(size))
+            if (assortment.Sizes.Any(kvp => string.Equals(kvp.Key, size, StringComparison.OrdinalIgnoreCase)))
             {
                 var newAssortment = new Assortment(
                     assortment.Color,
-                    assortment.Sizes.Where(kvp => kvp.Key != size)
-                                   .ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
-                _assortments.Remove(assortment);
-                _assortments.Add(newAssortment);
+                    assortment.Sizes
+                        .Where(kvp => !string.Equals(kvp.Key, size, StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
+                assortmentToRemove.Add(assortment);
+                newAssortments.Add(newAssortment);
             }
         }
+        foreach (var assortment in assortmentToRemove)
+        {
+            _assortments.Remove(assortment);
+        }
+        _assortments.AddRange(newAssortments);
         UpdatedAt = DateTime.UtcNow;
         return this;
     }
