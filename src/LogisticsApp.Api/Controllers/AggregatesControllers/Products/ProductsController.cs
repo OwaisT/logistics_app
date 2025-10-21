@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using LogisticsApp.Contracts.Aggregates.Product;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.Aggregates.Products.Queries.GetProducts;
-using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddReceivedForVariation;
 using LogisticsApp.Contracts.Aggregates.Product.Requests;
 using LogisticsApp.Contracts.Aggregates.Product.Requests.Modifications.Variations;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.AddReceivedForVariation;
 
 namespace LogisticsApp.Api.Controllers.AggregatesControllers.Products;
 

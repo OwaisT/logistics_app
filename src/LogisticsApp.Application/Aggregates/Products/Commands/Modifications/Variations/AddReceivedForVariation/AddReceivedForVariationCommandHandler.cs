@@ -6,7 +6,7 @@ using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Va
 using LogisticsApp.Domain.Common.Errors;
 using MediatR;
 
-namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddReceivedForVariation;
+namespace LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.AddReceivedForVariation;
 
 public class AddReceivedForVariationCommandHandler(
     IProductRepository _productRepository)

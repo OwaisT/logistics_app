@@ -83,7 +83,7 @@ public sealed class Variation : Entity<VariationId>
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void ModifyReceived(int quantity)
+    internal void ModifyReceived(int quantity)
     {
         Received = quantity;
         Available = _availableStock;

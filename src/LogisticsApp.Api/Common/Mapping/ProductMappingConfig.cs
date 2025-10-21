@@ -1,5 +1,4 @@
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
-using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Category.AddProductCategories;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Category.RemoveProductCategories;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Color.AddProductColors;
@@ -11,6 +10,7 @@ using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Modify
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Size.AddProductSizes;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Size.RemoveProductSizes;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.AddProductVariations;
+using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.AddReceivedForVariation;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.ModifyVariationsPrice;
 using LogisticsApp.Application.Aggregates.Products.Commands.Modifications.Variations.RemoveProductVariations;
 using LogisticsApp.Contracts.Aggregates.Product;

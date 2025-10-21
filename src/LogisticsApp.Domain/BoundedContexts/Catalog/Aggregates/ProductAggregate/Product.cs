@@ -210,18 +210,6 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         return this;
     }
 
-    public ErrorOr<Product> ModifyReceivedForVariation(VariationId variationId, int quantity)
-    {
-        var variation = _variations.FirstOrDefault(v => v.Id == variationId);
-        if (variation == null)
-        {
-            return Errors.Common.EntityNotFound("Variation", variationId.Value.ToString());
-        }
-        variation.ModifyReceived(quantity);
-        UpdatedAt = DateTime.UtcNow;
-        return this;
-    }
-
     internal Product ModifyGeneralPrice(decimal newPrice)
     {
         GeneralPrice = newPrice;
