@@ -5,7 +5,11 @@
         "development": {
             "Api_HostAddress": "http://localhost:5123",
             "productId": "d4062553-1f3f-4f67-90cc-e58eebdb6398",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb2UiLCJqdGkiOiJiZTRhZTA5My1mYzE4LTQxZjYtOWIzNS0yZTk1ZWU1ZDBlMGMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCdXNpbmVzc01hbmFnZXIiLCJleHAiOjE3NjEwOTczNDcsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.o8nH02tLlPaY2qCKBCGsj_10VG2ddibIiirLBw2f4AI"
+            "variationId": "fa3da137-00e9-4ce8-b2e7-5b3c91c5670e",
+            "defectiveItemId": "5b4db01d-c395-4cad-bebe-3e08e2346635",
+            "tokenFacilityWorker" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJGYWNpbGl0eSIsImZhbWlseV9uYW1lIjoiV29ya2VyIiwianRpIjoiODVmMDFhNTMtYTUxNi00MjI2LTlhZjAtOTM3MGVkMmI4MWI4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRmFjaWxpdHlXb3JrZXIiLCJleHAiOjE3NjExMDYyNDgsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.T1lWC65HLT8FDPhMLp6nKYav3MGoLi5hJlVjPK5hxfU",
+            "tokenFacilityManager" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJGYWMiLCJmYW1pbHlfbmFtZSI6Ik1hbmFnZXIiLCJqdGkiOiI0MjAyZTNjNC1hNTNiLTQyZTQtOTA1OS0xODU3NWM3YjVmNDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJGYWNpbGl0eU1hbmFnZXIiLCJleHAiOjE3NjEzNzg5MjAsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.1oJh3sQNVqh18dcVSPP8nNYiCjodU_74C6szeF6f1-g",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMb2dpc3RpY3NBcHAuRG9tYWluLlNoYXJlZC5BZ2dyZWdhdGVzLlVzZXIuVmFsdWVPYmplY3RzLlVzZXJJZCIsImdpdmVuX25hbWUiOiJGYWMiLCJmYW1pbHlfbmFtZSI6Ik1hbmFnZXIiLCJqdGkiOiI0MjAyZTNjNC1hNTNiLTQyZTQtOTA1OS0xODU3NWM3YjVmNDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJGYWNpbGl0eU1hbmFnZXIiLCJleHAiOjE3NjEzNzg5MjAsImlzcyI6IkxvZ2lzdGljc0FwcCIsImF1ZCI6IkxvZ2lzdGljc0FwcFVzZXJzIn0.1oJh3sQNVqh18dcVSPP8nNYiCjodU_74C6szeF6f1-g"
         }
     }
 }

@@ -1,4 +1,5 @@
 using FluentAssertions;
+using LogisticsApp.Application.Aggregates.DefectiveItems.Commands.CreateDefectiveItem;
 using LogisticsApp.Application.Aggregates.Products.Commands.CreateProduct;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.UnitTests.Products.Commands.TestUtils;

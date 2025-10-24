@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace LogisticsApp.Application.Authentication.Commands.Register;
+namespace LogisticsApp.Application.Authentication.Commands.RegisterFacilityWorker;
 
-public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+public class RegisterFacilityWorkerCommandValidator : AbstractValidator<RegisterFacilityWorkerCommand>
 {
-    public RegisterCommandValidator()
+    public RegisterFacilityWorkerCommandValidator()
     {
         RuleFor(x => x.FirstName)
             .NotEmpty()

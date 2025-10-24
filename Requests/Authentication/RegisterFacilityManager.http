@@ -1,12 +1,10 @@
-@Api_HostAddress = http://localhost:5123
-
-POST {{Api_HostAddress}}/auth/Register
+POST {{Api_HostAddress}}/auth/Register/FacilityManager
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "FirstName": "John",
-    "LastName": "Doe",
-    "Email": "john.doe@example.com",
-    "Password": "P@ssw0rd",
-    "Roles": ["FacilityManager"]
+    "FirstName": "Fac",
+    "LastName": "Manager",
+    "Email": "fac.manager@example.com",
+    "Password": "P@ssw0rd"
 }

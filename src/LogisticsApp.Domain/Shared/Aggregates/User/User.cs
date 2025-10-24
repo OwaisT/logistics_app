@@ -19,13 +19,13 @@ public sealed class User : AggregateRoot<UserId, Guid>
     public bool IsActive { get; private set; }
 
 
-    internal User(
+    private User(
         UserId id,
         string firstName,
         string lastName,
         string email,
         string passwordHash,
-        IEnumerable<string>? roles = null)
+        IEnumerable<string> roles)
         : base(id)
     {
         FirstName = firstName;
@@ -35,6 +35,22 @@ public sealed class User : AggregateRoot<UserId, Guid>
         _roles = roles?.ToList() ?? [];
         CreatedAt = DateTime.UtcNow;
         IsActive = true;
+    }
+
+    internal static User Create(
+        string firstName,
+        string lastName,
+        string email,
+        string passwordHash,
+        IEnumerable<string> roles)
+    {
+        return new User(
+            UserId.CreateUnique(),
+            firstName,
+            lastName,
+            email,
+            passwordHash,
+            roles);
     }
 
     public void Update(string firstName, string lastName, string email)

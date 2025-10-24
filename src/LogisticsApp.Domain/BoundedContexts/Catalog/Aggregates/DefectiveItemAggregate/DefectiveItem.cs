@@ -1,5 +1,7 @@
+using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.DefectiveItemAggregate.ValueObjects;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
+using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.DefectiveItemAggregate;
@@ -20,8 +22,7 @@ public sealed class DefectiveItem : AggregateRoot<DefectiveItemId, Guid>
         VariationId variationId,
         string refCode,
         string reason,
-        bool isRepairable,
-        DateTime reportedAt)
+        bool isRepairable)
          : base(id)
     {
         ProductId = productId;
@@ -29,7 +30,7 @@ public sealed class DefectiveItem : AggregateRoot<DefectiveItemId, Guid>
         RefCode = refCode;
         Reason = reason;
         IsRepairable = isRepairable;
-        ReportedAt = reportedAt;
+        ReportedAt = DateTime.UtcNow;
     }
 
     public static DefectiveItem Create(
@@ -37,8 +38,7 @@ public sealed class DefectiveItem : AggregateRoot<DefectiveItemId, Guid>
         VariationId variationId,
         string refCode,
         string reason,
-        bool isRepairable,
-        DateTime reportedAt)
+        bool isRepairable)
     {
         return new DefectiveItem(
             DefectiveItemId.CreateUnique(),
@@ -46,14 +46,18 @@ public sealed class DefectiveItem : AggregateRoot<DefectiveItemId, Guid>
             variationId,
             refCode,
             reason,
-            isRepairable,
-            reportedAt);
+            isRepairable);
     }
 
-    public void MarkAsRepaired()
+    public ErrorOr<DefectiveItem> MarkAsRepaired()
     {
-        // TODO: implement function
-        // TODO: update variation stock when repaired
+        if (!IsRepairable)
+        {
+            return Errors.DefectiveItem.NotRepairable();
+        }
+        RepairedAt = DateTime.UtcNow;
+        // TODO: Declare domain event DefectiveItemRepairedDomainEvent and raise it here
+        return this;
     }
 
 

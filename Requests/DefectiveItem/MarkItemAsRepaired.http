@@ -1,0 +1,2 @@
+PUT {{Api_HostAddress}}/defectiveitems/{{defectiveItemId}}/Repaired
+Authorization: Bearer {{token}}

@@ -1,0 +1,10 @@
+POST {{Api_HostAddress}}/defectiveitems
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "ProductId" : "{{productId}}",
+    "VariationId" : "{{variationId}}",
+    "Reason" : "Skip stitch on sleeve",
+    "isRepairable" : true
+}
