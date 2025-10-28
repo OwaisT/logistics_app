@@ -1,0 +1,5 @@
+dotnet ef migrations add {Migration name} -p src/LogisticsApp.Infrastructure -s src/LogisticsApp.Api
+
+dotnet ef database update -p src/LogisticsApp.Infrastructure -s src/LogisticsApp.Api
+
+dotnet ef migrations add QCItemAdded -p src/LogisticsApp.Infrastructure -s src/LogisticsApp.Api

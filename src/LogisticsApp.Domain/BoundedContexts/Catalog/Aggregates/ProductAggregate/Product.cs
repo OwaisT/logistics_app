@@ -1,7 +1,5 @@
-using ErrorOr;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.Entities;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
-using LogisticsApp.Domain.Common.Errors;
 using LogisticsApp.Domain.Common.Models;
 
 namespace LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate;

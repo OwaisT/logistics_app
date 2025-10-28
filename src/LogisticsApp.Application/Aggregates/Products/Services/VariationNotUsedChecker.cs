@@ -1,8 +1,6 @@
-using ErrorOr;
 using LogisticsApp.Application.Common.Interfaces.Persistence;
 using LogisticsApp.Application.Common.Interfaces.Services;
 using LogisticsApp.Domain.BoundedContexts.Catalog.Aggregates.ProductAggregate.ValueObjects;
-using LogisticsApp.Domain.Common.Errors;
 
 namespace LogisticsApp.Application.Aggregates.Products.Services;
 
